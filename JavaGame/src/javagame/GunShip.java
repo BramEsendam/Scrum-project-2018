@@ -94,5 +94,4 @@ public class GunShip
         bullet.start();
         bullets.add(bullet);
     }
-
 }

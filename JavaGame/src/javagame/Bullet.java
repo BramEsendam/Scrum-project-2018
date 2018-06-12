@@ -41,9 +41,8 @@ public class Bullet extends Thread
     {
         while (true)
         {
-            if (x < 0)
+            if (x < -50)
             {
-                System.out.println("bullet thread stopped");
                 this.stop();
             }
             x -= 6;
