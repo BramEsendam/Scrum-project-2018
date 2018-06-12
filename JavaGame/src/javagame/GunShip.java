@@ -20,7 +20,7 @@ public class GunShip
 {
 
     public ArrayList<Bullet> bullets;
-    public int x, y,  hp = 100;
+    public int x, y,  hp = 100, speed = 3;
     public Image gunShipImg;
     private Sound drive;
 
@@ -53,24 +53,29 @@ public class GunShip
 
     public void moveDown()
     {
-        this.y += 3;
+        this.y += speed;
     }
 
     public void moveUp()
     {
-        this.y -= 3;
+        this.y -= speed;
     }
 
     public void moveRight()
     {
-        this.x += 3;
+        this.x += speed;
     }
 
     public void moveLeft()
     {
-        this.x -= 3;
+        this.x -= speed;
     }
-
+    
+    public void powerUp()
+    {
+        this.speed = this.speed + 1;
+    }
+    
     public void shoot()
     {
         Bullet bullet = new Bullet(this.x, this.y);
