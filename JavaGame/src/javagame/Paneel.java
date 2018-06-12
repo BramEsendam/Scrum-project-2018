@@ -39,7 +39,10 @@ public class Paneel extends JPanel implements KeyListener
 
     public Paneel() throws IOException
     {
-
+        Sound level1Music = new Sound();
+        level1Music.setFile("audio/music/level1music.wav");
+        level1Music.playBackgroundMusic();
+        
         gunShip = new GunShip(640, 360);
         timer = new Timer(22, new paintTimerHandler());
         asteroidTimer = new Timer(1000, new asteroidTimerHandler());
@@ -78,10 +81,13 @@ public class Paneel extends JPanel implements KeyListener
                 });
                 if (asteroid.hp < 0)
                 {
+                    Sound explosion = new Sound();
+                    explosion.setFile("audio/explosion.wav");
                     System.out.println(asteroid.hp);
                     System.out.println("Asteroid destroyed");
                     asteroid.stop();
                     asteroids.remove(asteroid);
+                    explosion.play();
                 } else
                 {
                     asteroid.draw(g);
@@ -153,11 +159,13 @@ public class Paneel extends JPanel implements KeyListener
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE)
         {
-
             if (!shot)
             {
                 gunShip.shoot();
                 shot = true;
+                Sound spaceGun = new Sound();
+                spaceGun.setFile("audio/space_gun.wav");
+                spaceGun.play();
             }
         }
     }

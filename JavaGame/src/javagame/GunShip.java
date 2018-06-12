@@ -22,11 +22,12 @@ public class GunShip
     public ArrayList<Bullet> bullets;
     public int x, y,  hp = 100;
     public Image gunShipImg;
+    private Sound drive;
 
     public GunShip(int X, int Y) throws IOException
     {
         this.gunShipImg = ImageIO.read(new File("Textures/SpaceShip.png"));
-
+        
         bullets = new ArrayList<Bullet>();
         x = X;
         y = Y;
