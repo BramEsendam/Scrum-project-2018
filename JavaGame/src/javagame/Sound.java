@@ -28,4 +28,16 @@ public class Sound
         clip.setFramePosition(0);
         clip.start();
     }
+    
+    public void playBackgroundMusic()
+    {
+        clip.setFramePosition(0);
+        clip.start();
+        clip.loop(10);
+    }
+    
+    public void stopMusic()
+    {
+        clip.stop();
+    }
 }
