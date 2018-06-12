@@ -59,7 +59,7 @@ public class Asteroid extends Thread
     {
         while (true)
         {
-            if (x > 1500)
+            if (x > 2600)
             {
                 System.out.println("asteroid thread stopped.");
                 this.stop();

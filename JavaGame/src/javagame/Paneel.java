@@ -46,7 +46,7 @@ public class Paneel extends JPanel implements KeyListener
         level1Music.playBackgroundMusic();
         gunShip = new GunShip(640, 360);
         timer = new Timer(22, new paintTimerHandler());
-        asteroidTimer = new Timer(1000, new asteroidTimerHandler());
+        asteroidTimer = new Timer(5000, new asteroidTimerHandler());
         bulletLimiter = new Timer(100, new bulletLimitHandler());
         moveTimer = new Timer(35, new moveHandler());
         asteroids = new ArrayList<Asteroid>();
@@ -67,6 +67,13 @@ public class Paneel extends JPanel implements KeyListener
         {
             asteroids.forEach((Asteroid asteroid) ->
             {
+                if (gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX())
+                {
+                    if (gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
+                    {
+                        gunShip.hp -= 10;
+                    }
+                }
                 gunShip.bullets.forEach((bullet) ->
                 {
                     if (bullet.getX() < asteroid.getX() + 15 && bullet.getX() > asteroid.getX())
@@ -105,6 +112,7 @@ public class Paneel extends JPanel implements KeyListener
     }
 
     @Override
+
     public void keyTyped(KeyEvent e)
     {
 

@@ -5,6 +5,7 @@
  */
 package javagame;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -20,14 +21,13 @@ public class GunShip
 {
 
     public ArrayList<Bullet> bullets;
-    public int x, y,  hp = 100, speed = 3;
+    public int x, y, hp = 100, speed = 3;
     public Image gunShipImg;
     private Sound drive;
 
     public GunShip(int X, int Y) throws IOException
     {
         this.gunShipImg = ImageIO.read(new File("Textures/SpaceShip.png"));
-        
         bullets = new ArrayList<Bullet>();
         x = X;
         y = Y;
@@ -36,7 +36,9 @@ public class GunShip
     public void draw(Graphics g)
     {
         g.drawImage(gunShipImg, x, y, null);
-
+        g.drawRect(20, 20, 200, 20);
+        g.setColor(Color.green);
+        g.fillRect(22, 22, hp * 2 - 3, 17);
         bullets.forEach((bullet) ->
         {
             if (this.x < -200)
@@ -70,12 +72,22 @@ public class GunShip
     {
         this.x -= speed;
     }
-    
+
     public void powerUp()
     {
         this.speed = this.speed + 1;
     }
-    
+
+    public int getX()
+    {
+        return x;
+    }
+
+    public int getY()
+    {
+        return y;
+    }
+
     public void shoot()
     {
         Bullet bullet = new Bullet(this.x, this.y);
