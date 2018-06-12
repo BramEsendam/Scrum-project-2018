@@ -1,0 +1,66 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javagame;
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author Bram Esendam
+ */
+public class GunShip
+{
+
+    public ArrayList<Bullet> bullets;
+    public int x, y;
+
+    public GunShip(int X, int Y)
+    {
+        bullets = new ArrayList<Bullet>();
+        x = X;
+        y = Y;
+    }
+
+    public void draw(Graphics g)
+    {
+        g.fillOval(this.x, this.y, 20, 20);
+        g.fillRect(this.x - 10, this.y + 8, 12, 4);
+        bullets.forEach((bullet) ->
+        {
+            bullet.draw(g);
+        });
+    }
+
+    public void moveDown()
+    {
+        this.y += 3;
+    }
+
+    public void moveUp()
+    {
+        this.y -= 3;
+    }
+
+    public void moveRight()
+    {
+        this.x += 3;
+    }
+
+    public void moveLeft()
+    {
+        this.x -= 3;
+    }
+
+    public void shoot()
+    {
+        Bullet bullet = new Bullet(this.x, this.y);
+        bullet.start();
+        bullets.add(bullet);
+    }
+
+}
+
