@@ -33,18 +33,22 @@ public class Paneel extends JPanel implements KeyListener
     public ArrayList<Asteroid> asteroids;
     public JButton btnReset, btnStart;
     public GunShip gunShip;
-    public Timer timer, asteroidTimer, bulletLimiter;
+    public Timer timer, asteroidTimer, bulletLimiter, moveTimer;
     public Image backGroundImg = ImageIO.read(new File("Textures/Background.png"));
-    public boolean shot = false;
+    public boolean shot = false, wIsadded = false, dIsadded = false,
+            sIsadded = false, aIsadded = false, spaceIsadded = false;
+    private ArrayList<String> keys;
 
     public Paneel() throws IOException
     {
-
         gunShip = new GunShip(640, 360);
         timer = new Timer(22, new paintTimerHandler());
         asteroidTimer = new Timer(1000, new asteroidTimerHandler());
         bulletLimiter = new Timer(100, new bulletLimitHandler());
+        moveTimer = new Timer(50, new moveHandler());
         asteroids = new ArrayList<Asteroid>();
+        keys = new ArrayList<String>();
+        moveTimer.start();
         asteroidTimer.start();
         bulletLimiter.start();
         timer.start();
@@ -100,78 +104,125 @@ public class Paneel extends JPanel implements KeyListener
     @Override
     public void keyTyped(KeyEvent e)
     {
-        System.out.println("tpyped");
-        if (e.getKeyCode() == KeyEvent.VK_D)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                System.out.println("ja is goed");
-                gunShip.moveRight();
-            }
-        }
-        if (e.getKeyCode() == KeyEvent.VK_A)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                gunShip.moveLeft();
-            }
 
-        }
-        if (e.getKeyCode() == KeyEvent.VK_W)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                gunShip.moveUp();
-            }
-
-        }
-        if (e.getKeyCode() == KeyEvent.VK_S)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                gunShip.moveDown();
-            }
-        }
     }
 
     @Override
     public void keyPressed(KeyEvent e)
     {
         System.out.println("pres");
-        if (e.getKeyCode() == KeyEvent.VK_D)
+        if (e.getKeyCode() == KeyEvent.VK_D && !dIsadded)
         {
-            gunShip.moveRight();
+            keys.add("d");
+            dIsadded = true;
+
         }
-        if (e.getKeyCode() == KeyEvent.VK_A)
+        if (e.getKeyCode() == KeyEvent.VK_A && !aIsadded)
         {
-            gunShip.moveLeft();
+            keys.add("a");
+            aIsadded = true;
+
         }
-        if (e.getKeyCode() == KeyEvent.VK_W)
+        if (e.getKeyCode() == KeyEvent.VK_W && !wIsadded)
         {
-            gunShip.moveUp();
+            keys.add("w");
+            wIsadded = true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_S)
+        if (e.getKeyCode() == KeyEvent.VK_S && !sIsadded)
         {
-            gunShip.moveDown();
+            keys.add("s");
+            sIsadded = true;
+
         }
-        if (e.getKeyCode() == KeyEvent.VK_SPACE)
+        if (e.getKeyCode() == KeyEvent.VK_SPACE && !spaceIsadded)
         {
-            if (!shot)
-            {
-                gunShip.shoot();
-                shot = true;
-                Sound spaceGun = new Sound();
-                spaceGun.setFile("audio/space_gun.wav");
-                spaceGun.play();
-            }
+            keys.add("space");
+            spaceIsadded = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e)
     {
-        System.out.println("x: " + gunShip.x);
-        System.out.println("y: " + gunShip.y);
+        try
+        {
+            keys.forEach((key) ->
+            {
+                if (key.equals("w"))
+                {
+                    System.out.println("Remove W");
+                    wIsadded = false;
+                }
+                if (key.equals("s"))
+                {
+                    System.out.println("Remove S");
+                    sIsadded = false;
+                }
+                if (key.equals("d"))
+                {
+                    System.out.println("Remove D");
+                    dIsadded = false;
+                }
+                if (key.equals("a"))
+                {
+                    System.out.println("Remove A");
+                    aIsadded = false;
+                }
+                if (key.equals("space"))
+                {
+                    System.out.println("Remove space");
+                    spaceIsadded = false;
+                }
+                keys.remove(key);
+            });
+            System.out.println("x: " + gunShip.x);
+            System.out.println("y: " + gunShip.y);
+        } catch (ConcurrentModificationException ex)
+        {
+
+        }
+    }
+
+    private class moveHandler implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent action)
+        {
+            keys.forEach((key) ->
+            {
+                if (key.equals("w"))
+                {
+                    gunShip.moveUp();
+                }
+                if (key.equals("s"))
+                {
+                    gunShip.moveDown();
+
+                }
+                if (key.equals("d"))
+                {
+                    gunShip.moveRight();
+
+                }
+                if (key.equals("a"))
+                {
+                    gunShip.moveLeft();
+
+                }
+                if (key.equals("space"))
+                {
+                    if (!shot)
+                    {
+                        gunShip.shoot();
+                        shot = true;
+                        Sound spaceGun = new Sound();
+                        spaceGun.setFile("audio/space_gun.wav");
+                        spaceGun.play();
+                    }
+                }
+            });
+        }
     }
 
     class paintTimerHandler implements ActionListener
