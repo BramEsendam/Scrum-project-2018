@@ -78,10 +78,13 @@ public class Paneel extends JPanel implements KeyListener
                 });
                 if (asteroid.hp < 0)
                 {
+                    Sound explosion = new Sound();
+                    explosion.setFile("audio/explosion.wav");
                     System.out.println(asteroid.hp);
                     System.out.println("Asteroid destroyed");
                     asteroid.stop();
                     asteroids.remove(asteroid);
+                    explosion.play();
                 } else
                 {
                     asteroid.draw(g);
@@ -153,11 +156,13 @@ public class Paneel extends JPanel implements KeyListener
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE)
         {
-
             if (!shot)
             {
                 gunShip.shoot();
                 shot = true;
+                Sound spaceGun = new Sound();
+                spaceGun.setFile("audio/space_gun.wav");
+                spaceGun.play();
             }
         }
     }

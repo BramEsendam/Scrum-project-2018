@@ -22,11 +22,14 @@ public class GunShip
     public ArrayList<Bullet> bullets;
     public int x, y,  hp = 100;
     public Image gunShipImg;
+    private Sound drive;
 
     public GunShip(int X, int Y) throws IOException
     {
         this.gunShipImg = ImageIO.read(new File("Textures/SpaceShip.png"));
-
+        this.drive = new Sound();
+        this.drive.setFile("audio/drive2.wav");
+        
         bullets = new ArrayList<Bullet>();
         x = X;
         y = Y;
@@ -53,21 +56,25 @@ public class GunShip
     public void moveDown()
     {
         this.y += 3;
+        this.drive.play();
     }
 
     public void moveUp()
     {
         this.y -= 3;
+        this.drive.play();
     }
 
     public void moveRight()
     {
         this.x += 3;
+        this.drive.play();
     }
 
     public void moveLeft()
     {
         this.x -= 3;
+        this.drive.play();
     }
 
     public void shoot()
