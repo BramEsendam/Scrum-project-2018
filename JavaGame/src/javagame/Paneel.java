@@ -33,28 +33,37 @@ public class Paneel extends JPanel implements KeyListener
     public ArrayList<Asteroid> asteroids;
     public JButton btnReset, btnStart;
     public GunShip gunShip;
-    public Timer timer, asteroidTimer, bulletLimiter, moveTimer;
-    public Image backGroundImg = ImageIO.read(new File("Textures/Background.png"));
     public boolean shot = false, wIsadded = false, dIsadded = false,
-            sIsadded = false, aIsadded = false, spaceIsadded = false;
+            sIsadded = false, aIsadded = false, spaceIsadded = false, gameOver = false;
     private ArrayList<String> keys;
+
+    //Sounds && music
+    private Sound levelMusic = new Sound("audio/music/level1music.wav");
+    private Sound explosion = new Sound("audio/explosion.wav");
+
+    //Timers
+    public Timer paintTimer, asteroidTimer, bulletLimiter, moveTimer;
+
+    //images
+    public Image backGroundImg = ImageIO.read(new File("Textures/Background.png"));
+    public Image youLoseImg = ImageIO.read(new File("Textures/GameOver.png"));
 
     public Paneel() throws IOException
     {
-        Sound level1Music = new Sound();
-        level1Music.setFile("audio/music/level1music.wav");
-        level1Music.playBackgroundMusic();
-        gunShip = new GunShip(640, 360);
-        timer = new Timer(22, new paintTimerHandler());
-        asteroidTimer = new Timer(5000, new asteroidTimerHandler());
-        bulletLimiter = new Timer(100, new bulletLimitHandler());
-        moveTimer = new Timer(50, new moveHandler());
+        levelMusic.playBackgroundMusic();
+        gunShip = new GunShip(1150, 360);
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
-        moveTimer.start();
+
+        //Timers
+        paintTimer = new Timer(22, new paintTimerHandler());
+        paintTimer.start();
+        asteroidTimer = new Timer(4000, new asteroidTimerHandler());
         asteroidTimer.start();
+        bulletLimiter = new Timer(100, new bulletLimitHandler());
         bulletLimiter.start();
-        timer.start();
+        moveTimer = new Timer(27, new moveHandler());
+        moveTimer.start();
     }
 
     @Override
@@ -62,16 +71,34 @@ public class Paneel extends JPanel implements KeyListener
     {
         super.paintComponent(g);
         g.drawImage(backGroundImg, 0, 0, null);
-        gunShip.draw(g);
         try
         {
+            if (gunShip.hp <= 0)
+            {
+                g.setColor(Color.red);
+                g.drawImage(youLoseImg, 600, 350, null);
+                if (!gameOver)
+                {
+                    levelMusic.stopMusic();
+                    Sound gameOverMusic = new Sound("audio/music/gameOver.wav");
+                    gameOverMusic.playBackgroundMusic();
+                    gameOver = true;
+                }
+
+            } else
+            {
+                gunShip.draw(g);
+            }
             asteroids.forEach((Asteroid asteroid) ->
             {
                 if (gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX())
                 {
                     if (gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
                     {
-                        gunShip.hp -= 10;
+                        if (gunShip.hp > 0)
+                        {
+                            gunShip.hp -= 10;
+                        }
                     }
                 }
                 gunShip.bullets.forEach((bullet) ->
@@ -92,8 +119,6 @@ public class Paneel extends JPanel implements KeyListener
                 });
                 if (asteroid.hp < 0)
                 {
-                    Sound explosion = new Sound();
-                    explosion.setFile("audio/explosion.wav");
                     System.out.println(asteroid.hp);
                     System.out.println("Asteroid destroyed");
                     asteroid.stop();
@@ -103,7 +128,6 @@ public class Paneel extends JPanel implements KeyListener
                 {
                     asteroid.draw(g);
                 }
-
             });
         } catch (ConcurrentModificationException e)
         {
@@ -150,6 +174,10 @@ public class Paneel extends JPanel implements KeyListener
             keys.add("space");
             spaceIsadded = true;
         }
+        if (e.getKeyCode() == KeyEvent.VK_T)
+        {
+            gunShip.hp -= 20;
+        }
     }
 
     @Override
@@ -157,7 +185,8 @@ public class Paneel extends JPanel implements KeyListener
     {
         try
         {
-            keys.forEach((key) ->
+            keys.forEach((key)
+                    ->
             {
                 if (key.equals("w"))
                 {
@@ -205,7 +234,8 @@ public class Paneel extends JPanel implements KeyListener
         @Override
         public void actionPerformed(ActionEvent action)
         {
-            keys.forEach((key) ->
+            keys.forEach((key)
+                    ->
             {
                 if (key.equals("w"))
                 {
@@ -232,9 +262,6 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         gunShip.shoot();
                         shot = true;
-                        Sound spaceGun = new Sound();
-                        spaceGun.setFile("audio/space_gun.wav");
-                        spaceGun.play();
                     }
                 }
             });

@@ -23,7 +23,6 @@ public class GunShip
     public ArrayList<Bullet> bullets;
     public int x, y, hp = 100, speed = 3;
     public Image gunShipImg;
-    private Sound drive;
 
     public GunShip(int X, int Y) throws IOException
     {
@@ -36,6 +35,7 @@ public class GunShip
     public void draw(Graphics g)
     {
         g.drawImage(gunShipImg, x, y, null);
+        g.setColor(Color.white);
         g.drawRect(20, 20, 200, 20);
         g.setColor(Color.green);
         g.fillRect(22, 22, hp * 2 - 3, 17);

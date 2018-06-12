@@ -23,3 +23,5 @@
 hs_err_pid*
 JavaGame/nbproject/private/private.properties
 JavaGame/build/built-jar.properties
+/JavaGame/nbproject/private/
+/JavaGame/build/

@@ -32,6 +32,8 @@ public class Bullet extends Thread
     {
         this.x = X;
         this.y = Y + 8;
+        Sound spaceGun = new Sound("audio/space_gun.wav");
+        spaceGun.play();
     }
 
     @Override

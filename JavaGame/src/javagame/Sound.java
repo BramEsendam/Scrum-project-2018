@@ -8,7 +8,7 @@ public class Sound
 {
     private Clip clip; 
     
-    public void setFile(String fileName)
+    Sound(String fileName)
     {
         try
         {

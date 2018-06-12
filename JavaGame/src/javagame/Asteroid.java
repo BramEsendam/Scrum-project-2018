@@ -36,7 +36,7 @@ public class Asteroid extends Thread
         this.rotationSpeed = rand.nextInt(5);
         this.hp = 100;
         this.x = -50;
-        this.y = rand.nextInt(700) + 100;
+        this.y = rand.nextInt(700) + 0;
     }
 
     public int getX()
@@ -48,7 +48,7 @@ public class Asteroid extends Thread
     {
         return y;
     }
-
+    
     public int getHp()
     {
         return hp;
