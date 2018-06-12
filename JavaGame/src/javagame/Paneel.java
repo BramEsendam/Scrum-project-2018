@@ -48,7 +48,7 @@ public class Paneel extends JPanel implements KeyListener
         timer = new Timer(22, new paintTimerHandler());
         asteroidTimer = new Timer(5000, new asteroidTimerHandler());
         bulletLimiter = new Timer(100, new bulletLimitHandler());
-        moveTimer = new Timer(35, new moveHandler());
+        moveTimer = new Timer(50, new moveHandler());
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
         moveTimer.start();
