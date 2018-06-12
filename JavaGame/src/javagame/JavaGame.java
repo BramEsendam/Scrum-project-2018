@@ -6,6 +6,7 @@
 package javagame;
 
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -19,7 +20,7 @@ public class JavaGame extends JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         JavaGame frame = new JavaGame();
         frame.setSize(1280, 720);

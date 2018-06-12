@@ -41,6 +41,7 @@ public class Bullet extends Thread
         {
             if (x < 0)
             {
+                System.out.println("bullet thread stopped");
                 this.stop();
             }
             x -= 6;
@@ -58,7 +59,8 @@ public class Bullet extends Thread
         if (!dead)
         {
             g.setColor(Color.RED);
-            g.fillOval(x - 10, y, 5, 3);
+            g.fillOval(x - 2, y, 5, 3);
+            g.fillOval(x - 2, y + 9, 5, 3);
         }
 
     }

@@ -6,7 +6,11 @@
 package javagame;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -16,10 +20,14 @@ public class GunShip
 {
 
     public ArrayList<Bullet> bullets;
-    public int x, y;
+    public int x, y,  hp = 100;
+    public Image gunShipImg;
+    private Sound drive;
 
-    public GunShip(int X, int Y)
+    public GunShip(int X, int Y) throws IOException
     {
+        this.gunShipImg = ImageIO.read(new File("Textures/SpaceShip.png"));
+        
         bullets = new ArrayList<Bullet>();
         x = X;
         y = Y;
@@ -27,8 +35,8 @@ public class GunShip
 
     public void draw(Graphics g)
     {
-        g.fillOval(this.x, this.y, 20, 20);
-        g.fillRect(this.x - 10, this.y + 8, 12, 4);
+        g.drawImage(gunShipImg, x, y, null);
+
         bullets.forEach((bullet) ->
         {
             if (this.x < -200)
