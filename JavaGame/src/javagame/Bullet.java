@@ -14,7 +14,19 @@ import java.awt.Graphics;
  */
 public class Bullet extends Thread
 {
+
     public int x, y;
+    public boolean dead = false;
+
+    public int getX()
+    {
+        return this.x;
+    }
+
+    public int getY()
+    {
+        return this.y;
+    }
 
     public Bullet(int X, int Y)
     {
@@ -43,9 +55,17 @@ public class Bullet extends Thread
 
     public void draw(Graphics g)
     {
-        g.setColor(Color.RED);
-        g.fillOval(x - 10, y, 5, 3);
+        if (!dead)
+        {
+            g.setColor(Color.RED);
+            g.fillOval(x - 10, y, 5, 3);
+        }
+
+    }
+
+    public void dead()
+    {
+        this.dead = true;
     }
 
 }
-

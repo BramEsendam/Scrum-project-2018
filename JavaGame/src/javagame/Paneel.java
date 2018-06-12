@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -45,28 +46,42 @@ public class Paneel extends JPanel implements KeyListener
         super.paintComponent(g);
         setBackground(Color.gray);
         gunShip.draw(g);
-        asteroids.forEach((Asteroid asteroid) ->
+        try
         {
-            gunShip.bullets.forEach((bullet) ->
+            asteroids.forEach((Asteroid asteroid) ->
             {
-                if (bullet.x < asteroid.x + 10 && bullet.x > asteroid.x)
+                gunShip.bullets.forEach((bullet) ->
                 {
-                    if (bullet.y < asteroid.y + 50 && bullet.y > asteroid.y)
+                    if (bullet.getX() < asteroid.getX() + 15 && bullet.getX() > asteroid.getX())
                     {
-                        asteroid.hp -= 10;
+                        if (bullet.getY() < asteroid.getY() + 50 && bullet.getY() > asteroid.getY())
+                        {
+                            if (!bullet.dead && bullet.isAlive())
+                            {
+                                System.out.println("hit!");
+                                bullet.dead();
+                                bullet.stop();
+                                asteroid.hp -= 10;
+                            }
+                        }
                     }
+                });
+                if (asteroid.hp < 0)
+                {
+                    System.out.println(asteroid.hp);
+                    System.out.println("Asteroid destroyed");
+                    asteroid.stop();
+                    asteroids.remove(asteroid);
+                } else
+                {
+                    asteroid.draw(g);
                 }
-            });
-            if (asteroid.hp < 0)
-            {
-                System.out.println("Asteroid destroyed");
-                asteroids.remove(asteroid);
-            } else
-            {
-                asteroid.draw(g);
-            }
 
-        });
+            });
+        } catch (ConcurrentModificationException e)
+        {
+
+        }
     }
 
     @Override
@@ -157,10 +172,11 @@ public class Paneel extends JPanel implements KeyListener
         {
             Asteroid asteroid = new Asteroid();
             asteroid.start();
+            asteroid.hp = 100;
             asteroids.add(asteroid);
+            System.out.println("hp: " + asteroid.hp);
             System.out.println("asteroid added");
         }
 
     }
 }
-

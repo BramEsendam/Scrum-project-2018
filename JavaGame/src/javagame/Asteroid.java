@@ -22,8 +22,23 @@ public class Asteroid extends Thread
     {
         Random rand = new Random();
         this.hp = 100;
-        this.x = -100;
+        this.x = -50;
         this.y = rand.nextInt(700) + 100;
+    }
+
+    public int getX()
+    {
+        return x;
+    }
+
+    public int getY()
+    {
+        return y;
+    }
+
+    public int getHp()
+    {
+        return hp;
     }
 
     @Override

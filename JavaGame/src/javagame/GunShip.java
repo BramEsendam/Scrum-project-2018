@@ -31,7 +31,15 @@ public class GunShip
         g.fillRect(this.x - 10, this.y + 8, 12, 4);
         bullets.forEach((bullet) ->
         {
-            bullet.draw(g);
+            if (this.x < -200)
+            {
+                bullet.dead();
+                bullets.remove(bullet);
+            } else
+            {
+                bullet.draw(g);
+            }
+
         });
     }
 
@@ -63,4 +71,3 @@ public class GunShip
     }
 
 }
-
