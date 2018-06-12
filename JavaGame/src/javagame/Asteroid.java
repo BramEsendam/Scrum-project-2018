@@ -61,6 +61,7 @@ public class Asteroid extends Thread
         {
             if (x > 1500)
             {
+                System.out.println("asteroid thread stopped.");
                 this.stop();
             }
             this.rotation += rotationSpeed;
@@ -77,7 +78,7 @@ public class Asteroid extends Thread
     public void draw(Graphics g)
     {
         Graphics2D g2d = (Graphics2D) g;
-        rotate180((BufferedImage) asteroidImg, g2d);
+        rotate((BufferedImage) asteroidImg, g2d);
         if (hp != 100)
         {
             g2d.setColor(Color.black);
@@ -87,7 +88,7 @@ public class Asteroid extends Thread
         }
     }
 
-    public void rotate180(BufferedImage inputImage, Graphics2D g2d)
+    public void rotate(BufferedImage inputImage, Graphics2D g2d)
     {
         double rotationRequired = Math.toRadians(this.rotation);
         double locationX = inputImage.getWidth() / 2;

@@ -33,18 +33,20 @@ public class Paneel extends JPanel implements KeyListener
     public ArrayList<Asteroid> asteroids;
     public JButton btnReset, btnStart;
     public GunShip gunShip;
-    public Timer timer, asteroidTimer;
+    public Timer timer, asteroidTimer, bulletLimiter;
     public Image backGroundImg = ImageIO.read(new File("Textures/Background.png"));
+    public boolean shot = false;
 
     public Paneel() throws IOException
     {
-        
+
         gunShip = new GunShip(640, 360);
         timer = new Timer(22, new paintTimerHandler());
         asteroidTimer = new Timer(1000, new asteroidTimerHandler());
-
+        bulletLimiter = new Timer(100, new bulletLimitHandler());
         asteroids = new ArrayList<Asteroid>();
         asteroidTimer.start();
+        bulletLimiter.start();
         timer.start();
     }
 
@@ -66,7 +68,7 @@ public class Paneel extends JPanel implements KeyListener
                         {
                             if (!bullet.dead && bullet.isAlive())
                             {
-                                System.out.println("hit!");
+                                System.out.println("Bullet thread stopped");
                                 bullet.dead();
                                 bullet.stop();
                                 asteroid.hp -= 10;
@@ -151,7 +153,12 @@ public class Paneel extends JPanel implements KeyListener
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE)
         {
-            gunShip.shoot();
+
+            if (!shot)
+            {
+                gunShip.shoot();
+                shot = true;
+            }
         }
     }
 
@@ -169,6 +176,20 @@ public class Paneel extends JPanel implements KeyListener
         public void actionPerformed(ActionEvent e)
         {
             repaint();
+        }
+    }
+
+    class bulletLimitHandler implements ActionListener
+    {
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if (shot)
+            {
+                System.out.println("Bullet limit reset!");
+                shot = false;
+            }
         }
     }
 

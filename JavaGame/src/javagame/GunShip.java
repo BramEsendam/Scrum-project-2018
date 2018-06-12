@@ -20,7 +20,7 @@ public class GunShip
 {
 
     public ArrayList<Bullet> bullets;
-    public int x, y;
+    public int x, y,  hp = 100;
     public Image gunShipImg;
 
     public GunShip(int X, int Y) throws IOException
