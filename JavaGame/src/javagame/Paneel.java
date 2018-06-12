@@ -154,29 +154,34 @@ public class Paneel extends JPanel implements KeyListener
                 if (key.equals("w"))
                 {
                     System.out.println("Remove W");
+                    keys.remove("w");
                     wIsadded = false;
                 }
                 if (key.equals("s"))
                 {
                     System.out.println("Remove S");
+                    keys.remove("s");
                     sIsadded = false;
                 }
                 if (key.equals("d"))
                 {
                     System.out.println("Remove D");
+                    keys.remove("d");
                     dIsadded = false;
                 }
                 if (key.equals("a"))
                 {
                     System.out.println("Remove A");
+                    keys.remove("a");
                     aIsadded = false;
                 }
                 if (key.equals("space"))
                 {
                     System.out.println("Remove space");
+                    keys.remove("space");
                     spaceIsadded = false;
                 }
-                keys.remove(key);
+
             });
             System.out.println("x: " + gunShip.x);
             System.out.println("y: " + gunShip.y);
