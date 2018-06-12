@@ -1,4 +1,6 @@
-
+<?php 
+include 'Layout/IncludeHeader.php';
+ ?>
 
 <!DOCTYPE html>
 <html>
@@ -183,7 +185,7 @@
 			The word is: <input type="text" name="inputText"> 
 			<input onclick="cijferAlert()" type="submit" value="submit" name="submit">
 		</form>
-<
+
 <?php 
 		$word = '';
 
@@ -207,11 +209,14 @@
 	</div>
 
 	<script>
-function cijferAlert() {
-    alert("1");
-}
-</script>
+	function cijferAlert() {
+    	alert("1");
+	}
+	</script>
 
 </body>
 </html>
 
+<?php
+    include 'Layout/IncludeFooter.php';
+?>
