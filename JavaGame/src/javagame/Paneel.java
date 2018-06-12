@@ -7,12 +7,18 @@ package javagame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -28,9 +34,11 @@ public class Paneel extends JPanel implements KeyListener
     public JButton btnReset, btnStart;
     public GunShip gunShip;
     public Timer timer, asteroidTimer;
+    public Image backGroundImg = ImageIO.read(new File("Textures/Background.png"));
 
-    public Paneel()
+    public Paneel() throws IOException
     {
+        
         gunShip = new GunShip(640, 360);
         timer = new Timer(22, new paintTimerHandler());
         asteroidTimer = new Timer(1000, new asteroidTimerHandler());
@@ -44,7 +52,7 @@ public class Paneel extends JPanel implements KeyListener
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        setBackground(Color.gray);
+        g.drawImage(backGroundImg, 0, 0, null);
         gunShip.draw(g);
         try
         {
@@ -170,11 +178,16 @@ public class Paneel extends JPanel implements KeyListener
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            Asteroid asteroid = new Asteroid();
+            Asteroid asteroid = null;
+            try
+            {
+                asteroid = new Asteroid();
+            } catch (IOException ex)
+            {
+                Logger.getLogger(Paneel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             asteroid.start();
-            asteroid.hp = 100;
             asteroids.add(asteroid);
-            System.out.println("hp: " + asteroid.hp);
             System.out.println("asteroid added");
         }
 
