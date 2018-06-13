@@ -30,12 +30,14 @@ import javax.swing.Timer;
 public class Paneel extends JPanel implements KeyListener
 {
 
-    private ArrayList<Asteroid> asteroids;
-    private JButton btnReset, btnStart;
     private GunShip gunShip;
+    private int asteroidSpawnTime;
     private boolean shot = false, wIsadded = false, dIsadded = false,
             sIsadded = false, aIsadded = false, spaceIsadded = false, gameOver = false;
+
+    //ArrayLists
     private ArrayList<String> keys;
+    private ArrayList<Asteroid> asteroids;
 
     //Sounds && music
     private final Sound levelMusic = new Sound("audio/music/level1music.wav");
@@ -56,14 +58,11 @@ public class Paneel extends JPanel implements KeyListener
         gunShip = new GunShip(1150, 360);
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
-
-        btnReset = new JButton("Restart!");
-        btnReset.addActionListener(new ResetGame());
-        btnReset.setBounds(880, 700, 95, 30);
+        asteroidSpawnTime = 3500;
         //Timers
         paintTimer = new Timer(22, new paintTimerHandler());
         paintTimer.start();
-        asteroidTimer = new Timer(4000, new asteroidTimerHandler());
+        asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
         asteroidTimer.start();
         bulletLimiter = new Timer(100, new bulletLimitHandler());
         bulletLimiter.start();
@@ -84,8 +83,6 @@ public class Paneel extends JPanel implements KeyListener
                 {
                     levelMusic.stopMusic();
                     gameOverMusic.playBackgroundMusic();
-                    add(btnReset);
-                    btnReset.addKeyListener(this);
                     gameOver = true;
                 }
             } else
@@ -102,7 +99,7 @@ public class Paneel extends JPanel implements KeyListener
                         gunShip.hp -= 10;
                     }
                 }
-                
+
                 //checking if the bullets are hitting a asteroid
                 gunShip.bullets.forEach((bullet) ->
                 {
@@ -120,7 +117,7 @@ public class Paneel extends JPanel implements KeyListener
                         }
                     }
                 });
-                
+
                 //removing a asteroid if hp is below 0
                 if (asteroid.hp < 0)
                 {
@@ -175,6 +172,9 @@ public class Paneel extends JPanel implements KeyListener
         } else if (e.getKeyCode() == KeyEvent.VK_T)
         {
             gunShip.hp -= 20;
+        } else if (e.getKeyCode() == KeyEvent.VK_F1)
+        {
+            restartGame();
         }
     }
 
@@ -222,25 +222,36 @@ public class Paneel extends JPanel implements KeyListener
         }
     }
 
-    private class ResetGame implements ActionListener
+    public void updateTimers()
+    {
+        asteroidTimer.stop();
+        asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
+        asteroidTimer.start();
+    }
+
+    public void restartGame()
+    {
+        System.out.println("Game has been reset!");
+        asteroids.forEach((asteroid) ->
+        {
+            asteroid.stop();
+        });
+        asteroids.clear();
+        gunShip.hp = 100;
+        gunShip.x = 1150;
+        gunShip.y = 360;
+        gameOverMusic.stopMusic();
+        levelMusic.playBackgroundMusic();
+        gameOver = false;
+    }
+
+    private class btnResetGame implements ActionListener
     {
 
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Game has been reset!");
-            asteroids.forEach((asteroid) ->
-            {
-                asteroid.stop();
-                asteroids.remove(asteroid);
-            });
-            gunShip.hp = 100;
-            gunShip.x = 1150;
-            gunShip.y = 360;
-            gameOverMusic.stopMusic();
-            levelMusic.playBackgroundMusic();
-            gameOver = false;
-            remove(btnReset);
+            restartGame();
         }
     }
 
@@ -344,6 +355,5 @@ public class Paneel extends JPanel implements KeyListener
                 System.out.println("asteroid added");
             }
         }
-
     }
 }
