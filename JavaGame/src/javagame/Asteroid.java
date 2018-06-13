@@ -25,7 +25,6 @@ public class Asteroid extends Thread
 {
 
     public int x, y, hp, rotation, rotationSpeed;
-
     public Image asteroidImg;
 
     Asteroid() throws IOException
@@ -48,7 +47,7 @@ public class Asteroid extends Thread
     {
         return y;
     }
-    
+
     public int getHp()
     {
         return hp;
@@ -98,5 +97,15 @@ public class Asteroid extends Thread
 
         // Drawing the rotated image at the required drawing locations
         g.drawImage(op.filter(inputImage, null), this.x, this.y, null);
+    }
+
+    public int getRotation()
+    {
+        return rotation;
+    }
+
+    public int getRotationSpeed()
+    {
+        return rotationSpeed;
     }
 }

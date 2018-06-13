@@ -32,10 +32,8 @@ public class Paneel extends JPanel implements KeyListener
 {
 
     private GunShip gunShip;
-    private EnemyGunShip enemyGunShip;
-
     private PowerUpSpeed powerUpSpeed;
-    private int asteroidSpawnTime, repaintTime = 22;
+    private int asteroidSpawnTime, repaintTime = 22, bossStage = 1;
     private hitRegistration hitReg = new hitRegistration();
     private Levelinfo levelinfo = new Levelinfo();
     private boolean shot = false, wIsadded = false, dIsadded = false, bossFight = false,
@@ -53,6 +51,11 @@ public class Paneel extends JPanel implements KeyListener
     private final Sound hurtSound = new Sound("audio/hurt_sound.wav");
     private final Sound hitRock = new Sound("audio/hit_rock.wav");
     private final Sound boostSound = new Sound("audio/boost.wav");
+    private final Sound bossStage1Music = new Sound("audio/music/bossStage1.wav");
+    private final Sound bossStage2Music = new Sound("audio/music/bossStage2.wav");
+    private final Sound bossStage3Music = new Sound("audio/music/bossStage3.wav");
+    private final Sound bossFinalStageMusic = new Sound("audio/music/bossFinalStage.wav");
+    private final Sound bossDefeated = new Sound("audio/music/bossDefeated.wav");
 
     //Timers
     private Timer paintTimer, bulletLimiter, enemyGunShipTimer;
@@ -63,8 +66,6 @@ public class Paneel extends JPanel implements KeyListener
 
     public Paneel() throws IOException
     {
-        //levelMusic.playBackgroundMusic();
-        levelMusic.start();
         levelMusic.playBackgroundMusic();
 
         gunShip = new GunShip(1150, 360);
@@ -78,9 +79,9 @@ public class Paneel extends JPanel implements KeyListener
         //Timers && Threads
         paintTimer = new Timer(repaintTime, new paintTimerHandler());
         paintTimer.start();
-        enemyGunShipTimer = new Timer(11333, new enemyGunShipTimerHandler());
+        enemyGunShipTimer = new Timer(9666, new enemyGunShipTimerHandler());
         enemyGunShipTimer.start();
-        bulletLimiter = new Timer(123, new bulletLimitHandler());
+        bulletLimiter = new Timer(211, new bulletLimitHandler());
         bulletLimiter.start();
         new moveHandler().start();
         new levelHandler().start();
@@ -103,14 +104,19 @@ public class Paneel extends JPanel implements KeyListener
                 if (!gameOver)
                 {
                     levelMusic.stopMusic();
-                    if (!gameOverMusic.isAlive())
-                    {
-                        gameOverMusic.start();
-                    }
+                    bossStage1Music.stopMusic();
+                    bossStage2Music.stopMusic();
+                    bossStage3Music.stopMusic();
+                    bossFinalStageMusic.stopMusic();
+                    bossDefeated.stopMusic();
                     gameOverMusic.playBackgroundMusic();
                     gameOver = true;
                     levelinfo.totalTries++;
                     levelinfo.asteroidDeathCount = 0;
+                    enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
+                    {
+                        enemyGunShip.stopShootTimers();
+                    });
                 }
             } else
             {
@@ -126,7 +132,7 @@ public class Paneel extends JPanel implements KeyListener
                     enemyGunShip.Xdestination = gunShip.getX();
                 } else
                 {
-                    enemyGunShip.shootTimer.stop();
+                    enemyGunShip.stopShootTimers();
                     enemyGunShip.stop();
                     enemyGunShips.remove(enemyGunShip);
                 }
@@ -244,7 +250,7 @@ public class Paneel extends JPanel implements KeyListener
                 bullet.stop();
             });
             enemyGunShip.bullets.clear();
-            enemyGunShip.shootTimer.stop();
+            enemyGunShip.stopShootTimers();
             enemyGunShip.stop();
         });
         enemyGunShips.clear();
@@ -360,7 +366,7 @@ public class Paneel extends JPanel implements KeyListener
                             {
                                 bullet.dead();//setting dead to true
                                 bullet.stop();//stoping bullet thread
-                                gunShip.hp -= 10;
+                                gunShip.hp -= bullet.damage;
                                 if (gunShip.hp > 0)
                                 {
                                     hurtSound.play();
@@ -388,24 +394,30 @@ public class Paneel extends JPanel implements KeyListener
             {
                 if (levelinfo.asteroidDeathCount < 25)
                 {
-                    asteroidSpawnTime = 2750;
+                    asteroidSpawnTime = 2500;
                     levelinfo.level = 1;
                 } else if (levelinfo.asteroidDeathCount >= 25 && levelinfo.asteroidDeathCount < 50)
                 {
-                    asteroidSpawnTime = 2250;
+                    asteroidSpawnTime = 2000;
                     levelinfo.level = 2;
                 } else if (levelinfo.asteroidDeathCount >= 50 && levelinfo.asteroidDeathCount < 75)
                 {
-                    asteroidSpawnTime = 1250;
+                    asteroidSpawnTime = 1000;
                     levelinfo.level = 3;
                 } else if (levelinfo.asteroidDeathCount >= 75)
                 {
                     bossFight = true;
+                    levelMusic.stopMusic();
+                    if (bossStage == 1 && !bossStage1Music.isPlaying())
+                    {
+                        System.out.println("stage 1");
+                        bossStage1Music.playBackgroundMusic();
+                    }
                     levelinfo.level = 4;
                 } else if (levelinfo.isBossDead)
                 {
                     bossFight = false;
-                    asteroidSpawnTime = 1000;
+                    asteroidSpawnTime = 800;
                     levelinfo.level = 5;
                 }
                 trySleep(repaintTime);
@@ -526,15 +538,19 @@ public class Paneel extends JPanel implements KeyListener
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            try
+            if (!bossFight && !gameOver)
             {
-                EnemyGunShip enemyGunShip = new EnemyGunShip(rand.nextInt(780) + 100);
-                enemyGunShip.start();
-                enemyGunShips.add(enemyGunShip);
-                System.out.println("Number of enemy's: " + enemyGunShips.size());
-            } catch (IOException ex)
-            {
+                try
+                {
+                    EnemyGunShip enemyGunShip = new EnemyGunShip(rand.nextInt(780) + 100, levelinfo.level);
+                    enemyGunShip.start();
+                    enemyGunShips.add(enemyGunShip);
+                    System.out.println("Number of enemy's: " + enemyGunShips.size());
+                } catch (IOException ex)
+                {
+                }
             }
+
         }
     }
 }

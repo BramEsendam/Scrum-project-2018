@@ -3,7 +3,7 @@ package javagame;
 import java.io.File;
 import javax.sound.sampled.*;
 
-public class Sound extends Thread
+public class Sound
 {
 
     private Clip clip;
@@ -22,20 +22,6 @@ public class Sound extends Thread
         }
     }
 
-    @Override
-    public void run()
-    {
-        while (true)
-        {
-            try
-            {
-                Thread.sleep(10);
-            } catch (InterruptedException e)
-            {
-            }
-        }
-    }
-
     public void play()
     {
         clip.setFramePosition(0);
@@ -44,16 +30,19 @@ public class Sound extends Thread
 
     public void playBackgroundMusic()
     {
-        if (this.isAlive())
-        {
-            clip.setFramePosition(0);
-            clip.start();
-            clip.loop(10);
-        }
+        clip.setFramePosition(0);
+        clip.start();
+        System.out.println(clip.getBufferSize());
+        clip.loop(10);
     }
 
     public void stopMusic()
     {
         clip.stop();
+    }
+
+    public boolean isPlaying()
+    {
+        return clip.isActive();
     }
 }

@@ -24,7 +24,7 @@ public class Levelinfo
     private Image level1Text, level2Text, level3Text, bossFightText;
     public int level = 1, x = 710, y = 10, totalTries = 0, asteroidDeathCount = 0;
     public boolean isBossDead = false;
-    
+
     public Levelinfo()
     {
         try
@@ -63,5 +63,45 @@ public class Levelinfo
             //g.drawImage(gunShipImg, x, y, null);
 
         }
+    }
+
+    public Image getLevel1Text()
+    {
+        return level1Text;
+    }
+
+    public Image getLevel2Text()
+    {
+        return level2Text;
+    }
+
+    public Image getLevel3Text()
+    {
+        return level3Text;
+    }
+
+    public Image getBossFightText()
+    {
+        return bossFightText;
+    }
+
+    public int getLevel()
+    {
+        return level;
+    }
+
+    public int getTotalTries()
+    {
+        return totalTries;
+    }
+
+    public int getAsteroidDeathCount()
+    {
+        return asteroidDeathCount;
+    }
+
+    public boolean isIsBossDead()
+    {
+        return isBossDead;
     }
 }

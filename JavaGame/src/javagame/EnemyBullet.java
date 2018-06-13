@@ -15,12 +15,12 @@ import java.awt.Graphics;
 public class EnemyBullet extends Thread
 {
 
-    public int x, Xdestination, Ydestination, margin = 0;
+    public int x, Xdestination, Ydestination, margin = 0, damage, bulletSize;
     public double Ypath, y;
     public boolean dead = false;
     private Color color;
 
-    public EnemyBullet(int X, int Y, int Ydestination, int Xdestination, Color color)
+    public EnemyBullet(int X, int Y, int Ydestination, int Xdestination, int bulletSize, int damage, Color color)
     {
         this.x = X;
         this.y = Y;
@@ -30,10 +30,10 @@ public class EnemyBullet extends Thread
         }
         this.Xdestination = Xdestination;
         this.Ydestination = (int) (Ydestination + margin);
-
         this.color = color;
-
-        Ypath = (this.Ydestination - this.y) / (this.Xdestination - this.x);
+        this.damage = damage;
+        this.bulletSize = bulletSize;
+        this.Ypath = (this.Ydestination - this.y) / (this.Xdestination - this.x);
 
         System.out.println("Xdestination: " + this.Xdestination);
         System.out.println("Ydestination: " + this.Ydestination);
@@ -67,7 +67,7 @@ public class EnemyBullet extends Thread
         if (!dead)
         {
             g.setColor(color);
-            g.fillOval(x - 2, (int) Math.round(this.y), 5, 3);
+            g.fillOval(x - 2, (int) Math.round(this.y), bulletSize, (int) Math.round(bulletSize * 0.6));
         }
 
     }
