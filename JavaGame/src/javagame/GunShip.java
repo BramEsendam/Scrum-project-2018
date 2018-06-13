@@ -54,22 +54,34 @@ public class GunShip
 
     public void moveDown()
     {
-        this.y += speed;
+        if (this.y < 1040)
+        {
+            this.y += speed;
+        }
     }
 
     public void moveUp()
     {
-        this.y -= speed;
+        if (this.y > 10)
+        {
+            this.y -= speed;
+        }
     }
 
     public void moveRight()
     {
-        this.x += speed;
+        if (this.x < 1880)
+        {
+            this.x += speed;
+        }
     }
 
     public void moveLeft()
     {
-        this.x -= speed;
+        if (this.x > 10)
+        {
+            this.x -= speed;
+        }
     }
 
     public void powerUp()
