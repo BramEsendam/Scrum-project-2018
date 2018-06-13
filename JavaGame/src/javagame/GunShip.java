@@ -89,7 +89,7 @@ public class GunShip
 
     public void shoot()
     {
-        Bullet bullet = new Bullet(this.x, this.y);
+        Bullet bullet = new Bullet(this.x, this.y, Color.yellow);
         bullet.start();
         bullets.add(bullet);
     }

@@ -23,6 +23,7 @@ public class Levelinfo
     //images
     private Image level1Text, level2Text, level3Text, bossFightText;
     public int level = 1, x = 710, y = 10, totalTries = 0, asteroidDeathCount = 0;
+    public boolean isBossDead = false;
     
     public Levelinfo()
     {

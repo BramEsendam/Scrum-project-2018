@@ -10,20 +10,34 @@ import java.awt.Graphics;
 
 /**
  *
- * @author Bram Esendam
+ * @author brame
  */
-public class Bullet extends Thread
+public class EnemyBullet extends Thread
 {
 
-    public int x, y;
+    public int x, Xdestination, Ydestination, margin = 0;
+    public double Ypath, y;
     public boolean dead = false;
     private Color color;
 
-    public Bullet(int X, int Y, Color color)
+    public EnemyBullet(int X, int Y, int Ydestination, int Xdestination, Color color)
     {
         this.x = X;
-        this.y = Y + 8;
+        this.y = Y;
+        if (y > this.Ydestination)
+        {
+            margin = 15;
+        }
+        this.Xdestination = Xdestination;
+        this.Ydestination = (int) (Ydestination + margin);
+
         this.color = color;
+
+        Ypath = (this.Ydestination - this.y) / (this.Xdestination - this.x);
+
+        System.out.println("Xdestination: " + this.Xdestination);
+        System.out.println("Ydestination: " + this.Ydestination);
+        System.out.println("Ypath: " + Ypath);
         Sound spaceGun = new Sound("audio/space_gun.wav");
         spaceGun.play();
     }
@@ -33,14 +47,15 @@ public class Bullet extends Thread
     {
         while (true)
         {
-            if (x < -50)
+            if (x > 2000)
             {
                 this.stop();
             }
-            x -= 6;
+            x += 2;
+            y += Ypath + (Ypath);
             try
             {
-                Thread.sleep(10);
+                Thread.sleep(7);
             } catch (InterruptedException e)
             {
             }
@@ -52,8 +67,7 @@ public class Bullet extends Thread
         if (!dead)
         {
             g.setColor(color);
-            g.fillOval(x - 2, y, 5, 3);
-            g.fillOval(x - 2, y + 9, 5, 3);
+            g.fillOval(x - 2, (int) Math.round(this.y), 5, 3);
         }
 
     }
@@ -70,6 +84,6 @@ public class Bullet extends Thread
 
     public int getY()
     {
-        return this.y;
+        return (int) Math.round(this.y);
     }
 }

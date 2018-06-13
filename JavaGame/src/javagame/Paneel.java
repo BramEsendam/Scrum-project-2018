@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -31,24 +32,30 @@ public class Paneel extends JPanel implements KeyListener
 {
 
     private GunShip gunShip;
+    private EnemyGunShip enemyGunShip;
+
     private PowerUpSpeed powerUpSpeed;
     private int asteroidSpawnTime, repaintTime = 22;
     private hitRegistration hitReg = new hitRegistration();
     private Levelinfo levelinfo = new Levelinfo();
-    private boolean shot = false, wIsadded = false, dIsadded = false,
+    private boolean shot = false, wIsadded = false, dIsadded = false, bossFight = false,
             sIsadded = false, aIsadded = false, spaceIsadded = false, gameOver = false;
 
     //ArrayLists
     private ArrayList<String> keys;
     private ArrayList<Asteroid> asteroids;
+    private ArrayList<EnemyGunShip> enemyGunShips;
 
     //Sounds && music
     private final Sound levelMusic = new Sound("audio/music/level1music.wav");
     private final Sound explosion = new Sound("audio/explosion.wav");
     private final Sound gameOverMusic = new Sound("audio/music/gameOver.wav");
     private final Sound hurtSound = new Sound("audio/hurt_sound.wav");
+    private final Sound hitRock = new Sound("audio/hit_rock.wav");
+    private final Sound boostSound = new Sound("audio/boost.wav");
+
     //Timers
-    private Timer paintTimer, asteroidTimer, bulletLimiter, moveTimer;
+    private Timer paintTimer, bulletLimiter, enemyGunShipTimer;
 
     //images
     private final Image backGroundImg = ImageIO.read(new File("Textures/Background.png"));
@@ -64,20 +71,20 @@ public class Paneel extends JPanel implements KeyListener
         powerUpSpeed = new PowerUpSpeed(300, 300);
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
+        enemyGunShips = new ArrayList<EnemyGunShip>();
         asteroidSpawnTime = 3500;
         hitReg.start();
 
-        //Timers
+        //Timers && Threads
         paintTimer = new Timer(repaintTime, new paintTimerHandler());
         paintTimer.start();
-        asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
-        asteroidTimer.start();
-        System.out.println(asteroidTimer.isRunning());
+        enemyGunShipTimer = new Timer(888, new enemyGunShipTimerHandler());
+        enemyGunShipTimer.start();
         bulletLimiter = new Timer(100, new bulletLimitHandler());
         bulletLimiter.start();
         new moveHandler().start();
         new levelHandler().start();
-
+        new asteroidHandler().start();
     }
 
     @Override
@@ -110,6 +117,12 @@ public class Paneel extends JPanel implements KeyListener
                 gunShip.draw(g);
                 powerUpSpeed.draw(g);
             }
+            enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
+            {
+                enemyGunShip.draw(g);
+                enemyGunShip.Ydestination = gunShip.getY();
+                enemyGunShip.Xdestination = gunShip.getX();
+            });
             asteroids.forEach((Asteroid asteroid) ->
             {
                 if (asteroid.isAlive())
@@ -166,7 +179,8 @@ public class Paneel extends JPanel implements KeyListener
     }
 
     @Override
-    public void keyReleased(KeyEvent e)
+    public void keyReleased(KeyEvent e
+    )
     {
         try
         {
@@ -207,13 +221,6 @@ public class Paneel extends JPanel implements KeyListener
         }
     }
 
-    public void updateTimer()
-    {
-        asteroidTimer.stop();
-        asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
-        asteroidTimer.start();
-    }
-
     public void restartGame()
     {
         System.out.println("Game has been reset!");
@@ -232,6 +239,17 @@ public class Paneel extends JPanel implements KeyListener
         gameOver = false;
     }
 
+    public void trySleep(int ms)
+    {
+        try
+        {
+            Thread.sleep(ms);
+        } catch (InterruptedException e)
+        {
+            System.out.println(e);
+        }
+    }
+
     private class hitRegistration extends Thread
     {
 
@@ -240,13 +258,9 @@ public class Paneel extends JPanel implements KeyListener
         {
             while (true)
             {
-                try
-                {
-                    registrateHits();
-                    Thread.sleep(repaintTime);
-                } catch (InterruptedException e)
-                {
-                }
+                registrateHits();
+                trySleep(repaintTime);
+
             }
         }
 
@@ -254,33 +268,34 @@ public class Paneel extends JPanel implements KeyListener
         {
             try
             {
+                //looping trough all the Astroids on the screen
                 asteroids.forEach((Asteroid asteroid) ->
                 {
                     //checking if the gunship is getting hit by a asteroid
-                    if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX())
+                    if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX()
+                            && gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
                     {
-                        if (gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
-                        {
-                            gunShip.hp -= 10;
-                            hurtSound.play();
-                        }
+
+                        gunShip.hp -= 10;
+                        hurtSound.play();
+
                     }
                     //checking if the bullets are hitting a asteroid
                     gunShip.bullets.forEach((bullet) ->
                     {
                         if (!bullet.dead && bullet.isAlive())
                         {
-                            if (bullet.getX() < asteroid.getX() + 15 && bullet.getX() > asteroid.getX())
+                            if (bullet.getX() < asteroid.getX() + 15 && bullet.getX() > asteroid.getX()
+                                    && bullet.getY() < asteroid.getY() + 50 && bullet.getY() > asteroid.getY())
                             {
-                                if (bullet.getY() < asteroid.getY() + 50 && bullet.getY() > asteroid.getY())
-                                {
-                                    bullet.dead();
-                                    bullet.stop();
-                                    asteroid.hp -= 10;
-                                    Sound hitRock = new Sound("audio/hit_rock.wav");
-                                    hitRock.play();
-                                }
+                                bullet.dead();//setting dead to true
+                                bullet.stop();//stoping bullet thread
+                                asteroid.hp -= 10;
+                                hitRock.play();
                             }
+                        } else
+                        {
+                            gunShip.bullets.remove(bullet);
                         }
                     });
                     //removing a asteroid if hp is below 0
@@ -288,22 +303,42 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         levelinfo.asteroidDeathCount++;
                         asteroid.stop();
-                        asteroids.remove(asteroid);
                         explosion.play();
+                    }
+                    if (!asteroid.isAlive())
+                    {
+                        asteroids.remove(asteroid);
                     }
                 });
                 //checking if the gunship is getting hit by a power up
-                if (gunShip.hp > 0 && gunShip.getX() < powerUpSpeed.getX() + 30 && gunShip.getX() > powerUpSpeed.getX())
+                if (gunShip.hp > 0 && gunShip.getX() < powerUpSpeed.getX() + 30 && gunShip.getX() > powerUpSpeed.getX()
+                        && gunShip.getY() < powerUpSpeed.getY() + 18 && gunShip.getY() > powerUpSpeed.getY())
                 {
-                    if (gunShip.getY() < powerUpSpeed.getY() + 18 && gunShip.getY() > powerUpSpeed.getY())
-                    {
-                        gunShip.speed += 1;
-                        powerUpSpeed.x = -1000;
-                        powerUpSpeed.y = -1000;
-                        Sound boostSound = new Sound("audio/boost.wav");
-                        boostSound.play();
-                    }
+                    gunShip.speed += 1;
+                    powerUpSpeed.x = -1000;
+                    powerUpSpeed.y = -1000;
+                    boostSound.play();
                 }
+                enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
+                {
+                    enemyGunShip.bullets.forEach((EnemyBullet bullet) ->
+                    {
+                        if (!bullet.dead && bullet.isAlive())
+                        {
+                            if (bullet.getX() < gunShip.getX() + 15 && bullet.getX() > gunShip.getX()
+                                    && bullet.getY() < gunShip.getY() + 50 && bullet.getY() > gunShip.getY())
+                            {
+                                bullet.dead();//setting dead to true
+                                bullet.stop();//stoping bullet thread
+                                gunShip.hp -= 10;
+                                hurtSound.play();
+                            }
+                        } else
+                        {
+                            gunShip.bullets.remove(bullet);
+                        }
+                    });
+                });
             } catch (ConcurrentModificationException ex)
             {
             }
@@ -318,35 +353,30 @@ public class Paneel extends JPanel implements KeyListener
         {
             while (true)
             {
-                if (levelinfo.asteroidDeathCount < 1)
+                /*if (levelinfo.asteroidDeathCount < 1)
                 {
                     asteroidSpawnTime = 3500;
-                    //asteroidTimer.stop();
-                    //asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
-                    //asteroidTimer.start();
                     levelinfo.level = 1;
-                } else if (levelinfo.asteroidDeathCount >= 2 && levelinfo.asteroidDeathCount < 3)
+                } else if (levelinfo.asteroidDeathCount >= 25 && levelinfo.asteroidDeathCount < 50)
                 {
                     asteroidSpawnTime = 2500;
                     levelinfo.level = 2;
-                } else if (levelinfo.asteroidDeathCount >= 3 && levelinfo.asteroidDeathCount < 4)
+                } else if (levelinfo.asteroidDeathCount >= 50 && levelinfo.asteroidDeathCount < 75)
                 {
                     asteroidSpawnTime = 1500;
                     levelinfo.level = 3;
-                } else if (levelinfo.asteroidDeathCount >= 4 && levelinfo.asteroidDeathCount < 5)
+                } else */
+                if (levelinfo.asteroidDeathCount >= 75)
                 {
+                    bossFight = true;
                     levelinfo.level = 4;
-                } else if (levelinfo.asteroidDeathCount >= 5)
+                } else if (levelinfo.isBossDead)
                 {
-                    asteroidSpawnTime = 1250;
+                    bossFight = false;
+                    asteroidSpawnTime = 1000;
                     levelinfo.level = 5;
                 }
-                try
-                {
-                    Thread.sleep(repaintTime);
-                } catch (InterruptedException e)
-                {
-                }
+                trySleep(repaintTime);
             }
         }
     }
@@ -360,12 +390,7 @@ public class Paneel extends JPanel implements KeyListener
             while (true)
             {
                 move();
-                try
-                {
-                    Thread.sleep(repaintTime);
-                } catch (InterruptedException e)
-                {
-                }
+                trySleep(repaintTime);
             }
         }
 
@@ -406,6 +431,38 @@ public class Paneel extends JPanel implements KeyListener
         }
     }
 
+    class asteroidHandler extends Thread
+    {
+
+        @Override
+        public void run()
+        {
+            trySleep(4000);
+            while (true)
+            {
+                if (!bossFight)
+                {
+                    addAsteroid();
+                }
+                trySleep(asteroidSpawnTime);
+            }
+        }
+
+        public void addAsteroid()
+        {
+            Asteroid asteroid = null;
+            try
+            {
+                asteroid = new Asteroid();
+            } catch (IOException ex)
+            {
+            }
+            asteroid.start();
+            asteroids.add(asteroid);
+            System.out.println("asteroid added");
+        }
+    }
+
     class paintTimerHandler implements ActionListener
     {
 
@@ -424,30 +481,27 @@ public class Paneel extends JPanel implements KeyListener
         {
             if (shot)
             {
-                System.out.println("Bullet limit reset!");
                 shot = false;
             }
         }
     }
 
-    class asteroidTimerHandler implements ActionListener
+    class enemyGunShipTimerHandler implements ActionListener
     {
+
+        private Random rand = new Random();
 
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("test");
-            Asteroid asteroid = null;
             try
             {
-                asteroid = new Asteroid();
+                EnemyGunShip enemyGunShip = new EnemyGunShip(rand.nextInt(780) + 100);
+                enemyGunShip.start();
+                enemyGunShips.add(enemyGunShip);
             } catch (IOException ex)
             {
-                Logger.getLogger(Paneel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            asteroid.start();
-            asteroids.add(asteroid);
-            System.out.println("asteroid added");
         }
     }
 }

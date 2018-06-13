@@ -36,7 +36,7 @@ public class Asteroid extends Thread
         this.rotationSpeed = rand.nextInt(5);
         this.hp = 100;
         this.x = -50;
-        this.y = rand.nextInt(600) + 50;
+        this.y = rand.nextInt(780) + 100;
     }
 
     public int getX()
@@ -59,7 +59,7 @@ public class Asteroid extends Thread
     {
         while (true)
         {
-            if (x > 2600)
+            if (x > 2000)
             {
                 System.out.println("asteroid thread stopped.");
                 this.stop();
