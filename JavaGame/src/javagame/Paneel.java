@@ -54,7 +54,10 @@ public class Paneel extends JPanel implements KeyListener
 
     public Paneel() throws IOException
     {
+        //levelMusic.playBackgroundMusic();
+        levelMusic.start();
         levelMusic.playBackgroundMusic();
+
         gunShip = new GunShip(1150, 360);
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
@@ -86,6 +89,10 @@ public class Paneel extends JPanel implements KeyListener
                 if (!gameOver)
                 {
                     levelMusic.stopMusic();
+                    if (!gameOverMusic.isAlive())
+                    {
+                        gameOverMusic.start();
+                    }
                     gameOverMusic.playBackgroundMusic();
                     gameOver = true;
                 }
@@ -210,6 +217,7 @@ public class Paneel extends JPanel implements KeyListener
         gunShip.hp = 100;
         gunShip.x = 1150;
         gunShip.y = 360;
+
         gameOverMusic.stopMusic();
         levelMusic.playBackgroundMusic();
         gameOver = false;
@@ -239,7 +247,6 @@ public class Paneel extends JPanel implements KeyListener
             {
                 asteroids.forEach((Asteroid asteroid) ->
                 {
-                    System.out.println(asteroid.rotationSpeed + " : " + asteroid.rotation);
                     //checking if the gunship is getting hit by a asteroid
                     if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX())
                     {
