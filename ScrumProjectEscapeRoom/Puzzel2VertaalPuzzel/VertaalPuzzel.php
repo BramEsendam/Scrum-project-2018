@@ -2,34 +2,38 @@
 
 include '../Layout/IncludeHeader.php';
 
+
 ?>
 <div id="puzzel2Vertaal">
-    <div id="right">
+    <div id="left">
         <h2>puzzle2: Translate</h2>
-        <p>Use the Alphabet to translate the text</p>
-        <p>ՇՔҶӃԐՇӪԹՔ</p>
+        <p>Hello stranger.<Br>
+            You have found the translation of the space alphabet to your alphabet.<br>
+            Now you need to translate the word and send it to the pc.<br>
+            The pc will tell you if you are right.<br>
+            Good luck with translating.</p>
+        <p>ՐՊҶխՇԠҶՐԹխԘ ՐӪԹՇ ՐԐճՐ ՇԒӃՋՇ</p>
         <form method="post">
             The word is: <input type="text" name="inputText">
-            <input type="submit" value="sumbit" name="submit">
+            <input type="submit" value="Submit" name="submit">
         </form>
         <?php
 
         if(!empty($_POST['inputText'])){
             $word = $_POST['inputText'];
 
-            if ($word == 'spaceship' || $word == 'Galaxy') {
-                ?>
-                <p><?php  echo "Goedzo"?></p>
-                <?php
-            } else {
-                ?>
-                <p><?php  echo "probeer het opnieuw"?></p>
-                <?php
+            if ($word == 'translating this text sucks') { ?>
+                <p><?php  echo "Well done!<br> This is your number that you will need to escape: 2"?></p>
+                <form action="../Puzzel3KruiswoordPuzzel/Kruiswoordpuzzel.php" method="get"> <input type="submit" value="NextPuzzle" name="next"></form> <?php
+
+            } else { ?>
+                <p><?php  echo "Wrong answer"?></p> <?php
             }
         }
+
         ?>
     </div>
-    <div id="left">
+    <div id="right">
         <table>
             <tr>
                 <td>a = Ҷ</td>
@@ -81,5 +85,5 @@ include '../Layout/IncludeHeader.php';
 </div>
 
 <?php
-    include '../Layout/IncludeFooter.php';
+include '../Layout/IncludeFooter.php';
 ?>
