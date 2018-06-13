@@ -146,7 +146,7 @@ public class Paneel extends JPanel implements KeyListener
             keys.add("s");
             sIsadded = true;
 
-        } else if (e.getKeyCode() == KeyEvent.VK_SPACE && !spaceIsadded)
+        } else if (e.getKeyCode() == KeyEvent.VK_SPACE && !spaceIsadded && gunShip.hp > 0)
         {
             keys.add("space");
             spaceIsadded = true;
@@ -166,27 +166,29 @@ public class Paneel extends JPanel implements KeyListener
         {
             keys.forEach((key) ->
             {
-                if (key.equals("w"))
+                String keyChar = ""+e.getKeyChar();
+                System.out.println(e.getKeyCode());
+                if (key.equals(keyChar) && key.equals("w"))
                 {
                     System.out.println("Remove W");
                     keys.remove("w");
                     wIsadded = false;
-                } else if (key.equals("s"))
+                } else if (key.equals(keyChar) && key.equals("s"))
                 {
                     System.out.println("Remove S");
                     keys.remove("s");
                     sIsadded = false;
-                } else if (key.equals("d"))
+                } else if (key.equals(keyChar) && key.equals("d"))
                 {
                     System.out.println("Remove D");
                     keys.remove("d");
                     dIsadded = false;
-                } else if (key.equals("a"))
+                } else if (key.equals(keyChar) && key.equals("a"))
                 {
                     System.out.println("Remove A");
                     keys.remove("a");
                     aIsadded = false;
-                } else if (key.equals("space"))
+                } else if (e.getKeyCode() == 32 && key.equals("space"))
                 {
                     System.out.println("Remove space");
                     keys.remove("space");
@@ -296,7 +298,7 @@ public class Paneel extends JPanel implements KeyListener
                 {
                     if (gunShip.getY() < powerUpSpeed.getY() + 18 && gunShip.getY() > powerUpSpeed.getY())
                     {
-                        gunShip.speed += 2;
+                        gunShip.speed += 1;
                     }
                 }
             } 

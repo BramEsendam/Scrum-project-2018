@@ -49,7 +49,6 @@ public class GunShip
             {
                 bullet.draw(g);
             }
-
         });
     }
 
