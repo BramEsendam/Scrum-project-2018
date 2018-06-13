@@ -12,6 +12,9 @@ include '../Layout/IncludeHeader.php';
 <body>
 	<div id="container">
 
+		<div id="kruiswoordPuzzelBlokken">
+			<div id="kruiswoordMain">
+
 		<!-- rij 1 -->
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="s" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
@@ -19,8 +22,8 @@ include '../Layout/IncludeHeader.php';
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="u" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="r" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="n" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="m" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="o" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="o" disabled="disabled">
@@ -28,59 +31,59 @@ include '../Layout/IncludeHeader.php';
 
 		<!-- rij 2 -->
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="u" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="r" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="o" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="r" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
 
 		<!-- rij 3 -->
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="n" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="m" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" placeholder="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="b" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="s" disabled="disabled">
 
 
 		<!-- rij 4 -->
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1" value="g" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="e" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1" placeholder="2/3">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" >
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="n" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="e" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="r" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1" value="a" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1" value="l" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="i" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
 
 		<!-- rij 5 -->
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="r" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="u" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="r" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" >
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="t" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 
 		<!-- rij 6 -->
@@ -91,23 +94,23 @@ include '../Layout/IncludeHeader.php';
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="e" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="c" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="s" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1" value="x" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1" placeholder="4">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="p" disabled="disabled">
 
 		<!-- rij 7 -->
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="v" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="-" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="l" disabled="disabled">
 
@@ -122,39 +125,39 @@ include '../Layout/IncludeHeader.php';
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="r" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
 
 		<!-- rij 9 -->
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="t" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" >
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="o" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" >
+		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="n" disabled="disabled">
 
 		<!-- rij 10 -->
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1" value="y" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhiteWord"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="f" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="l" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="y" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="b" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="y" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="e" disabled="disabled">
 
 		<!-- rij 11 -->
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
@@ -165,28 +168,47 @@ include '../Layout/IncludeHeader.php';
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" value="t" disabled="disabled">
+		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="t" disabled="disabled">
 
 		<!-- rij 12 -->
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="l" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="u" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="n" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="r" disabled="disabled">
-		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1">
+		<input onkeydown="KeyCode(event)" class="buttonsBlack"  type="text" maxlength="1" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsBlack" disabled="disabled" type="text" maxlength="1">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="m" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="a" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="s" disabled="disabled">
 		<input onkeydown="KeyCode(event)" class="buttonsWhite"  type="text" maxlength="1" value="s" disabled="disabled">
 
+		
+		</div>
+<div id="inputVeldKruiswoord">
+
 		<form method="post">
-			The word is: <input type="text" name="inputText"> 
-			<input onclick="cijferAlert()" type="submit" value="submit" name="submit">
+			<b>The word is: </b><input type="text" name="inputText"> 
+			<input type="submit" value="submit" name="submit" onclick="cijferAlert">
 		</form>
 
+
+
+</div>
+		
+<div id="kruiswoordTekst">
+	<p> <span id="textPurple">Fill in the words starting at the blue numbers</span> <br><br>
+		1. What is the red planet called? (Vertical) <br><br>
+		2. If this isn't around, you can float trough the sky (Vertical) <br><br>
+		3. An officer in the highest, second, or third highest rank, as one ranking immediately below a field marshal in the British army. (Horizontal) <br><br>
+		4. Used in medicine as a diagnostic aid as parts of the body, such as bones (vertical)<br><br>
+		<span id="textPurple">The purple boxes make a word. Put the word in the textbox</span></p>
+</div>
+
+<div id="if">
 <?php 
+
 		$word = '';
 
 		if(!empty($_POST['inputText'])){
@@ -194,29 +216,30 @@ include '../Layout/IncludeHeader.php';
     		
     		if ($word == 'galaxy' || $word == 'Galaxy') {
     			?>
-					<p><?php  echo "Goedzo"?></p>
+					<p><?php  echo "You're answer was right! The next number is 5"?></p>
+    			<?php
+    		} elseif ($word == null ) {
+    			?>
+					<p><?php  echo "Try again"?></p>
     			<?php
     		} else {
     			?>
-					<p><?php  echo "probeer het opnieuw"?></p>
+					<p><?php  echo "Try again"?></p>
     			<?php
     		}
 		}
 ?>
-
 </div>
-
+</div>
 	</div>
 
 	<script>
-	function cijferAlert() {
-    	alert("1");
-	}
+	   
 	</script>
 
 </body>
 </html>
 
 <?php
-    include '../Layout/IncludeFooter.php';
+    include('../Layout/IncludeFooter.php') ;
 ?>
