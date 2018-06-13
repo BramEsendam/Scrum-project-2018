@@ -34,6 +34,7 @@ public class Paneel extends JPanel implements KeyListener
     private PowerUpSpeed powerUpSpeed;
     private int asteroidSpawnTime, repaintTime = 22;
     private hitRegistration hitReg = new hitRegistration();
+    private Levelinfo levelinfo = new Levelinfo();
     private boolean shot = false, wIsadded = false, dIsadded = false,
             sIsadded = false, aIsadded = false, spaceIsadded = false, gameOver = false;
 
@@ -45,7 +46,7 @@ public class Paneel extends JPanel implements KeyListener
     private final Sound levelMusic = new Sound("audio/music/level1music.wav");
     private final Sound explosion = new Sound("audio/explosion.wav");
     private final Sound gameOverMusic = new Sound("audio/music/gameOver.wav");
-
+    private final Sound hurtSound = new Sound("audio/hurt_sound.wav");
     //Timers
     private Timer paintTimer, asteroidTimer, bulletLimiter, moveTimer;
 
@@ -81,6 +82,7 @@ public class Paneel extends JPanel implements KeyListener
     {
         super.paintComponent(g);
         g.drawImage(backGroundImg, 0, 0, null);
+        levelinfo.draw(g);
         try
         {
             if (gunShip.hp <= 0)
@@ -97,6 +99,8 @@ public class Paneel extends JPanel implements KeyListener
                     }
                     gameOverMusic.playBackgroundMusic();
                     gameOver = true;
+                    levelinfo.totalTries++;
+                    levelinfo.asteroidDeathCount = 0;
                 }
             } else
             {
@@ -152,6 +156,7 @@ public class Paneel extends JPanel implements KeyListener
             spaceIsadded = true;
         } else if (e.getKeyCode() == KeyEvent.VK_T)
         {
+            hurtSound.play();
             gunShip.hp -= 20;
         } else if (e.getKeyCode() == KeyEvent.VK_F1)
         {
@@ -259,11 +264,9 @@ public class Paneel extends JPanel implements KeyListener
                         if (gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
                         {
                             gunShip.hp -= 10;
-                            Sound hurtSound = new Sound("audio/hurt_sound.wav");
                             hurtSound.play();
                         }
                     }
-
                     //checking if the bullets are hitting a asteroid
                     gunShip.bullets.forEach((bullet) ->
                     {
@@ -287,8 +290,7 @@ public class Paneel extends JPanel implements KeyListener
                     //removing a asteroid if hp is below 0
                     if (asteroid.hp < 0)
                     {
-                        System.out.println(asteroid.hp);
-                        System.out.println("Asteroid destroyed");
+                        levelinfo.asteroidDeathCount++;
                         asteroid.stop();
                         asteroids.remove(asteroid);
                         explosion.play();
