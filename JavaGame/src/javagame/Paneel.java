@@ -302,6 +302,8 @@ public class Paneel extends JPanel implements KeyListener
                         gunShip.speed += 1;
                         powerUpSpeed.x = -1000;
                         powerUpSpeed.y = -1000;
+                        Sound boostSound = new Sound("audio/boost.wav");
+                        boostSound.play();
                     }
                 }
             } 
