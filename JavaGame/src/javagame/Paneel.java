@@ -101,7 +101,7 @@ public class Paneel extends JPanel implements KeyListener
             } else
             {
                 gunShip.draw(g);
-                //powerUpSpeed.draw(g);
+                powerUpSpeed.draw(g);
             }
             asteroids.forEach((Asteroid asteroid) ->
             {
@@ -288,9 +288,9 @@ public class Paneel extends JPanel implements KeyListener
                     }
                 });
                 //checking if the gunship is getting hit by a power up
-                if (gunShip.hp > 0 && gunShip.getX() < powerUpSpeed.getX() + 5 && gunShip.getX() > powerUpSpeed.getX())
+                if (gunShip.hp > 0 && gunShip.getX() < powerUpSpeed.getX() + 30 && gunShip.getX() > powerUpSpeed.getX())
                 {
-                    if (gunShip.getY() < powerUpSpeed.getY() + 50 && gunShip.getY() > powerUpSpeed.getY())
+                    if (gunShip.getY() < powerUpSpeed.getY() + 18 && gunShip.getY() > powerUpSpeed.getY())
                     {
                         gunShip.speed += 2;
                     }
