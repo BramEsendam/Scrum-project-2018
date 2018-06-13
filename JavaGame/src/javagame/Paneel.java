@@ -190,6 +190,22 @@ public class Paneel extends JPanel implements KeyListener
         } else if (e.getKeyCode() == KeyEvent.VK_F1)
         {
             restartGame();
+        } else if (e.getKeyCode() == KeyEvent.VK_F5)
+        {
+            levelinfo.asteroidDeathCount = 75;
+            bossStage = 1;
+        } else if (e.getKeyCode() == KeyEvent.VK_F6)
+        {
+            levelinfo.asteroidDeathCount = 75;
+            bossStage = 2;
+        } else if (e.getKeyCode() == KeyEvent.VK_F7)
+        {
+            levelinfo.asteroidDeathCount = 75;
+            bossStage = 3;
+        } else if (e.getKeyCode() == KeyEvent.VK_F8)
+        {
+            levelinfo.asteroidDeathCount = 75;
+            bossStage = 4;
         }
     }
 
@@ -412,6 +428,21 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         System.out.println("stage 1");
                         bossStage1Music.playBackgroundMusic();
+                    } else if (bossStage == 2 && !bossStage2Music.isPlaying())
+                    {
+                        bossStage1Music.stopMusic();
+                        System.out.println("stage 2");
+                        bossStage2Music.playBackgroundMusic();
+                    } else if (bossStage == 3 && !bossStage3Music.isPlaying())
+                    {
+                        bossStage2Music.stopMusic();
+                        System.out.println("stage 3");
+                        bossStage3Music.playBackgroundMusic();
+                    } else if (bossStage == 4 && !bossFinalStageMusic.isPlaying())
+                    {
+                        bossStage3Music.stopMusic();
+                        System.out.println("stage 4");
+                        bossFinalStageMusic.playBackgroundMusic();
                     }
                     levelinfo.level = 4;
                 } else if (levelinfo.isBossDead)

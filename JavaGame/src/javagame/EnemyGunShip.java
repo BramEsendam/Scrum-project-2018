@@ -25,7 +25,7 @@ public class EnemyGunShip extends Thread
 {
 
     public ArrayList<EnemyBullet> bullets;
-    public int x, y, height, width, yFirstGun, yNextGun, damage, bulletSize, hp = 50, level, speed = 3, Ydestination = 360, Xdestination = 1150;
+    public int x, y, height, width, yFirstGun, yNextGun, damage, bulletSize, hp = 50, level, Ydestination = 360, Xdestination = 1150;
     private Image gunShipImg;
     public Timer Level1ShootTimer = new Timer(1500, new shootHandler()), Level2ShootTimer = new Timer(1200, new shootHandler()), Level3ShootTimer = new Timer(950, new shootHandler());
     private boolean dubbelLaser, swapGun = true;
