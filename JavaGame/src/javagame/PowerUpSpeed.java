@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 
 public class PowerUpSpeed {
-    private int x, y;
+    public int x, y;
     private Image powerUpImg;
     
     public PowerUpSpeed(int x, int y) throws IOException

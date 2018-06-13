@@ -220,7 +220,8 @@ public class Paneel extends JPanel implements KeyListener
         gunShip.hp = 100;
         gunShip.x = 1150;
         gunShip.y = 360;
-
+        gunShip.speed = 3;
+        
         gameOverMusic.stopMusic();
         levelMusic.playBackgroundMusic();
         gameOver = false;
@@ -296,7 +297,9 @@ public class Paneel extends JPanel implements KeyListener
                 {
                     if (gunShip.getY() < powerUpSpeed.getY() + 18 && gunShip.getY() > powerUpSpeed.getY())
                     {
-                        gunShip.speed += 2;
+                        gunShip.speed += 1;
+                        powerUpSpeed.x = -1000;
+                        powerUpSpeed.y = -1000;
                     }
                 }
             } 
