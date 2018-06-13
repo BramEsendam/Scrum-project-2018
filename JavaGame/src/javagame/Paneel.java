@@ -256,6 +256,8 @@ public class Paneel extends JPanel implements KeyListener
                         if (gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
                         {
                             gunShip.hp -= 10;
+                            Sound hurtSound = new Sound("audio/hurt_sound.wav");
+                            hurtSound.play();
                         }
                     }
 
@@ -272,6 +274,8 @@ public class Paneel extends JPanel implements KeyListener
                                     bullet.dead();
                                     bullet.stop();
                                     asteroid.hp -= 10;
+                                    Sound hitRock = new Sound("audio/hit_rock.wav");
+                                    hitRock.play();
                                 }
                             }
                         }
