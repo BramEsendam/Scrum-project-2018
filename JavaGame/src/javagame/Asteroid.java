@@ -65,10 +65,10 @@ public class Asteroid extends Thread
                 this.stop();
             }
             this.rotation += rotationSpeed;
-            this.x++;
+            this.x += 2;
             try
             {
-                Thread.sleep(10);
+                Thread.sleep(20);
             } catch (InterruptedException e)
             {
             }

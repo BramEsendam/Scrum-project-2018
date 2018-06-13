@@ -72,9 +72,12 @@ public class Paneel extends JPanel implements KeyListener
         paintTimer.start();
         asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
         asteroidTimer.start();
+        System.out.println(asteroidTimer.isRunning());
         bulletLimiter = new Timer(100, new bulletLimitHandler());
         bulletLimiter.start();
         new moveHandler().start();
+        new levelHandler().start();
+
     }
 
     @Override
@@ -116,7 +119,6 @@ public class Paneel extends JPanel implements KeyListener
             });
         } catch (ConcurrentModificationException e)
         {
-
         }
     }
 
@@ -130,7 +132,6 @@ public class Paneel extends JPanel implements KeyListener
     public void keyPressed(KeyEvent e
     )
     {
-        System.out.println("pres");
         if (e.getKeyCode() == KeyEvent.VK_D && !dIsadded)
         {
             keys.add("d");
@@ -171,7 +172,7 @@ public class Paneel extends JPanel implements KeyListener
         {
             keys.forEach((key) ->
             {
-                String keyChar = ""+e.getKeyChar();
+                String keyChar = "" + e.getKeyChar();
                 System.out.println(e.getKeyCode());
                 if (key.equals(keyChar) && key.equals("w"))
                 {
@@ -201,15 +202,12 @@ public class Paneel extends JPanel implements KeyListener
                 }
 
             });
-            System.out.println("x: " + gunShip.x);
-            System.out.println("y: " + gunShip.y);
         } catch (ConcurrentModificationException ex)
         {
-
         }
     }
 
-    public void updateTimers()
+    public void updateTimer()
     {
         asteroidTimer.stop();
         asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
@@ -228,7 +226,7 @@ public class Paneel extends JPanel implements KeyListener
         gunShip.x = 1150;
         gunShip.y = 360;
         gunShip.speed = 3;
-        
+
         gameOverMusic.stopMusic();
         levelMusic.playBackgroundMusic();
         gameOver = false;
@@ -276,7 +274,6 @@ public class Paneel extends JPanel implements KeyListener
                             {
                                 if (bullet.getY() < asteroid.getY() + 50 && bullet.getY() > asteroid.getY())
                                 {
-                                    System.out.println("Bullet thread stopped");
                                     bullet.dead();
                                     bullet.stop();
                                     asteroid.hp -= 10;
@@ -286,7 +283,6 @@ public class Paneel extends JPanel implements KeyListener
                             }
                         }
                     });
-
                     //removing a asteroid if hp is below 0
                     if (asteroid.hp < 0)
                     {
@@ -308,10 +304,49 @@ public class Paneel extends JPanel implements KeyListener
                         boostSound.play();
                     }
                 }
-            } 
-            catch (ConcurrentModificationException ex)
+            } catch (ConcurrentModificationException ex)
             {
+            }
+        }
+    }
 
+    private class levelHandler extends Thread
+    {
+
+        @Override
+        public void run()
+        {
+            while (true)
+            {
+                if (levelinfo.asteroidDeathCount < 1)
+                {
+                    asteroidSpawnTime = 3500;
+                    //asteroidTimer.stop();
+                    //asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
+                    //asteroidTimer.start();
+                    levelinfo.level = 1;
+                } else if (levelinfo.asteroidDeathCount >= 2 && levelinfo.asteroidDeathCount < 3)
+                {
+                    asteroidSpawnTime = 2500;
+                    levelinfo.level = 2;
+                } else if (levelinfo.asteroidDeathCount >= 3 && levelinfo.asteroidDeathCount < 4)
+                {
+                    asteroidSpawnTime = 1500;
+                    levelinfo.level = 3;
+                } else if (levelinfo.asteroidDeathCount >= 4 && levelinfo.asteroidDeathCount < 5)
+                {
+                    levelinfo.level = 4;
+                } else if (levelinfo.asteroidDeathCount >= 5)
+                {
+                    asteroidSpawnTime = 1250;
+                    levelinfo.level = 5;
+                }
+                try
+                {
+                    Thread.sleep(repaintTime);
+                } catch (InterruptedException e)
+                {
+                }
             }
         }
     }
@@ -327,7 +362,7 @@ public class Paneel extends JPanel implements KeyListener
                 move();
                 try
                 {
-                    Thread.sleep(27);
+                    Thread.sleep(repaintTime);
                 } catch (InterruptedException e)
                 {
                 }
@@ -401,20 +436,18 @@ public class Paneel extends JPanel implements KeyListener
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if (!gameOver)
+            System.out.println("test");
+            Asteroid asteroid = null;
+            try
             {
-                Asteroid asteroid = null;
-                try
-                {
-                    asteroid = new Asteroid();
-                } catch (IOException ex)
-                {
-                    Logger.getLogger(Paneel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                asteroid.start();
-                asteroids.add(asteroid);
-                System.out.println("asteroid added");
+                asteroid = new Asteroid();
+            } catch (IOException ex)
+            {
+                Logger.getLogger(Paneel.class.getName()).log(Level.SEVERE, null, ex);
             }
+            asteroid.start();
+            asteroids.add(asteroid);
+            System.out.println("asteroid added");
         }
     }
 }

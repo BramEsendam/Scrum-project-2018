@@ -22,7 +22,7 @@ public class Levelinfo
 
     //images
     private Image level1Text, level2Text, level3Text, bossFightText;
-    public int level = 1, x = 710, y = 10, deathCount = 0, asteroidDeathCount = 0;
+    public int level = 1, x = 710, y = 10, totalTries = 0, asteroidDeathCount = 0;
     
     public Levelinfo()
     {
@@ -55,7 +55,7 @@ public class Levelinfo
 
         } else if (level == 4)
         {
-            g.drawImage(bossFightText, x, y, null);
+            g.drawImage(bossFightText, x - 150, y, null);
 
         } else if (level == 5)
         {
