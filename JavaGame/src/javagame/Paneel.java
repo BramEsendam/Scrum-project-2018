@@ -31,6 +31,7 @@ public class Paneel extends JPanel implements KeyListener
 {
 
     private GunShip gunShip;
+    private PowerUpSpeed powerUpSpeed;
     private int asteroidSpawnTime, repaintTime = 22;
     private hitRegistration hitReg = new hitRegistration();
     private boolean shot = false, wIsadded = false, dIsadded = false,
@@ -56,6 +57,7 @@ public class Paneel extends JPanel implements KeyListener
     {
         levelMusic.playBackgroundMusic();
         gunShip = new GunShip(1150, 360);
+        powerUpSpeed = new PowerUpSpeed(300, 300);
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
         asteroidSpawnTime = 3500;
@@ -92,6 +94,7 @@ public class Paneel extends JPanel implements KeyListener
             } else
             {
                 gunShip.draw(g);
+                //powerUpSpeed.draw(g);
             }
             asteroids.forEach((Asteroid asteroid) ->
             {
@@ -277,7 +280,16 @@ public class Paneel extends JPanel implements KeyListener
                         explosion.play();
                     }
                 });
-            } catch (ConcurrentModificationException ex)
+                //checking if the gunship is getting hit by a power up
+                if (gunShip.hp > 0 && gunShip.getX() < powerUpSpeed.getX() + 5 && gunShip.getX() > powerUpSpeed.getX())
+                {
+                    if (gunShip.getY() < powerUpSpeed.getY() + 50 && gunShip.getY() > powerUpSpeed.getY())
+                    {
+                        gunShip.speed += 2;
+                    }
+                }
+            } 
+            catch (ConcurrentModificationException ex)
             {
 
             }
