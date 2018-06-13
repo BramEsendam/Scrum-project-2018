@@ -31,7 +31,8 @@ public class Paneel extends JPanel implements KeyListener
 {
 
     private GunShip gunShip;
-    private int asteroidSpawnTime;
+    private int asteroidSpawnTime, repaintTime = 22;
+    private hitRegistration hitReg = new hitRegistration();
     private boolean shot = false, wIsadded = false, dIsadded = false,
             sIsadded = false, aIsadded = false, spaceIsadded = false, gameOver = false;
 
@@ -53,14 +54,15 @@ public class Paneel extends JPanel implements KeyListener
 
     public Paneel() throws IOException
     {
-        System.out.println("tessadfsdf");
         levelMusic.playBackgroundMusic();
         gunShip = new GunShip(1150, 360);
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
         asteroidSpawnTime = 3500;
+        hitReg.start();
+
         //Timers
-        paintTimer = new Timer(22, new paintTimerHandler());
+        paintTimer = new Timer(repaintTime, new paintTimerHandler());
         paintTimer.start();
         asteroidTimer = new Timer(asteroidSpawnTime, new asteroidTimerHandler());
         asteroidTimer.start();
@@ -79,6 +81,8 @@ public class Paneel extends JPanel implements KeyListener
             if (gunShip.hp <= 0)
             {
                 g.drawImage(youLoseImg, 730, 350, null);
+                g.setColor(Color.red);
+                g.drawString("Press F1 to respawn!", 875, 525);
                 if (!gameOver)
                 {
                     levelMusic.stopMusic();
@@ -91,42 +95,7 @@ public class Paneel extends JPanel implements KeyListener
             }
             asteroids.forEach((Asteroid asteroid) ->
             {
-                //checking if the gunship is getting hit by a asteroid
-                if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX())
-                {
-                    if (gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
-                    {
-                        gunShip.hp -= 10;
-                    }
-                }
-
-                //checking if the bullets are hitting a asteroid
-                gunShip.bullets.forEach((bullet) ->
-                {
-                    if (!bullet.dead && bullet.isAlive())
-                    {
-                        if (bullet.getX() < asteroid.getX() + 15 && bullet.getX() > asteroid.getX())
-                        {
-                            if (bullet.getY() < asteroid.getY() + 50 && bullet.getY() > asteroid.getY())
-                            {
-                                System.out.println("Bullet thread stopped");
-                                bullet.dead();
-                                bullet.stop();
-                                asteroid.hp -= 10;
-                            }
-                        }
-                    }
-                });
-
-                //removing a asteroid if hp is below 0
-                if (asteroid.hp < 0)
-                {
-                    System.out.println(asteroid.hp);
-                    System.out.println("Asteroid destroyed");
-                    asteroid.stop();
-                    asteroids.remove(asteroid);
-                    explosion.play();
-                } else
+                if (asteroid.isAlive())
                 {
                     asteroid.draw(g);
                 }
@@ -138,12 +107,14 @@ public class Paneel extends JPanel implements KeyListener
     }
 
     @Override
-    public void keyTyped(KeyEvent e)
+    public void keyTyped(KeyEvent e
+    )
     {
     }
 
     @Override
-    public void keyPressed(KeyEvent e)
+    public void keyPressed(KeyEvent e
+    )
     {
         System.out.println("pres");
         if (e.getKeyCode() == KeyEvent.VK_D && !dIsadded)
@@ -181,7 +152,6 @@ public class Paneel extends JPanel implements KeyListener
     @Override
     public void keyReleased(KeyEvent e)
     {
-        System.out.println("test");
         try
         {
             keys.forEach((key) ->
@@ -245,13 +215,72 @@ public class Paneel extends JPanel implements KeyListener
         gameOver = false;
     }
 
-    private class btnResetGame implements ActionListener
+    private class hitRegistration extends Thread
     {
 
         @Override
-        public void actionPerformed(ActionEvent e)
+        public void run()
         {
-            restartGame();
+            while (true)
+            {
+                try
+                {
+                    registrateHits();
+                    Thread.sleep(repaintTime);
+                } catch (InterruptedException e)
+                {
+                }
+            }
+        }
+
+        public void registrateHits()
+        {
+            try
+            {
+                asteroids.forEach((Asteroid asteroid) ->
+                {
+                    System.out.println(asteroid.rotationSpeed + " : " + asteroid.rotation);
+                    //checking if the gunship is getting hit by a asteroid
+                    if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX())
+                    {
+                        if (gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
+                        {
+                            gunShip.hp -= 10;
+                        }
+                    }
+
+                    //checking if the bullets are hitting a asteroid
+                    gunShip.bullets.forEach((bullet) ->
+                    {
+                        if (!bullet.dead && bullet.isAlive())
+                        {
+                            if (bullet.getX() < asteroid.getX() + 15 && bullet.getX() > asteroid.getX())
+                            {
+                                if (bullet.getY() < asteroid.getY() + 50 && bullet.getY() > asteroid.getY())
+                                {
+                                    System.out.println("Bullet thread stopped");
+                                    bullet.dead();
+                                    bullet.stop();
+                                    asteroid.hp -= 10;
+                                }
+                            }
+                        }
+                    });
+
+                    //removing a asteroid if hp is below 0
+                    if (asteroid.hp < 0)
+                    {
+                        System.out.println(asteroid.hp);
+                        System.out.println("Asteroid destroyed");
+                        asteroid.stop();
+                        asteroids.remove(asteroid);
+                        explosion.play();
+                    }
+                });
+            } catch (ConcurrentModificationException ex)
+            {
+
+            }
         }
     }
 
