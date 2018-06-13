@@ -81,14 +81,14 @@ public class Asteroid extends Thread
         rotate((BufferedImage) asteroidImg, g2d);
         if (hp != 100)
         {
-            g2d.setColor(Color.black);
-            g2d.drawRect(x + 5, y + 60, 50, 4);
-            g2d.setColor(Color.green);
-            g2d.fillRect(x + 6, y + 61, hp / 2, 3);
+            g.setColor(Color.black);
+            g.drawRect(x + 5, y + 60, 50, 4);
+            g.setColor(Color.green);
+            g.fillRect(x + 6, y + 61, hp / 2, 3);
         }
     }
 
-    public void rotate(BufferedImage inputImage, Graphics2D g2d)
+    public void rotate(BufferedImage inputImage, Graphics g)
     {
         double rotationRequired = Math.toRadians(this.rotation);
         double locationX = inputImage.getWidth() / 2;
@@ -97,6 +97,6 @@ public class Asteroid extends Thread
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
         // Drawing the rotated image at the required drawing locations
-        g2d.drawImage(op.filter(inputImage, null), this.x, this.y, null);
+        g.drawImage(op.filter(inputImage, null), this.x, this.y, null);
     }
 }

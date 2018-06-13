@@ -78,9 +78,9 @@ public class Paneel extends JPanel implements KeyListener
         //Timers && Threads
         paintTimer = new Timer(repaintTime, new paintTimerHandler());
         paintTimer.start();
-        enemyGunShipTimer = new Timer(888, new enemyGunShipTimerHandler());
+        enemyGunShipTimer = new Timer(11333, new enemyGunShipTimerHandler());
         enemyGunShipTimer.start();
-        bulletLimiter = new Timer(100, new bulletLimitHandler());
+        bulletLimiter = new Timer(123, new bulletLimitHandler());
         bulletLimiter.start();
         new moveHandler().start();
         new levelHandler().start();
@@ -119,9 +119,18 @@ public class Paneel extends JPanel implements KeyListener
             }
             enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
             {
-                enemyGunShip.draw(g);
-                enemyGunShip.Ydestination = gunShip.getY();
-                enemyGunShip.Xdestination = gunShip.getX();
+                if (enemyGunShip.hp > 0 && enemyGunShip.isAlive())
+                {
+                    enemyGunShip.draw(g);
+                    enemyGunShip.Ydestination = gunShip.getY();
+                    enemyGunShip.Xdestination = gunShip.getX();
+                } else
+                {
+                    enemyGunShip.shootTimer.stop();
+                    enemyGunShip.stop();
+                    enemyGunShips.remove(enemyGunShip);
+                }
+
             });
             asteroids.forEach((Asteroid asteroid) ->
             {
@@ -228,6 +237,17 @@ public class Paneel extends JPanel implements KeyListener
         {
             asteroid.stop();
         });
+        enemyGunShips.forEach((enemyGunShip) ->
+        {
+            enemyGunShip.bullets.forEach((bullet) ->
+            {
+                bullet.stop();
+            });
+            enemyGunShip.bullets.clear();
+            enemyGunShip.shootTimer.stop();
+            enemyGunShip.stop();
+        });
+        enemyGunShips.clear();
         asteroids.clear();
         gunShip.hp = 100;
         gunShip.x = 1150;
@@ -275,10 +295,8 @@ public class Paneel extends JPanel implements KeyListener
                     if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX()
                             && gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
                     {
-
                         gunShip.hp -= 10;
                         hurtSound.play();
-
                     }
                     //checking if the bullets are hitting a asteroid
                     gunShip.bullets.forEach((bullet) ->
@@ -290,9 +308,19 @@ public class Paneel extends JPanel implements KeyListener
                             {
                                 bullet.dead();//setting dead to true
                                 bullet.stop();//stoping bullet thread
-                                asteroid.hp -= 10;
+                                asteroid.hp -= 11;
                                 hitRock.play();
                             }
+                            enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
+                            {
+                                if (bullet.getX() < enemyGunShip.getX() + 15 && bullet.getX() > enemyGunShip.getX()
+                                        && bullet.getY() < enemyGunShip.getY() + 50 && bullet.getY() > enemyGunShip.getY() - 15)
+                                {
+                                    bullet.dead();//setting dead to true
+                                    bullet.stop();//stoping bullet thread
+                                    enemyGunShip.hp -= 13;
+                                }
+                            });
                         } else
                         {
                             gunShip.bullets.remove(bullet);
@@ -319,8 +347,10 @@ public class Paneel extends JPanel implements KeyListener
                     powerUpSpeed.y = -1000;
                     boostSound.play();
                 }
+                //looping trough all the enemyGunShips on the screen
                 enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
                 {
+                    //checking if the ennemy's bullets are hitting your gunship
                     enemyGunShip.bullets.forEach((EnemyBullet bullet) ->
                     {
                         if (!bullet.dead && bullet.isAlive())
@@ -331,7 +361,10 @@ public class Paneel extends JPanel implements KeyListener
                                 bullet.dead();//setting dead to true
                                 bullet.stop();//stoping bullet thread
                                 gunShip.hp -= 10;
-                                hurtSound.play();
+                                if (gunShip.hp > 0)
+                                {
+                                    hurtSound.play();
+                                }
                             }
                         } else
                         {
@@ -353,20 +386,19 @@ public class Paneel extends JPanel implements KeyListener
         {
             while (true)
             {
-                /*if (levelinfo.asteroidDeathCount < 1)
+                if (levelinfo.asteroidDeathCount < 25)
                 {
-                    asteroidSpawnTime = 3500;
+                    asteroidSpawnTime = 2750;
                     levelinfo.level = 1;
                 } else if (levelinfo.asteroidDeathCount >= 25 && levelinfo.asteroidDeathCount < 50)
                 {
-                    asteroidSpawnTime = 2500;
+                    asteroidSpawnTime = 2250;
                     levelinfo.level = 2;
                 } else if (levelinfo.asteroidDeathCount >= 50 && levelinfo.asteroidDeathCount < 75)
                 {
-                    asteroidSpawnTime = 1500;
+                    asteroidSpawnTime = 1250;
                     levelinfo.level = 3;
-                } else */
-                if (levelinfo.asteroidDeathCount >= 75)
+                } else if (levelinfo.asteroidDeathCount >= 75)
                 {
                     bossFight = true;
                     levelinfo.level = 4;
@@ -499,6 +531,7 @@ public class Paneel extends JPanel implements KeyListener
                 EnemyGunShip enemyGunShip = new EnemyGunShip(rand.nextInt(780) + 100);
                 enemyGunShip.start();
                 enemyGunShips.add(enemyGunShip);
+                System.out.println("Number of enemy's: " + enemyGunShips.size());
             } catch (IOException ex)
             {
             }

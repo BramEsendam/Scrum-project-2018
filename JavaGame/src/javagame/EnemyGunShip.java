@@ -24,10 +24,10 @@ public class EnemyGunShip extends Thread
 {
 
     public ArrayList<EnemyBullet> bullets;
-    public int x, y, hp = 100, speed = 3, Ydestination = 360, Xdestination = 1150;
+    public int x, y, hp = 50, speed = 3, Ydestination = 360, Xdestination = 1150;
     private Image gunShipImg;
-    private Timer shootTimer = new Timer(1500, new shootHandler());
-    
+    public Timer shootTimer = new Timer(1500, new shootHandler());
+
     public EnemyGunShip(int Y) throws IOException
     {
         this.gunShipImg = ImageIO.read(new File("Textures/EnemySpaceShip1.png"));
@@ -40,13 +40,20 @@ public class EnemyGunShip extends Thread
     public void draw(Graphics g)
     {
         g.drawImage(gunShipImg, x, y, null);
+        if (hp != 50)
+        {
+            g.setColor(Color.black);
+            g.drawRect(x + 5, y + 60, 50, 4);
+            g.setColor(Color.green);
+            g.fillRect(x + 6, y + 61, hp, 3);
+        }
         bullets.forEach((bullet) ->
         {
             if (this.x > 2000)
             {
                 bullet.stop();
                 bullets.remove(bullet);
-            } else
+            } else if(bullet.isAlive())
             {
                 bullet.draw(g);
             }
@@ -76,6 +83,16 @@ public class EnemyGunShip extends Thread
         EnemyBullet bullet = new EnemyBullet(this.x, this.y, Ydestination, Xdestination, Color.red);
         bullet.start();
         bullets.add(bullet);
+    }
+
+    public int getX()
+    {
+        return x;
+    }
+
+    public int getY()
+    {
+        return y;
     }
 
     private class shootHandler implements ActionListener
