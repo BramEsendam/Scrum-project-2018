@@ -180,16 +180,13 @@ public class Levelinfo
         scoreData temp;
         for (int i = 0; i < n; i++)
         {
-            for (int j = 1; j < (n - i); j++)
+            for (int a = 1; a < (n - i); a++)
             {
-                if (scores.get(j - 1).heighScore < scores.get(j).heighScore)
+                if (scores.get(a - 1).heighScore < scores.get(a).heighScore)
                 {
-                    //swap elements  
-                    temp = scores.get(j - 1);
-                    scores.remove(scores.get(j - 1));
-                    //scores.add(j - 1, scores.get(j));
-                    //scores.remove(scores.get(j));
-                    scores.add(j, temp);
+                    temp = scores.get(a - 1);
+                    scores.remove(scores.get(a - 1));
+                    scores.add(a, temp);
                 }
             }
         }
