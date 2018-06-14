@@ -113,23 +113,13 @@ public class Paneel extends JPanel implements KeyListener
                     endlessModeMusic.stopMusic();
                     gameOverMusic.playBackgroundMusic();
                     gameOver = true;
-                    bossFight = false;
                     bossShip.stopShootTimers();
-                    bossShip.hp = bossShip.totalHp;
-                    bossStage = 1;
                     levelinfo.totalTries++;
                     levelinfo.asteroidDeathCount = 0;
                     enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
                     {
                         enemyGunShip.stopShootTimers();
                     });
-                    try
-                    {
-                        bossShip = new BossGunShip();
-                    } catch (IOException ex)
-                    {
-                        Logger.getLogger(Paneel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                 }
             } else
             {
@@ -305,8 +295,8 @@ public class Paneel extends JPanel implements KeyListener
                     asteroids.forEach((Asteroid asteroid) ->
                     {
                         //checking if the gunship is getting hit by a asteroid
-                        if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 35 && gunShip.getX() > asteroid.getX()
-                                && gunShip.getY() < asteroid.getY() + 35 && gunShip.getY() > asteroid.getY())
+                        if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX()
+                                && gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
                         {
                             gunShip.hp -= 10;
                             hurtSound.play();
@@ -347,7 +337,10 @@ public class Paneel extends JPanel implements KeyListener
                         }
                         if (!asteroid.isAlive())
                         {
-                            levelinfo.asteroidDeathCount++;
+                            if (asteroid.hp <= 0)
+                            {
+                                levelinfo.asteroidDeathCount++;
+                            }
                             asteroids.remove(asteroid);
                         }
                     });
@@ -473,7 +466,16 @@ public class Paneel extends JPanel implements KeyListener
         gunShip.x = 1150;
         gunShip.y = 360;
         gunShip.speed = 3;
-
+        try
+        {
+            bossFight = false;
+            bossShip.hp = bossShip.totalHp;
+            bossStage = 1;
+            bossShip = new BossGunShip();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(Paneel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         gameOverMusic.stopMusic();
         levelMusic.playBackgroundMusic();
         gameOver = false;
@@ -686,8 +688,15 @@ public class Paneel extends JPanel implements KeyListener
                 } catch (IOException ex)
                 {
                 }
+            } else
+            {
+                enemyGunShips.forEach((enemy) ->
+                {
+                    enemy.stopShootTimers();
+                    enemy.stop();
+                });
+                enemyGunShips.clear();
             }
-
         }
     }
 }

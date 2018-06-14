@@ -27,13 +27,13 @@ public class EnemyGunShip extends Thread
     public ArrayList<EnemyBullet> bullets;
     public int x, y, height, width, yFirstGun, yNextGun, damage, bulletSize, hp = 50, level, Ydestination = 360, Xdestination = 1150;
     private Image gunShipImg;
+    private String fileName = "Textures/";
     public Timer Level1ShootTimer = new Timer(1500, new shootHandler()), Level2ShootTimer = new Timer(1200, new shootHandler()), Level3ShootTimer = new Timer(950, new shootHandler());
     private boolean dubbelLaser, swapGun = true, isDead;
     Random rand = new Random();
 
     public EnemyGunShip(int Y, int level) throws IOException
     {
-        String fileName = "Textures/";
         this.level = level;
         if (this.level != 1 && this.level != 2 && this.level != 3)
         {
@@ -49,7 +49,7 @@ public class EnemyGunShip extends Thread
             yFirstGun = 2;
             yNextGun = 32;
             Level1ShootTimer.start();
-            fileName += "EnemySpaceShip1.png";
+            this.fileName += "EnemySpaceShip1.png";
         } else if (this.level == 2)
         {
             width = 87;
@@ -57,7 +57,7 @@ public class EnemyGunShip extends Thread
             bulletSize = 6;
             damage = 15;
             Level2ShootTimer.start();
-            fileName += "EnemySpaceShip2.png";
+            this.fileName += "EnemySpaceShip2.png";
         } else if (this.level == 3)
         {
             width = 90;
@@ -68,9 +68,9 @@ public class EnemyGunShip extends Thread
             yFirstGun = 10;
             yNextGun = 50;
             Level3ShootTimer.start();
-            fileName += "EnemySpaceShip3.png";
+            this.fileName += "EnemySpaceShip3.png";
         }
-        this.gunShipImg = ImageIO.read(new File(fileName));
+        this.gunShipImg = ImageIO.read(new File(this.fileName));
         bullets = new ArrayList<EnemyBullet>();
         x = -50;
         y = Y;
@@ -79,13 +79,7 @@ public class EnemyGunShip extends Thread
     public void draw(Graphics g)
     {
         g.drawImage(gunShipImg, x, y, null);
-        if (hp != 50)
-        {
-            g.setColor(Color.black);
-            g.drawRect(x + 5, y + height, 50, 4);
-            g.setColor(Color.green);
-            g.fillRect(x + 6, y + height + 1, hp, 3);
-        }
+        drawHp(g);
         bullets.forEach((bullet) ->
         {
             if (this.x > 2000)
@@ -97,6 +91,29 @@ public class EnemyGunShip extends Thread
                 bullet.draw(g);
             }
         });
+    }
+
+    public void drawHp(Graphics g)
+    {
+        if (hp != 50 && this.fileName.contains("1"))
+        {
+            g.setColor(Color.black);
+            g.drawRect(x + 5, y + height, 50, 4);
+            g.setColor(Color.green);
+            g.fillRect(x + 6, y + height + 1, hp, 3);
+        } else if (hp != 75 && this.fileName.contains("2"))
+        {
+            g.setColor(Color.black);
+            g.drawRect(x + 5, y + height, 50, 4);
+            g.setColor(Color.green);
+            g.fillRect(x + 6, y + height + 1, (hp / 3) * 2, 3);
+        } else if (hp != 100 && this.fileName.contains("3"))
+        {
+            g.setColor(Color.black);
+            g.drawRect(x + 5, y + height, 50 / 2, 4);
+            g.setColor(Color.green);
+            g.fillRect(x + 6, y + height + 1, hp, 3);
+        }
     }
 
     @Override
