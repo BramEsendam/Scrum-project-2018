@@ -28,7 +28,7 @@ header{
     word-spacing: normal;
 }
 main{
-    height: 75vh;
+    height: 80vh;
 }
 h1{
     padding-top: 25px;
@@ -38,7 +38,9 @@ h1{
 td {
     word-spacing: normal;
 }
-
+P{
+    font-size: 200%;
+}
 /* Puzzel 2 css */
 #puzzel2Vertaal{
     width: 100%;

@@ -6,7 +6,6 @@ include '../Layout/IncludeHeader.php';
 ?>
 <div id="puzzel2Vertaal">
     <div id="left">
-        <h2>puzzle2: Translate</h2>
         <p>Hello stranger.<Br>
             You have found the translation of the space alphabet to your alphabet.<br>
             Now you need to translate the word and send it to the pc.<br>
@@ -14,7 +13,7 @@ include '../Layout/IncludeHeader.php';
             Good luck with translating.</p>
         <p>ՐՊҶխՇԠҶՐԹխԘ ՐӪԹՇ ՐԐճՐ ՇԒӃՋՇ</p>
         <form method="post">
-            The word is: <input type="text" name="inputText">
+            <p>The word is: </p><input type="text" name="inputText">
             <input type="submit" value="Submit" name="submit">
         </form>
         <?php
@@ -90,20 +89,17 @@ include '../Layout/IncludeHeader.php';
 
 function hint1 ()
 {
-    var hint = 'hallo'
-    alert("Hello")
+    alert("The last word is sucks")
     clearInterval(hint1);
 }
 function hint2 ()
 {
-    var hint = 'hallo'
-    alert("hoi")
+    alert("The third word is text")
     clearInterval(hint2);
 }
 function hint3 ()
 {
-    var hint = 'hallo'
-    alert("hey")
+    alert("The second word is this")
     clearInterval(hint3);
 }
 var hint1 = setInterval(hint1, 120000);
