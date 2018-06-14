@@ -82,8 +82,38 @@ include '../Layout/IncludeHeader.php';
             </tr>
         </table>
     </div>
+    <body>
+  
+</body>
 </div>
+<script>
 
+function hint1 ()
+{
+    var hint = 'hallo'
+    alert("Hello")
+    clearInterval(hint1);
+}
+function hint2 ()
+{
+    var hint = 'hallo'
+    alert("hoi")
+    clearInterval(hint2);
+}
+function hint3 ()
+{
+    var hint = 'hallo'
+    alert("hey")
+    clearInterval(hint3);
+}
+var hint1 = setInterval(hint1, 120000);
+var hint2 = setInterval(hint2, 240000);
+var hint3 = setInterval(hint3, 360000);
+
+
+
+
+</script>
 <?php
 include '../Layout/IncludeFooter.php';
 ?>

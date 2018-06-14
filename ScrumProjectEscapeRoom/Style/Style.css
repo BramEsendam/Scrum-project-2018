@@ -35,6 +35,10 @@ h1{
     font-size: 45px;
 }
 
+td {
+    word-spacing: normal;
+}
+
 /* Puzzel 2 css */
 #puzzel2Vertaal{
     width: 100%;

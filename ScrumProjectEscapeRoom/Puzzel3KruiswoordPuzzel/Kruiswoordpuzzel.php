@@ -232,10 +232,38 @@ include '../Layout/IncludeHeader.php';
 </div>
 </div>
 	</div>
+<script>
 
-	<script>
-	   
-	</script>
+function hint1 ()
+{
+    alert("1. is Mars")
+    clearInterval(hint1);
+}
+function hint2 ()
+{
+    alert("2. is gravity")
+    clearInterval(hint2);
+}
+function hint3 ()
+{
+    alert("3. is general")
+    clearInterval(hint3);
+}
+function hint4 ()
+{
+    alert("4. is x-ray")
+    clearInterval(hint4);
+}
+var hint1 = setInterval(hint1, 120000);
+var hint2 = setInterval(hint2, 240000);
+var hint3 = setInterval(hint3, 360000);
+var hint4 = setInterval(hint4, 480000);
+
+
+
+
+</script>
+
 
 </body>
 </html>
