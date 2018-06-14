@@ -33,6 +33,7 @@ public class Paneel extends JPanel implements KeyListener
 
     private GunShip gunShip;
     private PowerUpSpeed powerUpSpeed;
+    private BossGunShip bossShip;
     private int asteroidSpawnTime, repaintTime = 22, bossStage = 1;
     private hitRegistration hitReg = new hitRegistration();
     private Levelinfo levelinfo = new Levelinfo();
@@ -67,9 +68,9 @@ public class Paneel extends JPanel implements KeyListener
     public Paneel() throws IOException
     {
         levelMusic.playBackgroundMusic();
-
         gunShip = new GunShip(1150, 360);
         powerUpSpeed = new PowerUpSpeed(300, 300);
+        bossShip = new BossGunShip();
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
         enemyGunShips = new ArrayList<EnemyGunShip>();
@@ -79,7 +80,7 @@ public class Paneel extends JPanel implements KeyListener
         //Timers && Threads
         paintTimer = new Timer(repaintTime, new paintTimerHandler());
         paintTimer.start();
-        enemyGunShipTimer = new Timer(9666, new enemyGunShipTimerHandler());
+        enemyGunShipTimer = new Timer(9333, new enemyGunShipTimerHandler());
         enemyGunShipTimer.start();
         bulletLimiter = new Timer(211, new bulletLimitHandler());
         bulletLimiter.start();
@@ -145,6 +146,14 @@ public class Paneel extends JPanel implements KeyListener
                     asteroid.draw(g);
                 }
             });
+            if (bossFight)
+            {
+                if (!bossShip.isAlive())
+                {
+                    bossShip.start();
+                }
+                bossShip.draw(g);
+            }
         } catch (ConcurrentModificationException e)
         {
         }
@@ -197,14 +206,17 @@ public class Paneel extends JPanel implements KeyListener
         } else if (e.getKeyCode() == KeyEvent.VK_F6)
         {
             levelinfo.asteroidDeathCount = 75;
+            bossShip.hp = (5000 / 4) * 3;
             bossStage = 2;
         } else if (e.getKeyCode() == KeyEvent.VK_F7)
         {
             levelinfo.asteroidDeathCount = 75;
+            bossShip.hp = (5000 / 4) * 2;
             bossStage = 3;
         } else if (e.getKeyCode() == KeyEvent.VK_F8)
         {
             levelinfo.asteroidDeathCount = 75;
+            bossShip.hp = (5000 / 4) * 1;
             bossStage = 4;
         }
     }
@@ -302,7 +314,6 @@ public class Paneel extends JPanel implements KeyListener
             {
                 registrateHits();
                 trySleep(repaintTime);
-
             }
         }
 
@@ -428,17 +439,17 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         System.out.println("stage 1");
                         bossStage1Music.playBackgroundMusic();
-                    } else if (bossStage == 2 && !bossStage2Music.isPlaying())
+                    } else if (bossStage == 2 && !bossStage2Music.isPlaying() && bossShip.hp <= (5000 / 4) * 3)
                     {
                         bossStage1Music.stopMusic();
                         System.out.println("stage 2");
                         bossStage2Music.playBackgroundMusic();
-                    } else if (bossStage == 3 && !bossStage3Music.isPlaying())
+                    } else if (bossStage == 3 && !bossStage3Music.isPlaying() && bossShip.hp <= (5000 / 4) * 2)
                     {
                         bossStage2Music.stopMusic();
                         System.out.println("stage 3");
                         bossStage3Music.playBackgroundMusic();
-                    } else if (bossStage == 4 && !bossFinalStageMusic.isPlaying())
+                    } else if (bossStage == 4 && !bossFinalStageMusic.isPlaying() && bossShip.hp <= (5000 / 4) * 1)
                     {
                         bossStage3Music.stopMusic();
                         System.out.println("stage 4");
@@ -451,7 +462,7 @@ public class Paneel extends JPanel implements KeyListener
                     asteroidSpawnTime = 800;
                     levelinfo.level = 5;
                 }
-                trySleep(repaintTime);
+                trySleep(150);
             }
         }
     }

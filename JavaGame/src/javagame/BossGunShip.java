@@ -21,21 +21,19 @@ import javax.swing.Timer;
  *
  * @author brame
  */
-public class bossShip extends Thread
+public class BossGunShip extends Thread
 {
 
     public ArrayList<EnemyBullet> bullets;
-    public int x, y, height, width, damage, bulletSize, hp = 50, Ydestination = 360, Xdestination = 1150;
+    public int x = -50, y = 355, height, width, damage, bulletSize, hp = 5000, Ydestination = 360, Xdestination = 1150;
     private Image gunShipImg;
     public Timer stage1ShootTimer = new Timer(1500, new shootHandler()), stage2ShootTimer = new Timer(1200, new shootHandler()), stage3ShootTimer = new Timer(950, new shootHandler());
     Random rand = new Random();
 
-    public bossShip(int Y, int level) throws IOException
+    public BossGunShip() throws IOException
     {
         this.gunShipImg = ImageIO.read(new File("Textures/boss.png"));
         bullets = new ArrayList<EnemyBullet>();
-        x = -50;
-        y = Y;
     }
 
     public void draw(Graphics g)
@@ -43,10 +41,10 @@ public class bossShip extends Thread
         g.drawImage(gunShipImg, x, y, null);
         if (hp != 50)
         {
-            g.setColor(Color.black);
-            g.drawRect(x + 5, y + height, 50, 4);
-            g.setColor(Color.green);
-            g.fillRect(x + 6, y + height + 1, hp, 3);
+            g.setColor(Color.white);
+            g.drawRect(655, 100, 503, 22);
+            g.setColor(Color.red);
+            g.fillRect(657, 102, hp/10, 19);
         }
         bullets.forEach((bullet) ->
         {
