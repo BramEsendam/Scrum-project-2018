@@ -14,13 +14,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -36,8 +40,10 @@ public class Paneel extends JPanel implements KeyListener
     private BossGunShip bossShip;
     private int asteroidSpawnTime, repaintTime = 22, bossStage = 1;
     private Levelinfo levelinfo = new Levelinfo();
+    private final Path highScoreP = Paths.get("highScores");
+
     private boolean shot = false, wIsadded = false, dIsadded = false, bossFight = false,
-            sIsadded = false, aIsadded = false, spaceIsadded = false, gameOver = false;
+            sIsadded = false, aIsadded = false, spaceIsadded = false;
 
     //ArrayLists
     private ArrayList<String> keys;
@@ -67,6 +73,7 @@ public class Paneel extends JPanel implements KeyListener
 
     public Paneel() throws IOException
     {
+        levelinfo.timeStarted = new Date();
         levelMusic.playBackgroundMusic();
         gunShip = new GunShip(1150, 360);
         powerUpSpeed = new PowerUp(300, 300);
@@ -99,11 +106,10 @@ public class Paneel extends JPanel implements KeyListener
         {
             if (gunShip.hp <= 0)
             {
-                g.drawImage(youLoseImg, 730, 350, null);
-                g.setColor(Color.red);
-                g.drawString("Press F1 to respawn!", 875, 525);
-                if (!gameOver)
+                levelinfo.drawDeadMenu(g, youLoseImg);
+                if (!levelinfo.gameOver)
                 {
+                    levelinfo.loadHighScores();
                     levelMusic.stopMusic();
                     bossStage1Music.stopMusic();
                     bossStage2Music.stopMusic();
@@ -112,14 +118,25 @@ public class Paneel extends JPanel implements KeyListener
                     bossDefeated.stopMusic();
                     endlessModeMusic.stopMusic();
                     gameOverMusic.playBackgroundMusic();
-                    gameOver = true;
+                    levelinfo.gameOver = true;
                     bossShip.stopShootTimers();
                     levelinfo.totalTries++;
-                    levelinfo.asteroidDeathCount = 0;
                     enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
                     {
                         enemyGunShip.stopShootTimers();
                     });
+                    int temp = levelinfo.asteroidDeathCount;
+                    levelinfo.asteroidDeathCount = 0;
+                    try
+                    {
+                        String name = JOptionPane.showInputDialog("Please Enter your name:");
+                        levelinfo.timeStoped = new Date();
+                        levelinfo.saveHighScore(name, temp);
+                        levelinfo.loadHighScores();
+                    } catch (Exception e)
+                    {
+                        System.out.println(e);
+                    }
                 }
             } else
             {
@@ -460,6 +477,7 @@ public class Paneel extends JPanel implements KeyListener
             enemyGunShip.stopShootTimers();
             enemyGunShip.stop();
         });
+        levelinfo.timeStarted = new Date();
         enemyGunShips.clear();
         asteroids.clear();
         gunShip.hp = 100;
@@ -478,7 +496,7 @@ public class Paneel extends JPanel implements KeyListener
         }
         gameOverMusic.stopMusic();
         levelMusic.playBackgroundMusic();
-        gameOver = false;
+        levelinfo.gameOver = false;
     }
 
     public void trySleep(int ms)
@@ -572,6 +590,7 @@ public class Paneel extends JPanel implements KeyListener
         {
             while (true)
             {
+                levelinfo.sort();
                 move();
                 trySleep(repaintTime);
             }
@@ -677,7 +696,7 @@ public class Paneel extends JPanel implements KeyListener
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if (!bossFight && !gameOver)
+            if (!bossFight && !levelinfo.gameOver)
             {
                 try
                 {

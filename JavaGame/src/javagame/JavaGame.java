@@ -24,6 +24,7 @@ public class JavaGame extends JFrame
     {
         JavaGame frame = new JavaGame();
         frame.setSize(1280, 720);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Game");
         JPanel paneel = new Paneel();
