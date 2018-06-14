@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -22,29 +23,25 @@ public class Levelinfo
 
     //images
     private Image level1Text, level2Text, level3Text, bossFightText, endlessModeText;
-    private Image number1, number2, number3, number4, number5, number6, number7, number8, number9;
-    public int level = 1, x = 710, y = 10, totalTries = 0, asteroidDeathCount = 0;
+    private ArrayList<Image> numbers;
+    public int level = 1, x = 710, y = 10, totalTries = 0, asteroidDeathCount = 000;
     public boolean isBossDead = false;
 
     public Levelinfo()
     {
         try
         {
+            numbers = new ArrayList<Image>();
             this.level1Text = ImageIO.read(new File("Textures/level-1.png"));
             this.level2Text = ImageIO.read(new File("Textures/level-2.png"));
             this.level3Text = ImageIO.read(new File("Textures/level-3.png"));
             this.bossFightText = ImageIO.read(new File("Textures/Boss-Fight.png"));
             this.endlessModeText = ImageIO.read(new File("Textures/Endless-mode.png"));
-            this.number1 = ImageIO.read(new File("Textures/1.png"));
-            this.number2 = ImageIO.read(new File("Textures/2.png"));
-            this.number3 = ImageIO.read(new File("Textures/3.png"));
-            this.number4 = ImageIO.read(new File("Textures/4.png"));
-            this.number5 = ImageIO.read(new File("Textures/5.png"));
-            this.number6 = ImageIO.read(new File("Textures/6.png"));
-            this.number7 = ImageIO.read(new File("Textures/7.png"));
-            this.number8 = ImageIO.read(new File("Textures/8.png"));
-            this.number9 = ImageIO.read(new File("Textures/9.png"));
-
+            for (int i = 0; i <= 9; i++)
+            {
+                numbers.add(ImageIO.read(new File("Textures/" + i + ".png")));
+                System.out.println(i);
+            }
         } catch (IOException ex)
         {
             Logger.getLogger(Levelinfo.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,7 +56,57 @@ public class Levelinfo
 
     public void drawScore(Graphics g)
     {
-        
+        boolean secondDigitIsSet = false, thirdDigitIsSet = false, fourthDigitIsSet = false;
+        int firstDigit = Integer.parseInt(Integer.toString(asteroidDeathCount).substring(0, 1));
+        int secondDigit = 0;
+        int thirdDigit = 0;
+        int fourthDigit = 0;
+
+        try
+        {
+            secondDigit = Integer.parseInt(Integer.toString(asteroidDeathCount).substring(1, 2));
+            secondDigitIsSet = true;
+        } catch (StringIndexOutOfBoundsException e)
+        {
+
+        }
+        try
+        {
+            thirdDigit = Integer.parseInt(Integer.toString(asteroidDeathCount).substring(2, 3));
+            thirdDigitIsSet = true;
+        } catch (StringIndexOutOfBoundsException e)
+        {
+
+        }
+        try
+        {
+            fourthDigit = Integer.parseInt(Integer.toString(asteroidDeathCount).substring(3, 4));
+            fourthDigitIsSet = true;
+        } catch (StringIndexOutOfBoundsException e)
+        {
+        }
+        if (secondDigitIsSet)
+        {
+            if (fourthDigitIsSet)
+            {
+                g.drawImage(numbers.get(fourthDigit), 1850, 13, null);
+                g.drawImage(numbers.get(thirdDigit), 1800, 13, null);
+                g.drawImage(numbers.get(secondDigit), 1750, 13, null);
+                g.drawImage(numbers.get(firstDigit), 1700, 13, null);
+            } else if (thirdDigitIsSet)
+            {
+                g.drawImage(numbers.get(thirdDigit), 1850, 13, null);
+                g.drawImage(numbers.get(secondDigit), 1800, 13, null);
+                g.drawImage(numbers.get(firstDigit), 1750, 13, null);
+            } else
+            {
+                g.drawImage(numbers.get(secondDigit), 1850, 13, null);
+                g.drawImage(numbers.get(firstDigit), 1800, 13, null);
+            }
+        } else
+        {
+            g.drawImage(numbers.get(firstDigit), 1850, 13, null);
+        }
     }
 
     public void drawLevelInfo(Graphics g)

@@ -215,23 +215,26 @@ public class Paneel extends JPanel implements KeyListener
             restartGame();
         } else if (e.getKeyCode() == KeyEvent.VK_F5)
         {
-            levelinfo.asteroidDeathCount = 100;
+            levelinfo.asteroidDeathCount = 9988;
             bossStage = 1;
         } else if (e.getKeyCode() == KeyEvent.VK_F6)
         {
-            levelinfo.asteroidDeathCount = 100;
+            levelinfo.asteroidDeathCount = 9988;
             bossShip.hp = (bossShip.totalHp / 4) * 3;
             bossStage = 2;
         } else if (e.getKeyCode() == KeyEvent.VK_F7)
         {
-            levelinfo.asteroidDeathCount = 100;
+            levelinfo.asteroidDeathCount = 9988;
             bossShip.hp = (bossShip.totalHp / 4) * 2;
             bossStage = 3;
         } else if (e.getKeyCode() == KeyEvent.VK_F8)
         {
-            levelinfo.asteroidDeathCount = 100;
+            levelinfo.asteroidDeathCount = 9988;
             bossShip.hp = (bossShip.totalHp / 4) * 1;
             bossStage = 4;
+        } else if (e.getKeyCode() == KeyEvent.VK_F9)
+        {
+            levelinfo.asteroidDeathCount++;
         }
     }
 
@@ -243,6 +246,7 @@ public class Paneel extends JPanel implements KeyListener
         {
             keys.forEach((key) ->
             {
+                System.out.println(key);
                 String keyChar = "" + e.getKeyChar();
                 System.out.println(e.getKeyCode());
                 if (key.equals(keyChar) && key.equals("w"))
@@ -301,8 +305,8 @@ public class Paneel extends JPanel implements KeyListener
                     asteroids.forEach((Asteroid asteroid) ->
                     {
                         //checking if the gunship is getting hit by a asteroid
-                        if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 5 && gunShip.getX() > asteroid.getX()
-                                && gunShip.getY() < asteroid.getY() + 50 && gunShip.getY() > asteroid.getY())
+                        if (gunShip.hp > 0 && gunShip.getX() < asteroid.getX() + 35 && gunShip.getX() > asteroid.getX()
+                                && gunShip.getY() < asteroid.getY() + 35 && gunShip.getY() > asteroid.getY())
                         {
                             gunShip.hp -= 10;
                             hurtSound.play();
@@ -312,8 +316,8 @@ public class Paneel extends JPanel implements KeyListener
                         {
                             if (!bullet.dead && bullet.isAlive())
                             {
-                                if (bullet.getX() < asteroid.getX() + 20 && bullet.getX() > asteroid.getX()
-                                        && bullet.getY() < asteroid.getY() + 50 && bullet.getY() > asteroid.getY())
+                                if (bullet.getX() < asteroid.getX() + 56 && bullet.getX() > asteroid.getX()
+                                        && bullet.getY() < asteroid.getY() + 56 && bullet.getY() > asteroid.getY())
                                 {
                                     bullet.dead();//setting dead to true
                                     bullet.stop();//stoping bullet thread
@@ -338,12 +342,12 @@ public class Paneel extends JPanel implements KeyListener
                         //removing a asteroid if hp is below 0
                         if (asteroid.hp < 0)
                         {
-                            levelinfo.asteroidDeathCount++;
                             asteroid.stop();
                             explosion.play();
                         }
                         if (!asteroid.isAlive())
                         {
+                            levelinfo.asteroidDeathCount++;
                             asteroids.remove(asteroid);
                         }
                     });
@@ -409,7 +413,7 @@ public class Paneel extends JPanel implements KeyListener
                             {
                                 bullet.dead();//setting dead to true
                                 bullet.stop();//stoping bullet thread
-                                bossShip.hp -= 200;
+                                bossShip.hp -= 17;
                                 System.out.println("HIT");
                             }
                         } else
@@ -494,19 +498,19 @@ public class Paneel extends JPanel implements KeyListener
         {
             while (true)
             {
-                if (levelinfo.asteroidDeathCount < 30)
+                if (levelinfo.asteroidDeathCount < 25)
                 {
                     asteroidSpawnTime = 2500;
                     levelinfo.level = 1;
-                } else if (levelinfo.asteroidDeathCount >= 25 && levelinfo.asteroidDeathCount < 65)
+                } else if (levelinfo.asteroidDeathCount >= 25 && levelinfo.asteroidDeathCount < 50)
                 {
                     asteroidSpawnTime = 2000;
                     levelinfo.level = 2;
-                } else if (levelinfo.asteroidDeathCount >= 50 && levelinfo.asteroidDeathCount < 100)
+                } else if (levelinfo.asteroidDeathCount >= 50 && levelinfo.asteroidDeathCount < 75)
                 {
                     asteroidSpawnTime = 1000;
                     levelinfo.level = 3;
-                } else if (levelinfo.asteroidDeathCount >= 100 && !levelinfo.isBossDead)
+                } else if (levelinfo.asteroidDeathCount >= 75 && !levelinfo.isBossDead)
                 {
                     levelinfo.level = 4;
                     bossFight = true;

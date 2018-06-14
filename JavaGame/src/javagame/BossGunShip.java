@@ -27,7 +27,7 @@ public class BossGunShip extends Thread
 {
 
     public ArrayList<EnemyBullet> bullets;
-    public int x = -300, y = 355, height, width, damage, bulletSize, hp, totalHp = 5000, Ydestination = 360, Xdestination = 1150, moveSpeed;
+    public int x = -300, y = 355, height, width, damage, bulletSize, hp, totalHp = 10000, Ydestination = 360, Xdestination = 1150, moveSpeed;
     public Image gunShipImg, icon;
     public boolean stopedMoving, swapLaser = false, hitSide = false;
     private Random rand = new Random();
@@ -53,7 +53,7 @@ public class BossGunShip extends Thread
             g.setColor(Color.white);
             g.drawRect(655, 100, 503, 22);
             g.setColor(Color.red);
-            g.fillRect(657, 102, hp / 10, 19);
+            g.fillRect(657, 102, hp / 20, 19);
         }
         bullets.forEach((bullet) ->
         {
