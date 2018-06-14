@@ -12,9 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 /**
@@ -25,12 +27,14 @@ public class BossGunShip extends Thread
 {
 
     public ArrayList<EnemyBullet> bullets;
-    public int x = -50, y = 355, height, width, damage, bulletSize, hp, totalHp = 5000, Ydestination = 360, Xdestination = 1150;
-    private Image gunShipImg;
-    private String attackType;
-    private boolean stopedMoving;
-    public Timer stage1ShootTimer = new Timer(1500, new shootHandler()), stage2ShootTimer = new Timer(1200, new shootHandler()), stage3ShootTimer = new Timer(950, new shootHandler());
-    Random rand = new Random();
+    public int x = -300, y = 355, height, width, damage, bulletSize, hp, totalHp = 5000, Ydestination = 360, Xdestination = 1150;
+    public Image gunShipImg, icon;
+    public boolean stopedMoving, swapLaser = false, hitSide = false;
+    public Timer stage1ShootTimer = new Timer(1500, new shootHandler("normal")), stage2ShootTimer = new Timer(1100, new shootHandler("normal")),
+            stage3ShootTimer = new Timer(850, new shootHandler("normal")), stage4ShootTimer = new Timer(750, new shootHandler("normal")),
+            specialAttackStage2Timer = new Timer(2500, new shootHandler("specialAttackStage2")), specialAttackStage1Timer = new Timer(800, new shootHandler("specialAttackStage1")),
+            specialAttackStage3Timer = new Timer(3500, new shootHandler("specialAttackStage3"));
+    private Random rand = new Random();
 
     public BossGunShip() throws IOException
     {
@@ -69,9 +73,23 @@ public class BossGunShip extends Thread
         {
             if (x < 100)
             {
-                x += 1;
+                x += 3;
             } else
             {
+                if (y < 150)
+                {
+                    hitSide = true;
+                } else if (y > 600)
+                {
+                    hitSide = false;
+                }
+                if (hitSide)
+                {
+                    y += rand.nextInt(3);
+                } else if (!hitSide)
+                {
+                    y -= rand.nextInt(3);
+                }
                 stopedMoving = true;
             }
             try
@@ -88,12 +106,80 @@ public class BossGunShip extends Thread
         EnemyBullet bullet = null;
         if (attackType == "normal")
         {
-            bullet = new EnemyBullet(this.x + 35, this.y, Ydestination, Xdestination, bulletSize, damage, Color.red);
-        }
-        if (bullet != null)
+            bulletSize = 12;
+            if (swapLaser)
+            {
+                swapLaser = false;
+                bullet = new EnemyBullet(this.x + 150, this.y + 20, Ydestination, Xdestination, bulletSize, damage, Color.green);
+                bullet.start();
+                bullets.add(bullet);
+            } else
+            {
+                swapLaser = true;
+                bullet = new EnemyBullet(this.x + 150, this.y + 336, Ydestination, Xdestination, bulletSize, damage, Color.green);
+                bullet.start();
+                bullets.add(bullet);
+            }
+        } else if (attackType == "specialAttackStage1")
         {
+            bullet = new EnemyBullet(this.x + 365, this.y + 178, this.y + 178, 2000, bulletSize, damage, Color.red);
             bullet.start();
             bullets.add(bullet);
+        } else if (attackType == "specialAttackStage2")
+        {
+            bullet = new EnemyBullet(this.x + 200, this.y + 128, Ydestination, Xdestination, bulletSize, damage, Color.yellow);
+            bullet.start();
+            bullets.add(bullet);
+            bullet = new EnemyBullet(this.x + 200, this.y + 228, Ydestination, Xdestination, bulletSize, damage, Color.yellow);
+            bullet.start();
+            bullets.add(bullet);
+        } else if (attackType == "specialAttackStage3")
+        {
+            bullet = new EnemyBullet(this.x + 150, this.y + 20, this.y - 500, 1500, bulletSize, damage, Color.ORANGE);
+            bullet.start();
+            bullets.add(bullet);
+            bullet = new EnemyBullet(this.x + 150, this.y + 20, this.y - 250, 1500, bulletSize, damage, Color.ORANGE);
+            bullet.start();
+            bullets.add(bullet);
+            bullet = new EnemyBullet(this.x + 150, this.y + 336, this.y + 250, 1500, bulletSize, damage, Color.ORANGE);
+            bullet.start();
+            bullets.add(bullet);
+            bullet = new EnemyBullet(this.x + 150, this.y + 336, this.y + 500, 1500, bulletSize, damage, Color.ORANGE);
+            bullet.start();
+            bullets.add(bullet);
+        }
+    }
+
+    void stopShootTimers()
+    {
+        stage1ShootTimer.stop();
+        stage2ShootTimer.stop();
+        stage3ShootTimer.stop();
+        stage4ShootTimer.stop();
+        specialAttackStage1Timer.stop();
+        specialAttackStage2Timer.stop();
+        specialAttackStage3Timer.stop();
+
+    }
+
+    private class shootHandler implements ActionListener
+    {
+
+        private String attackType;
+
+        public shootHandler(String attackType)
+        {
+            this.attackType = attackType;
+        }
+
+        @Override
+
+        public void actionPerformed(ActionEvent e)
+        {
+            if (stopedMoving)
+            {
+                shoot(this.attackType);
+            }
         }
     }
 
@@ -107,21 +193,30 @@ public class BossGunShip extends Thread
         return y;
     }
 
-    void stopShootTimers()
+    public void stage1()
     {
-        stage1ShootTimer.stop();
-        stage2ShootTimer.stop();
-        stage3ShootTimer.stop();
+        stage1ShootTimer.start();
+        specialAttackStage1Timer.start();
     }
 
-    private class shootHandler implements ActionListener
+    public void stage2()
     {
+        stage1ShootTimer.stop();
+        stage2ShootTimer.start();
+        specialAttackStage2Timer.start();
+    }
 
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            if(stopedMoving)
-            shoot(attackType);
-        }
+    public void stage3()
+    {
+        stage2ShootTimer.stop();
+        stage3ShootTimer.start();
+        specialAttackStage3Timer.start();
+
+    }
+
+    public void stage4()
+    {
+        stage3ShootTimer.stop();
+        stage4ShootTimer.start();
     }
 }

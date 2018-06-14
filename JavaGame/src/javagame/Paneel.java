@@ -69,7 +69,7 @@ public class Paneel extends JPanel implements KeyListener
     {
         levelMusic.playBackgroundMusic();
         gunShip = new GunShip(1150, 360);
-        powerUpSpeed = new PowerUp(300, 300, "speed");    
+        powerUpSpeed = new PowerUp(300, 300, "speed");
         bossShip = new BossGunShip();
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
@@ -112,6 +112,10 @@ public class Paneel extends JPanel implements KeyListener
                     bossDefeated.stopMusic();
                     gameOverMusic.playBackgroundMusic();
                     gameOver = true;
+                    bossFight = false;
+                    bossShip.stopShootTimers();
+                    bossShip.hp = bossShip.totalHp;
+                    bossStage = 1;
                     levelinfo.totalTries++;
                     levelinfo.asteroidDeathCount = 0;
                     enemyGunShips.forEach((EnemyGunShip enemyGunShip) ->
@@ -152,6 +156,8 @@ public class Paneel extends JPanel implements KeyListener
                 {
                     bossShip.start();
                 }
+                bossShip.Ydestination = gunShip.getY();
+                bossShip.Xdestination = gunShip.getX();
                 bossShip.draw(g);
             }
         } catch (ConcurrentModificationException e)
@@ -439,21 +445,25 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         System.out.println("stage 1");
                         bossStage1Music.playBackgroundMusic();
+                        bossShip.stage1();
                     } else if (bossStage == 2 && !bossStage2Music.isPlaying() && bossShip.hp <= (bossShip.totalHp / 4) * 3)
                     {
                         bossStage1Music.stopMusic();
                         System.out.println("stage 2");
                         bossStage2Music.playBackgroundMusic();
+                        bossShip.stage2();
                     } else if (bossStage == 3 && !bossStage3Music.isPlaying() && bossShip.hp <= (bossShip.totalHp / 4) * 2)
                     {
                         bossStage2Music.stopMusic();
                         System.out.println("stage 3");
                         bossStage3Music.playBackgroundMusic();
+                        bossShip.stage3();
                     } else if (bossStage == 4 && !bossFinalStageMusic.isPlaying() && bossShip.hp <= (bossShip.totalHp / 4) * 1)
                     {
                         bossStage3Music.stopMusic();
                         System.out.println("stage 4");
                         bossFinalStageMusic.playBackgroundMusic();
+                        bossShip.stage4();
                     }
                     levelinfo.level = 4;
                 } else if (levelinfo.isBossDead)
