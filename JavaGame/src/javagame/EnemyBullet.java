@@ -7,6 +7,7 @@ package javagame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 /**
  *
@@ -15,13 +16,17 @@ import java.awt.Graphics;
 public class EnemyBullet extends Thread
 {
 
-    public int x, Xdestination, Ydestination, margin = 0, damage, bulletSize;
+    public int x, Xdestination, Ydestination, margin = 0, damage, bulletSize, speed;
     public double Ypath, y;
     public boolean dead = false;
     private Color color;
+    private Sound spaceGun1 = new Sound("audio/space_gun1.wav");
+    private Sound spaceGun2 = new Sound("audio/space_gun2.wav");
+    private Random rand = new Random();
 
-    public EnemyBullet(int X, int Y, int Ydestination, int Xdestination, int bulletSize, int damage, Color color)
+    public EnemyBullet(int X, int Y, int Ydestination, int Xdestination, int bulletSize, int damage, Color color, int speed)
     {
+        this.speed = speed;
         this.x = X;
         this.y = Y;
         if (y > this.Ydestination)
@@ -34,12 +39,16 @@ public class EnemyBullet extends Thread
         this.damage = damage;
         this.bulletSize = bulletSize;
         this.Ypath = (this.Ydestination - this.y) / (this.Xdestination - this.x);
-
         System.out.println("Xdestination: " + this.Xdestination);
         System.out.println("Ydestination: " + this.Ydestination);
         System.out.println("Ypath: " + Ypath);
-        Sound spaceGun = new Sound("audio/space_gun.wav");
-        spaceGun.play();
+        if (rand.nextInt(2) + 0 == 1)
+        {
+            spaceGun1.play();
+        } else
+        {
+            spaceGun2.play();
+        }
     }
 
     @Override
@@ -51,7 +60,7 @@ public class EnemyBullet extends Thread
             {
                 this.stop();
             }
-            x += 2;
+            x += speed;
             y += Ypath + (Ypath);
             try
             {

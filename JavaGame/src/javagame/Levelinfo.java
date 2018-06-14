@@ -21,7 +21,8 @@ public class Levelinfo
 {
 
     //images
-    private Image level1Text, level2Text, level3Text, bossFightText;
+    private Image level1Text, level2Text, level3Text, bossFightText, endlessModeText;
+    private Image number1, number2, number3, number4, number5, number6, number7, number8, number9;
     public int level = 1, x = 710, y = 10, totalTries = 0, asteroidDeathCount = 0;
     public boolean isBossDead = false;
 
@@ -33,6 +34,16 @@ public class Levelinfo
             this.level2Text = ImageIO.read(new File("Textures/level-2.png"));
             this.level3Text = ImageIO.read(new File("Textures/level-3.png"));
             this.bossFightText = ImageIO.read(new File("Textures/Boss-Fight.png"));
+            this.endlessModeText = ImageIO.read(new File("Textures/Endless-mode.png"));
+            this.number1 = ImageIO.read(new File("Textures/1.png"));
+            this.number2 = ImageIO.read(new File("Textures/2.png"));
+            this.number3 = ImageIO.read(new File("Textures/3.png"));
+            this.number4 = ImageIO.read(new File("Textures/4.png"));
+            this.number5 = ImageIO.read(new File("Textures/5.png"));
+            this.number6 = ImageIO.read(new File("Textures/6.png"));
+            this.number7 = ImageIO.read(new File("Textures/7.png"));
+            this.number8 = ImageIO.read(new File("Textures/8.png"));
+            this.number9 = ImageIO.read(new File("Textures/9.png"));
 
         } catch (IOException ex)
         {
@@ -41,6 +52,17 @@ public class Levelinfo
     }
 
     public void draw(Graphics g)
+    {
+        drawLevelInfo(g);
+        drawScore(g);
+    }
+
+    public void drawScore(Graphics g)
+    {
+        
+    }
+
+    public void drawLevelInfo(Graphics g)
     {
         if (level == 1)
         {
@@ -60,8 +82,7 @@ public class Levelinfo
 
         } else if (level == 5)
         {
-            //g.drawImage(gunShipImg, x, y, null);
-
+            g.drawImage(endlessModeText, x - 150, y, null);
         }
     }
 

@@ -124,17 +124,17 @@ public class EnemyGunShip extends Thread
         {
             if (swapGun)
             {
-                bullet = new EnemyBullet(this.x + 35, this.y + yFirstGun, Ydestination, Xdestination, bulletSize, damage, Color.red);
+                bullet = new EnemyBullet(this.x + 35, this.y + yFirstGun, Ydestination, Xdestination, bulletSize, damage, Color.red, 2);
                 swapGun = false;
             } else
             {
-                bullet = new EnemyBullet(this.x + 35, this.y + yNextGun, Ydestination, Xdestination, bulletSize, damage, Color.red);
+                bullet = new EnemyBullet(this.x + 35, this.y + yNextGun, Ydestination, Xdestination, bulletSize, damage, Color.red, 2);
                 swapGun = true;
             }
 
         } else
         {
-            bullet = new EnemyBullet(this.x + 80, this.y + 25, Ydestination, Xdestination, bulletSize, damage, Color.red);
+            bullet = new EnemyBullet(this.x + 80, this.y + 25, Ydestination, Xdestination, bulletSize, damage, Color.red, 2);
         }
         bullet.start();
         bullets.add(bullet);

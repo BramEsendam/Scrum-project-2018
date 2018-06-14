@@ -18,13 +18,13 @@ public class Bullet extends Thread
     public int x, y;
     public boolean dead = false;
     private Color color;
+    private Sound spaceGun = new Sound("audio/space_gun1.wav");
 
     public Bullet(int X, int Y, Color color)
     {
         this.x = X;
         this.y = Y + 8;
         this.color = color;
-        Sound spaceGun = new Sound("audio/space_gun.wav");
         spaceGun.play();
     }
 
