@@ -12,16 +12,29 @@ public class PowerUp
     public int x, y, speed, health, damage, random;
     private Image powerUpImg;
     private String kindPower;
+    public boolean pickUp = false;
 
-    public PowerUp(int x, int y, String kindPower) throws IOException
+    public PowerUp(int x, int y) throws IOException
     {
         this.x = x;
         this.y = y;
-        this.kindPower = kindPower;
         this.speed = 1;
         this.health = 30;
         this.damage = 10; 
         this.random = (int)(Math.random() * 100 + 1);
+        
+        if (random >= 1 && random <= 10)
+        {
+            this.kindPower = "health";
+        }
+        else if (random >= 11 && random <= 15)
+        {
+            this.kindPower = "damage";
+        }
+        else if (random >= 16 && random <= 23)
+        {
+            this.kindPower = "speed";
+        }
         
         if (null != this.kindPower)
         switch (this.kindPower)
@@ -42,17 +55,40 @@ public class PowerUp
 
     public int speedBoost()
     {
-        return speed;
+        if (this.kindPower == "speed")
+        {
+           return speed; 
+        }
+        else 
+        {
+            return 0;
+        }
     }
     
     public int healthPack()
     {
-        return health;
+       
+        if (this.kindPower == "health")
+        {
+            return health;
+        }
+        else 
+        {
+            return 0;
+        }
     }
     
     public int extraDamage()
     {
-        return damage;
+        
+        if (this.kindPower == "damage")
+        {
+           return damage;
+        }
+        else 
+        {
+            return 0;
+        }
     }
     
     public void draw(Graphics g)
