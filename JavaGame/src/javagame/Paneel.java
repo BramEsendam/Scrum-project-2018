@@ -69,7 +69,7 @@ public class Paneel extends JPanel implements KeyListener
     {
         levelMusic.playBackgroundMusic();
         gunShip = new GunShip(1150, 360);
-        powerUpSpeed = new PowerUp(300, 300, "speed");
+        powerUpSpeed = new PowerUp(300, 300);
         bossShip = new BossGunShip();
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
