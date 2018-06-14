@@ -206,17 +206,17 @@ public class Paneel extends JPanel implements KeyListener
         } else if (e.getKeyCode() == KeyEvent.VK_F6)
         {
             levelinfo.asteroidDeathCount = 75;
-            bossShip.hp = (5000 / 4) * 3;
+            bossShip.hp = (bossShip.totalHp / 4) * 3;
             bossStage = 2;
         } else if (e.getKeyCode() == KeyEvent.VK_F7)
         {
             levelinfo.asteroidDeathCount = 75;
-            bossShip.hp = (5000 / 4) * 2;
+            bossShip.hp = (bossShip.totalHp / 4) * 2;
             bossStage = 3;
         } else if (e.getKeyCode() == KeyEvent.VK_F8)
         {
             levelinfo.asteroidDeathCount = 75;
-            bossShip.hp = (5000 / 4) * 1;
+            bossShip.hp = (bossShip.totalHp / 4) * 1;
             bossStage = 4;
         }
     }
@@ -439,17 +439,17 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         System.out.println("stage 1");
                         bossStage1Music.playBackgroundMusic();
-                    } else if (bossStage == 2 && !bossStage2Music.isPlaying() && bossShip.hp <= (5000 / 4) * 3)
+                    } else if (bossStage == 2 && !bossStage2Music.isPlaying() && bossShip.hp <= (bossShip.totalHp / 4) * 3)
                     {
                         bossStage1Music.stopMusic();
                         System.out.println("stage 2");
                         bossStage2Music.playBackgroundMusic();
-                    } else if (bossStage == 3 && !bossStage3Music.isPlaying() && bossShip.hp <= (5000 / 4) * 2)
+                    } else if (bossStage == 3 && !bossStage3Music.isPlaying() && bossShip.hp <= (bossShip.totalHp / 4) * 2)
                     {
                         bossStage2Music.stopMusic();
                         System.out.println("stage 3");
                         bossStage3Music.playBackgroundMusic();
-                    } else if (bossStage == 4 && !bossFinalStageMusic.isPlaying() && bossShip.hp <= (5000 / 4) * 1)
+                    } else if (bossStage == 4 && !bossFinalStageMusic.isPlaying() && bossShip.hp <= (bossShip.totalHp / 4) * 1)
                     {
                         bossStage3Music.stopMusic();
                         System.out.println("stage 4");

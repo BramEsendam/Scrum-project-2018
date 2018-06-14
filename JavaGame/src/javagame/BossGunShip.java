@@ -25,14 +25,17 @@ public class BossGunShip extends Thread
 {
 
     public ArrayList<EnemyBullet> bullets;
-    public int x = -50, y = 355, height, width, damage, bulletSize, hp = 5000, Ydestination = 360, Xdestination = 1150;
+    public int x = -50, y = 355, height, width, damage, bulletSize, hp, totalHp = 5000, Ydestination = 360, Xdestination = 1150;
     private Image gunShipImg;
+    private String attackType;
+    private boolean stopedMoving;
     public Timer stage1ShootTimer = new Timer(1500, new shootHandler()), stage2ShootTimer = new Timer(1200, new shootHandler()), stage3ShootTimer = new Timer(950, new shootHandler());
     Random rand = new Random();
 
     public BossGunShip() throws IOException
     {
         this.gunShipImg = ImageIO.read(new File("Textures/boss.png"));
+        this.hp = totalHp;
         bullets = new ArrayList<EnemyBullet>();
     }
 
@@ -44,7 +47,7 @@ public class BossGunShip extends Thread
             g.setColor(Color.white);
             g.drawRect(655, 100, 503, 22);
             g.setColor(Color.red);
-            g.fillRect(657, 102, hp/10, 19);
+            g.fillRect(657, 102, hp / 10, 19);
         }
         bullets.forEach((bullet) ->
         {
@@ -64,9 +67,12 @@ public class BossGunShip extends Thread
     {
         while (true)
         {
-            if (x < 200)
+            if (x < 100)
             {
                 x += 1;
+            } else
+            {
+                stopedMoving = true;
             }
             try
             {
@@ -77,11 +83,18 @@ public class BossGunShip extends Thread
         }
     }
 
-    public void shoot()
+    public void shoot(String attackType)
     {
-        EnemyBullet bullet = new EnemyBullet(this.x + 35, this.y, Ydestination, Xdestination, bulletSize, damage, Color.red);
-        bullet.start();
-        bullets.add(bullet);
+        EnemyBullet bullet = null;
+        if (attackType == "normal")
+        {
+            bullet = new EnemyBullet(this.x + 35, this.y, Ydestination, Xdestination, bulletSize, damage, Color.red);
+        }
+        if (bullet != null)
+        {
+            bullet.start();
+            bullets.add(bullet);
+        }
     }
 
     public int getX()
@@ -104,14 +117,11 @@ public class BossGunShip extends Thread
     private class shootHandler implements ActionListener
     {
 
-        public shootHandler()
-        {
-        }
-
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            shoot();
+            if(stopedMoving)
+            shoot(attackType);
         }
     }
 }
