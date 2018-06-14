@@ -32,7 +32,7 @@ public class Paneel extends JPanel implements KeyListener
 {
 
     private GunShip gunShip;
-    private PowerUpSpeed powerUpSpeed;
+    private PowerUp powerUpSpeed, powerUpHealth, powerUpDamage;
     private BossGunShip bossShip;
     private int asteroidSpawnTime, repaintTime = 22, bossStage = 1;
     private hitRegistration hitReg = new hitRegistration();
@@ -69,7 +69,7 @@ public class Paneel extends JPanel implements KeyListener
     {
         levelMusic.playBackgroundMusic();
         gunShip = new GunShip(1150, 360);
-        powerUpSpeed = new PowerUpSpeed(300, 300);
+        powerUpSpeed = new PowerUp(300, 300, "speed");    
         bossShip = new BossGunShip();
         asteroids = new ArrayList<Asteroid>();
         keys = new ArrayList<String>();
