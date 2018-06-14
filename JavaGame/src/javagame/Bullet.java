@@ -15,16 +15,17 @@ import java.awt.Graphics;
 public class Bullet extends Thread
 {
 
-    public int x, y;
+    public int x, y, damage;
     public boolean dead = false;
     private Color color;
     private Sound spaceGun = new Sound("audio/space_gun1.wav");
 
-    public Bullet(int X, int Y, Color color)
+    public Bullet(int X, int Y, Color color, int damage)
     {
         this.x = X;
         this.y = Y + 8;
         this.color = color;
+        this.damage = damage;
         spaceGun.play();
     }
 

@@ -25,7 +25,7 @@ public class EnemyGunShip extends Thread
 {
 
     public ArrayList<EnemyBullet> bullets;
-    public int x, y, height, width, yFirstGun, yNextGun, damage, bulletSize, hp = 50, level, Ydestination = 360, Xdestination = 1150;
+    public int x, y, height, width, yFirstGun, yNextGun, damage, bulletSize, hp, level, Ydestination = 360, Xdestination = 1150;
     private Image gunShipImg;
     private String fileName = "Textures/";
     public Timer Level1ShootTimer = new Timer(1500, new shootHandler()), Level2ShootTimer = new Timer(1200, new shootHandler()), Level3ShootTimer = new Timer(950, new shootHandler());
@@ -41,6 +41,7 @@ public class EnemyGunShip extends Thread
         }
         if (this.level == 1)
         {
+            hp = 50;
             width = 55;
             height = 34;
             bulletSize = 5;
@@ -52,6 +53,7 @@ public class EnemyGunShip extends Thread
             this.fileName += "EnemySpaceShip1.png";
         } else if (this.level == 2)
         {
+            hp = 75;
             width = 87;
             height = 50;
             bulletSize = 6;
@@ -60,6 +62,7 @@ public class EnemyGunShip extends Thread
             this.fileName += "EnemySpaceShip2.png";
         } else if (this.level == 3)
         {
+            hp = 100;
             width = 90;
             height = 61;
             bulletSize = 8;

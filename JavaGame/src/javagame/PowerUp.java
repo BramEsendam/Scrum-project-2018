@@ -16,22 +16,22 @@ public class PowerUp
 
     public PowerUp(int x, int y) throws IOException
     {
-        this.x = x;
+        this.x = x + 400;
         this.y = y;
         this.speed = 1;
         this.health = 30;
-        this.damage = 10; 
+        this.damage = 1; 
         this.random = (int)(Math.random() * 100 + 1);
         
-        if (random >= 1 && random <= 10)
+        if (random >= 0 && random <= 50)
         {
             this.kindPower = "health";
         }
-        else if (random >= 11 && random <= 15)
+        else if (random >= 50 && random <= 85)
         {
             this.kindPower = "damage";
         }
-        else if (random >= 16 && random <= 23)
+        else if (random >= 85 && random <= 100)
         {
             this.kindPower = "speed";
         }
@@ -78,7 +78,7 @@ public class PowerUp
         }
     }
     
-    public int extraDamage()
+    public int damagePack()
     {
         
         if (this.kindPower == "damage")

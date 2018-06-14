@@ -21,7 +21,7 @@ public class GunShip
 {
 
     public ArrayList<Bullet> bullets;
-    public int x, y, hp = 100, speed = 3;
+    public int x, y, hp = 100, speed = 3, damage = 10;
     public Image gunShipImg;
 
     public GunShip(int X, int Y) throws IOException
@@ -101,7 +101,7 @@ public class GunShip
 
     public void shoot()
     {
-        Bullet bullet = new Bullet(this.x, this.y, Color.yellow);
+        Bullet bullet = new Bullet(this.x, this.y, Color.yellow, damage);
         bullet.start();
         bullets.add(bullet);
     }
