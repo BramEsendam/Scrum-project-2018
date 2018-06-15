@@ -38,7 +38,13 @@ public class GunShip
         g.setColor(Color.white);
         g.drawRect(20, 20, 200, 20);
         g.setColor(Color.green);
-        g.fillRect(22, 22, hp * 2 - 3, 17);
+        if (hp * 2 > 200)
+        {
+            g.fillRect(22, 22, 200 - 3, 17);
+        } else
+        {
+            g.fillRect(22, 22, hp * 2 - 3, 17);
+        }
         bullets.forEach((bullet) ->
         {
             if (this.x < -200)

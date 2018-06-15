@@ -468,6 +468,24 @@ public class Paneel extends JPanel implements KeyListener
                             gunShip.bullets.remove(bullet);
                         }
                     });
+                    //checking if the gunship is getting hit by a power up
+                    powerUps.forEach((powerUp) ->
+                    {
+                        if (gunShip.hp > 0 && gunShip.getX() < powerUp.getX() + 25 && gunShip.getX() > powerUp.getX()
+                                && gunShip.getY() < powerUp.getY() + 25 && gunShip.getY() > powerUp.getY()
+                                || gunShip.hp > 0 && gunShip.getX() < powerUp.getX() && gunShip.getX() + 25 > powerUp.getX()
+                                && gunShip.getY() < powerUp.getY() && gunShip.getY() + 25 > powerUp.getY())
+                        {
+                            gunShip.speed += powerUp.speedBoost();
+                            gunShip.hp += powerUp.healthPack();
+                            gunShip.damage += powerUp.damagePack();
+                            System.out.println("Speed: " + powerUp.speedBoost());
+                            System.out.println("hp: " + powerUp.healthPack());
+                            System.out.println("damage: " + powerUp.damagePack());
+                            powerUps.remove(powerUp);
+                            boostSound.play();
+                        }
+                    });
                 }
             } catch (ConcurrentModificationException ex)
             {
