@@ -16,7 +16,7 @@ public class PowerUp
 
     public PowerUp(int x, int y) throws IOException
     {
-        this.x = x + 400;
+        this.x = x + 700;
         this.y = y;
         this.speed = 1;
         this.health = 40;

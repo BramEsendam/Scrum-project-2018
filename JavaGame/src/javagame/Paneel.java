@@ -770,7 +770,7 @@ public class Paneel extends JPanel implements KeyListener
             {
                 if (powerUps.size() < 3)
                 {
-                    powerUps.add(new PowerUp(rand.nextInt(1400) + 1, rand.nextInt(1020) + 1));
+                    powerUps.add(new PowerUp(rand.nextInt(1100) + 1, rand.nextInt(1020) + 1));
                 }
             } catch (IOException ex)
             {
