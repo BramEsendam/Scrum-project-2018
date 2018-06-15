@@ -34,7 +34,7 @@ import javax.swing.Timer;
  */
 public class Paneel extends JPanel implements KeyListener
 {
-
+    
     private GunShip gunShip;
     private BossGunShip bossShip;
     private int asteroidSpawnTime, repaintTime = 22, bossStage = 1;
@@ -69,7 +69,7 @@ public class Paneel extends JPanel implements KeyListener
     //images
     private final Image backGroundImg = ImageIO.read(new File("Textures/Background.png"));
     private final Image youLoseImg = ImageIO.read(new File("Textures/GameOver.png"));
-
+    
     public Paneel() throws IOException
     {
         levelinfo.timeStarted = new Date();
@@ -96,7 +96,7 @@ public class Paneel extends JPanel implements KeyListener
         new asteroidHandler().start();
         new hitRegistration().start();
     }
-
+    
     @Override
     public void paintComponent(Graphics g)
     {
@@ -126,6 +126,13 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         enemyGunShip.stopShootTimers();
                     });
+                    gunShip.bullets.forEach((bullet) ->
+                    {
+                        bullet.dead();
+                        bullet.stop();
+                    });
+                    gunShip.bullets.clear();
+                    keys.clear();
                     int temp = levelinfo.asteroidDeathCount;
                     levelinfo.asteroidDeathCount = 0;
                     try
@@ -160,7 +167,7 @@ public class Paneel extends JPanel implements KeyListener
                     enemyGunShip.stop();
                     enemyGunShips.remove(enemyGunShip);
                 }
-
+                
             });
             asteroids.forEach((Asteroid asteroid) ->
             {
@@ -183,13 +190,13 @@ public class Paneel extends JPanel implements KeyListener
         {
         }
     }
-
+    
     @Override
     public void keyTyped(KeyEvent e
     )
     {
     }
-
+    
     @Override
     public void keyPressed(KeyEvent e
     )
@@ -198,12 +205,12 @@ public class Paneel extends JPanel implements KeyListener
         {
             keys.add("d");
             dIsadded = true;
-
+            
         } else if (e.getKeyCode() == KeyEvent.VK_A && !aIsadded)
         {
             keys.add("a");
             aIsadded = true;
-
+            
         } else if (e.getKeyCode() == KeyEvent.VK_W && !wIsadded)
         {
             keys.add("w");
@@ -212,7 +219,7 @@ public class Paneel extends JPanel implements KeyListener
         {
             keys.add("s");
             sIsadded = true;
-
+            
         } else if (e.getKeyCode() == KeyEvent.VK_SPACE && !spaceIsadded && gunShip.hp > 0)
         {
             keys.add("space");
@@ -248,7 +255,7 @@ public class Paneel extends JPanel implements KeyListener
             levelinfo.asteroidDeathCount++;
         }
     }
-
+    
     @Override
     public void keyReleased(KeyEvent e
     )
@@ -286,16 +293,16 @@ public class Paneel extends JPanel implements KeyListener
                     keys.remove("space");
                     spaceIsadded = false;
                 }
-
+                
             });
         } catch (ConcurrentModificationException ex)
         {
         }
     }
-
+    
     private class hitRegistration extends Thread
     {
-
+        
         @Override
         public void run()
         {
@@ -305,7 +312,7 @@ public class Paneel extends JPanel implements KeyListener
                 trySleep(40);
             }
         }
-
+        
         public void registrateHits()
         {
             try
@@ -382,6 +389,10 @@ public class Paneel extends JPanel implements KeyListener
                             System.out.println("damage: " + powerUp.damagePack());
                             powerUps.remove(powerUp);
                             boostSound.play();
+                            if (gunShip.hp > 100)
+                            {
+                                gunShip.hp = 100;
+                            }
                         }
                     });
 
@@ -484,6 +495,10 @@ public class Paneel extends JPanel implements KeyListener
                             System.out.println("damage: " + powerUp.damagePack());
                             powerUps.remove(powerUp);
                             boostSound.play();
+                            if (gunShip.hp > 100)
+                            {
+                                gunShip.hp = 100;
+                            }
                         }
                     });
                 }
@@ -492,7 +507,7 @@ public class Paneel extends JPanel implements KeyListener
             }
         }
     }
-
+    
     public void restartGame()
     {
         System.out.println("Game has been reset!");
@@ -533,7 +548,7 @@ public class Paneel extends JPanel implements KeyListener
         levelMusic.playBackgroundMusic();
         levelinfo.gameOver = false;
     }
-
+    
     public void trySleep(int ms)
     {
         try
@@ -544,10 +559,10 @@ public class Paneel extends JPanel implements KeyListener
             System.out.println(e);
         }
     }
-
+    
     private class levelHandler extends Thread
     {
-
+        
         @Override
         public void run()
         {
@@ -616,10 +631,10 @@ public class Paneel extends JPanel implements KeyListener
             }
         }
     }
-
+    
     private class moveHandler extends Thread
     {
-
+        
         @Override
         public void run()
         {
@@ -630,7 +645,7 @@ public class Paneel extends JPanel implements KeyListener
                 trySleep(repaintTime);
             }
         }
-
+        
         public void move()
         {
             try
@@ -643,15 +658,15 @@ public class Paneel extends JPanel implements KeyListener
                     } else if (key.equals("s"))
                     {
                         gunShip.moveDown();
-
+                        
                     } else if (key.equals("d"))
                     {
                         gunShip.moveRight();
-
+                        
                     } else if (key.equals("a"))
                     {
                         gunShip.moveLeft();
-
+                        
                     } else if (key.equals("space"))
                     {
                         if (!shot)
@@ -663,14 +678,14 @@ public class Paneel extends JPanel implements KeyListener
                 });
             } catch (ConcurrentModificationException ex)
             {
-
+                
             }
         }
     }
-
+    
     class asteroidHandler extends Thread
     {
-
+        
         @Override
         public void run()
         {
@@ -684,7 +699,7 @@ public class Paneel extends JPanel implements KeyListener
                 trySleep(asteroidSpawnTime);
             }
         }
-
+        
         public void addAsteroid()
         {
             Asteroid asteroid = null;
@@ -699,20 +714,20 @@ public class Paneel extends JPanel implements KeyListener
             System.out.println("asteroid added");
         }
     }
-
+    
     class paintTimerHandler implements ActionListener
     {
-
+        
         @Override
         public void actionPerformed(ActionEvent e)
         {
             repaint();
         }
     }
-
+    
     class bulletLimitHandler implements ActionListener
     {
-
+        
         @Override
         public void actionPerformed(ActionEvent e)
         {
@@ -722,12 +737,12 @@ public class Paneel extends JPanel implements KeyListener
             }
         }
     }
-
+    
     class enemyGunShipTimerHandler implements ActionListener
     {
-
+        
         private Random rand = new Random();
-
+        
         @Override
         public void actionPerformed(ActionEvent e)
         {
@@ -753,16 +768,16 @@ public class Paneel extends JPanel implements KeyListener
             }
         }
     }
-
+    
     private class powerUpHandler implements ActionListener
     {
-
+        
         private Random rand = new Random();
-
+        
         public powerUpHandler()
         {
         }
-
+        
         @Override
         public void actionPerformed(ActionEvent e)
         {

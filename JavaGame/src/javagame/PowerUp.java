@@ -19,7 +19,7 @@ public class PowerUp
         this.x = x + 700;
         this.y = y;
         this.speed = 1;
-        this.health = 40;
+        this.health = 30;
         this.damage = 2; 
         this.random = (int)(Math.random() * 100 + 1);
         
