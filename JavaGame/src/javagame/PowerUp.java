@@ -23,11 +23,11 @@ public class PowerUp
         this.damage = 2; 
         this.random = (int)(Math.random() * 100 + 1);
         
-        if (random >= 0 && random <= 50)
+        if (random >= 0 && random <= 55)
         {
             this.kindPower = "health";
         }
-        else if (random >= 50 && random <= 93)
+        else if (random >= 55 && random <= 93)
         {
             this.kindPower = "damage";
         }
