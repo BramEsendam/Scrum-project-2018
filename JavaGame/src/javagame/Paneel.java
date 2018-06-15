@@ -127,12 +127,6 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         enemyGunShip.stopShootTimers();
                     });
-                    gunShip.bullets.forEach((bullet) ->
-                    {
-                        bullet.dead();
-                        bullet.stop();
-                    });
-                    gunShip.bullets.clear();
                     keys.clear();
                     int temp = levelinfo.asteroidDeathCount;
                     levelinfo.asteroidDeathCount = 0;
