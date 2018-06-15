@@ -228,21 +228,21 @@ public class Paneel extends JPanel implements KeyListener
             restartGame();
         } else if (e.getKeyCode() == KeyEvent.VK_F5)
         {
-            levelinfo.asteroidDeathCount = 9988;
+            levelinfo.asteroidDeathCount = 75;
             bossStage = 1;
         } else if (e.getKeyCode() == KeyEvent.VK_F6)
         {
-            levelinfo.asteroidDeathCount = 9988;
+            levelinfo.asteroidDeathCount = 75;
             bossShip.hp = (bossShip.totalHp / 4) * 3;
             bossStage = 2;
         } else if (e.getKeyCode() == KeyEvent.VK_F7)
         {
-            levelinfo.asteroidDeathCount = 9988;
+            levelinfo.asteroidDeathCount = 75;
             bossShip.hp = (bossShip.totalHp / 4) * 2;
             bossStage = 3;
         } else if (e.getKeyCode() == KeyEvent.VK_F8)
         {
-            levelinfo.asteroidDeathCount = 9988;
+            levelinfo.asteroidDeathCount = 75;
             bossShip.hp = (bossShip.totalHp / 4) * 1;
             bossStage = 4;
         } else if (e.getKeyCode() == KeyEvent.VK_F9)
