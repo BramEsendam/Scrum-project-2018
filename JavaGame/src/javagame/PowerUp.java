@@ -20,7 +20,7 @@ public class PowerUp
         this.y = y;
         this.speed = 1;
         this.health = 40;
-        this.damage = 1; 
+        this.damage = 2; 
         this.random = (int)(Math.random() * 100 + 1);
         
         if (random >= 0 && random <= 50)
