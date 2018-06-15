@@ -354,12 +354,12 @@ public class Paneel extends JPanel implements KeyListener
                         if (asteroid.hp < 0)
                         {
                             asteroid.stop();
-                            explosion.play();
                         }
                         if (!asteroid.isAlive())
                         {
                             if (asteroid.hp <= 0)
                             {
+                                explosion.play();
                                 levelinfo.asteroidDeathCount++;
                             }
                             asteroids.remove(asteroid);
