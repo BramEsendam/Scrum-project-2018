@@ -110,6 +110,7 @@ public class Paneel extends JPanel implements KeyListener
                 levelinfo.drawDeadMenu(g, youLoseImg);
                 if (!levelinfo.gameOver)
                 {
+                    removeKeys();
                     levelinfo.loadHighScores();
                     levelMusic.stopMusic();
                     bossStage1Music.stopMusic();
@@ -127,7 +128,6 @@ public class Paneel extends JPanel implements KeyListener
                     {
                         enemyGunShip.stopShootTimers();
                     });
-                    keys.clear();
                     int temp = levelinfo.asteroidDeathCount;
                     levelinfo.asteroidDeathCount = 0;
                     try
@@ -288,7 +288,6 @@ public class Paneel extends JPanel implements KeyListener
                     keys.remove("space");
                     spaceIsadded = false;
                 }
-
             });
         } catch (ConcurrentModificationException ex)
         {
@@ -788,5 +787,38 @@ public class Paneel extends JPanel implements KeyListener
                 Logger.getLogger(Paneel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public void removeKeys()
+    {
+        keys.forEach((key) ->
+        {
+            if (key.equals("w"))
+            {
+                System.out.println("Remove W");
+                keys.remove("w");
+                wIsadded = false;
+            } else if (key.equals("s"))
+            {
+                System.out.println("Remove S");
+                keys.remove("s");
+                sIsadded = false;
+            } else if (key.equals("d"))
+            {
+                System.out.println("Remove D");
+                keys.remove("d");
+                dIsadded = false;
+            } else if (key.equals("a"))
+            {
+                System.out.println("Remove A");
+                keys.remove("a");
+                aIsadded = false;
+            } else if (key.equals("space"))
+            {
+                System.out.println("Remove space");
+                keys.remove("space");
+                spaceIsadded = false;
+            }
+        });
     }
 }
