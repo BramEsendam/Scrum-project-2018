@@ -27,11 +27,11 @@ public class PowerUp
         {
             this.kindPower = "health";
         }
-        else if (random >= 50 && random <= 85)
+        else if (random >= 50 && random <= 93)
         {
             this.kindPower = "damage";
         }
-        else if (random >= 85 && random <= 100)
+        else if (random >= 93 && random <= 100)
         {
             this.kindPower = "speed";
         }
