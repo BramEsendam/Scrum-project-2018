@@ -14,7 +14,7 @@ public class PowerUp
     private String kindPower;
     public boolean pickUp = false;
 
-    public PowerUp(int x, int y) throws IOException
+    public PowerUp(int x, int y, boolean isBossDead) throws IOException
     {
         this.x = x + 700;
         this.y = y;
@@ -23,7 +23,7 @@ public class PowerUp
         this.damage = 2; 
         this.random = (int)(Math.random() * 100 + 1);
         
-        if (random >= 0 && random <= 55)
+        if (random >= 0 && random <= 55 && !isBossDead)
         {
             this.kindPower = "health";
         }
