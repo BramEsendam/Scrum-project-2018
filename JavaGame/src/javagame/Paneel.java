@@ -471,10 +471,10 @@ public class Paneel extends JPanel implements KeyListener
                     //checking if the gunship is getting hit by a power up
                     powerUps.forEach((powerUp) ->
                     {
-                        if (gunShip.hp > 0 && gunShip.getX() < powerUp.getX() + 25 && gunShip.getX() > powerUp.getX()
-                                && gunShip.getY() < powerUp.getY() + 25 && gunShip.getY() > powerUp.getY()
-                                || gunShip.hp > 0 && gunShip.getX() < powerUp.getX() && gunShip.getX() + 25 > powerUp.getX()
-                                && gunShip.getY() < powerUp.getY() && gunShip.getY() + 25 > powerUp.getY())
+                        if (gunShip.hp > 0 && gunShip.getX() < powerUp.getX() + 40 && gunShip.getX() > powerUp.getX()
+                                && gunShip.getY() < powerUp.getY() + 40 && gunShip.getY() > powerUp.getY()
+                                || gunShip.hp > 0 && gunShip.getX() < powerUp.getX() && gunShip.getX() + 40 > powerUp.getX()
+                                && gunShip.getY() < powerUp.getY() && gunShip.getY() + 40 > powerUp.getY())
                         {
                             gunShip.speed += powerUp.speedBoost();
                             gunShip.hp += powerUp.healthPack();
@@ -510,10 +510,12 @@ public class Paneel extends JPanel implements KeyListener
             enemyGunShip.stopShootTimers();
             enemyGunShip.stop();
         });
+        powerUps.clear();
         levelinfo.timeStarted = new Date();
         enemyGunShips.clear();
         asteroids.clear();
         gunShip.hp = 100;
+        gunShip.damage = 10;
         gunShip.x = 1150;
         gunShip.y = 360;
         gunShip.speed = 3;
