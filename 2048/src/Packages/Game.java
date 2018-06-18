@@ -1,5 +1,5 @@
 
-package pkg2048;
+package Packages;
 
 import java.awt.Color;
 import java.awt.Dimension;
