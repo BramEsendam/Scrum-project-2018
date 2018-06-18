@@ -24,20 +24,15 @@ public class Game extends JPanel implements KeyListener, Runnable
     private long elapsed;
     private boolean set;
     
-    GameBoard board;
-    
     public Game()
     {
         setFocusable(true);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         addKeyListener(this);
-        
-        board = new GameBoard(WIDTH /2 - GameBoard.BOARD_WIDTH /2, HEIGHT - GameBoard.BOARD_HEIGHT - 10);
     }
     
     private void update()
     {
-<<<<<<< HEAD
         if(Keyboard.pressed[KeyEvent.VK_SPACE]){
             System.out.println("hit space");
         }
@@ -45,14 +40,10 @@ public class Game extends JPanel implements KeyListener, Runnable
         {
             System.out.println("hit right");
         }
-=======
-        board.update();
->>>>>>> 5f684c09200933d248941aa928d72c14a06b4fb5
         Keyboard.update();
     }
     private void render()
     {
-<<<<<<< HEAD
 //        Graphics2D g = (Graphics2D) image.getGraphics();
 //        g.setColor(Color.white);
 //        g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -62,18 +53,6 @@ public class Game extends JPanel implements KeyListener, Runnable
 //        Graphics2D g2d = (Graphics2D) getGraphics();
 //        g2d.drawImage(image, 0 , 0, null);
 //        g2d.dispose();
-=======
-        Graphics2D g = (Graphics2D) image.getGraphics();
-        g.setColor(Color.white);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-        board.render(g);
-        // render board
-        g.dispose();
-        
-        Graphics2D g2d = (Graphics2D) getGraphics();
-        g2d.drawImage(image, 0 , 0, null);
-        g2d.dispose();
->>>>>>> 5f684c09200933d248941aa928d72c14a06b4fb5
         
     }
 
