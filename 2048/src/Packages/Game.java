@@ -36,23 +36,23 @@ public class Game extends JPanel implements KeyListener, Runnable
         if(Keyboard.pressed[KeyEvent.VK_SPACE]){
             System.out.println("hit space");
         }
-        if(Keyboard.typed(KeyEvent.VK_Q))
+        if(Keyboard.typed(KeyEvent.VK_RIGHT))
         {
-            System.out.println("hit q");
+            System.out.println("hit right");
         }
         Keyboard.update();
     }
     private void render()
     {
-        Graphics2D g = (Graphics2D) image.getGraphics();
-        g.setColor(Color.white);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-        // render board
-        g.dispose();
-        
-        Graphics2D g2d = (Graphics2D) getGraphics();
-        g2d.drawImage(image, 0 , 0, null);
-        g2d.dispose();
+//        Graphics2D g = (Graphics2D) image.getGraphics();
+//        g.setColor(Color.white);
+//        g.fillRect(0, 0, WIDTH, HEIGHT);
+//        // render board
+//        g.dispose();
+//        
+//        Graphics2D g2d = (Graphics2D) getGraphics();
+//        g2d.drawImage(image, 0 , 0, null);
+//        g2d.dispose();
         
     }
 
@@ -130,12 +130,12 @@ public class Game extends JPanel implements KeyListener, Runnable
     @Override
     public void keyPressed(KeyEvent e)
     {
-        
+        Keyboard.keyPressed(e);
     }
     @Override
     public void keyReleased(KeyEvent e)
     {
-       
+       Keyboard.keyReleased(e);
     }
     @Override
     public void keyTyped(KeyEvent e)

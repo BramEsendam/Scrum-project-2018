@@ -31,7 +31,7 @@ public class Keyboard
         }
     }
     
-    public static void ketPressed(KeyEvent e)
+    public static void keyPressed(KeyEvent e)
     {
         pressed[e.getKeyCode()] = true;
     }
