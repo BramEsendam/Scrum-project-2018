@@ -9,6 +9,7 @@ namespace Puzzel4
 {
     public class Program
     {
+
         private static void Main(string[] args)
             => StartAsync().GetAwaiter().GetResult();
 
@@ -27,7 +28,7 @@ namespace Puzzel4
                 while (!Global.CheckWordInput(i, Console.ReadLine())) Console.WriteLine("That's incorrect!");
                 Console.WriteLine("That's correct!\r\n");
             }
-
+            Console.Clear();
             Console.WriteLine("Pls order the planet from largest to the smallest.");
             Console.WriteLine("venus, uranus, neptune, mercury, mars, pluto, jupiter, saturn, earth");
             for (var i = 0; i < Global.Words.Length; i++)
