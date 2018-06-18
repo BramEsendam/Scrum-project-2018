@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Packages;
+package pkg2048;
+
+import javax.swing.JFrame;
 
 /**
  *
- * @author Bram Esendam
+ * @author semho
  */
 public class Main
 {
@@ -17,7 +19,17 @@ public class Main
      */
     public static void main(String[] args)
     {
-        // TODO code application logic here
+        Game game = new Game();
+        
+        JFrame window = new JFrame("2048");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.add(game);
+        window.pack();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+        
+        game.start();
     }
     
 }
