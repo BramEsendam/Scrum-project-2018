@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 /**
@@ -44,6 +45,7 @@ public class GameBoard
         finalBoard = new  BufferedImage(BOARD_WIDTH, BOARD_HEIGHT, BufferedImage.TYPE_INT_RGB);
         
         createBoardImage();
+        start();
     }
  
 
@@ -65,12 +67,57 @@ public class GameBoard
         }
     }
     
+    private void start()
+    {
+        for(int i = 0; i < startingTiles; i++)
+        {
+            spawnRandom();
+        }
+    }
+    private void spawnRandom()
+    {
+        Random random = new Random();
+        boolean notValid = true;
+        
+        while(notValid){
+            int location = random.nextInt(ROWS * COLS);
+            int row = location / ROWS;
+            int col = location % COLS;
+            Tile current = board[row][col];
+            if(current == null)
+            {
+                int value = random.nextInt(10) < 9 ? 2 : 4;
+                Tile tile = new Tile(value, getTileX(col), getTileY(row));
+                board[row][col] = tile;
+                notValid = false;
+            }
+        }
+    }
+    
+    public int getTileX(int col)
+    {
+        return SPACING + col * Tile.WIDTH + col * SPACING;
+    }
+        
+    public int getTileY(int row)
+    {
+        return SPACING + row * Tile.HEIGHT + row * SPACING;
+    }
+    
     public void render(Graphics2D g)
     {
         Graphics2D g2d = (Graphics2D)finalBoard.getGraphics();
         g2d.drawImage(gameBoard, 0, 0, null);
         
-        // draw tiles
+        for(int row = 0; row < ROWS; row++)
+        {
+            for(int col = 0; col < COLS; col++)
+            {
+                Tile current = board[row][col];
+                if(current == null) continue;
+                current.render(g2d);
+            }
+        }
         
         g.drawImage(finalBoard, x, y, null);
         g2d.dispose();
@@ -79,6 +126,47 @@ public class GameBoard
     public void update()
     {
         checkKeys();
+        
+        for(int row = 0; row < ROWS; row++)
+        {
+            for(int col = 0; col < COLS; col++)
+            {
+                Tile current = board[row][col];
+                if(current == null) continue;
+                current.update();
+                // rese position
+                if(current.getValue() == 2048)
+                {
+                    won = true;
+                }
+            }
+        }
+    }
+    
+    private boolean move(int row, int col, int horizontalDirection, int verticalDirection, Direction dir)
+    {
+        boolean canMove = false;
+        
+        Tile current = board[row][col];
+        
+        if (current == null)
+        {
+            return false;
+        }
+        
+        boolean move = true;
+        int newCol = col;
+        int newRow = row;
+        
+        while (move)
+        {            
+            newCol += horizontalDirection;
+            newRow += verticalDirection;
+            if (checkOutOfBounds(dir,  newRow, newCol)) break;
+
+        }
+        
+        return canMove;
     }
     
     private void moveTiles (Direction dir)
@@ -101,7 +189,7 @@ public class GameBoard
                 }
             }
         }
-        if (dir == Direction.RIGHT)
+         if (dir == Direction.RIGHT)
         {
             horizontalDirection = 1;
             for (int row = 0; row < ROWS; row++)
@@ -143,6 +231,27 @@ public class GameBoard
                 }
             }
         }
+        
+        else {
+            System.out.println(dir + " is not a valid direction");
+        }
+        for (int row = 0; row < ROWS; row++)
+        {
+            for (int col = 0; col < COLS; col++)
+            {
+                Tile current = board[row][col];
+                if (current == null)
+                {
+                    current.setCanCombine(true);
+                }
+            }
+        }
+        
+        if (canMove)
+        {
+            spawnRandom();
+            //check dead
+        }
     }
     
     private void checkKeys()
@@ -166,6 +275,26 @@ public class GameBoard
         {
             moveTiles(Direction.DOWN);
             if (hasStarted) hasStarted = true;
+        }
+    }
+
+    private boolean checkOutOfBounds(Direction dir, int newRow, int newCol, int col, int row)
+    {
+        if (dir == Direction.LEFT)
+        {
+            return col <0;
+        }
+        if (dir == Direction.RIGHT)
+        {
+            return col > COLS - 1;
+        }
+        if (dir == Direction.UP)
+        {
+            return row <0;
+        }
+        if (dir == Direction.DOWN)
+        {
+            return row > -1;
         }
     }
    
