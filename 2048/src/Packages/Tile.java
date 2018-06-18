@@ -139,6 +139,8 @@ public class Tile
     public void setCanCombine(boolean canCombine)
     {
         this.canCombine = canCombine;
+
+        
     }
     public void update()
     {
@@ -153,8 +155,8 @@ public class Tile
     public int getValue()
     {
         return value;
-
     }
+    
 
     public Point getSlideTo()
     {

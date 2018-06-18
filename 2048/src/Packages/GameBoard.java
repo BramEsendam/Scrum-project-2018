@@ -141,6 +141,7 @@ public class GameBoard
                 }
             }
         }
+
     }
     
     private boolean move(int row, int col, int horizontalDirection, int verticalDirection, Direction dir)
@@ -167,6 +168,7 @@ public class GameBoard
         }
         
         return canMove;
+
     }
     
     private void moveTiles (Direction dir)
