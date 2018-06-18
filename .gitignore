@@ -27,3 +27,6 @@ JavaGame/build/built-jar.properties
 /JavaGame/build/
 /JavaGame/dist/
 JavaGame/HighScores/
+/Snake/nbproject/private/
+/Snake/build/
+*.xml
