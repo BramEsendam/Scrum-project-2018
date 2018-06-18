@@ -124,6 +124,19 @@ public class Tile
          int drawY = HEIGHT / 2 + DrawUtils.getMessageHeight("" + value, font, g) / 2;
          g.drawString("" + value, drawX, drawY);
          g.dispose();
-
+    }
+    public void update()
+    {
+        
+    }
+    
+    public void render(Graphics2D g)
+    {
+        g.drawImage(tileImage, x, y, null);
+    }
+    
+    public int getValue()
+    {
+        return value;
     }
 }
