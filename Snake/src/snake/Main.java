@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  *
  * @author Bram Esendam
  */
-public class Snake extends JFrame
+public class Main extends JFrame
 {
 
     /**
@@ -23,11 +23,11 @@ public class Snake extends JFrame
      */
     public static void main(String[] args) throws IOException
     {
-        Snake frame = new Snake();
+        Main frame = new Main();
         frame.setSize(1280, 720);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Game");
+        frame.setTitle("SNAAAAAAAAAAKEEEEE");
         JPanel paneel = new Paneel();
         frame.addKeyListener((KeyListener) paneel);
         frame.setContentPane(paneel);
