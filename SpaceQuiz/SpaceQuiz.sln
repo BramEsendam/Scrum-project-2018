@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceQuiz", "SpaceQuiz\SpaceQuiz.csproj", "{1642B6C4-6EE0-406F-8D42-A190DBFC7A76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1642B6C4-6EE0-406F-8D42-A190DBFC7A76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1642B6C4-6EE0-406F-8D42-A190DBFC7A76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1642B6C4-6EE0-406F-8D42-A190DBFC7A76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1642B6C4-6EE0-406F-8D42-A190DBFC7A76}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {243372D4-1091-4B4A-90C4-A78B72944BC0}
+	EndGlobalSection
+EndGlobal
