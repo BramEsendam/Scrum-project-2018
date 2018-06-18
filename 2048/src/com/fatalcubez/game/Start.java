@@ -11,5 +11,13 @@ package com.fatalcubez.game;
  */
 public class Start
 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args)
+    {
+        // TODO code application logic here
+    }
     
 }
