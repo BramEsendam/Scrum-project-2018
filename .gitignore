@@ -31,3 +31,5 @@ JavaGame/HighScores/
 *.properties
 /2048/nbproject/private/
 /2048/build/
+Puzzel4/Puzzel4/bin/
+Puzzel4/Puzzel4/obj/
