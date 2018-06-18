@@ -8,11 +8,16 @@ namespace Puzzel4
 {
     internal static class Global
     {
-        internal static string[] Words = {"saturn", "jupiter", "earth", "uranus", "mercury", "mars", "venus", "neptune"};
+        internal static string[] Words = {"jupiter", "saturn", "uranus", "neptune", "earth", "venus", "mars", "mercury", "pluto" };
         internal static Random Rnd = new Random();
-        internal static bool CheckInput(int index, string input)
+        internal static bool CheckWordInput(int index, string input)
         {
             return Words[index].ToLower().Equals(input.ToLower());
+        }
+
+        internal static bool CheckArrayInput(int index, string input)
+        {
+            return !Words[index].ToLower().Equals(input.ToLower());
         }
 
         internal static string RandomizeChars(string word)
