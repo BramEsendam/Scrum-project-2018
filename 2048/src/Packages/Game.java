@@ -24,22 +24,20 @@ public class Game extends JPanel implements KeyListener, Runnable
     private long elapsed;
     private boolean set;
     
+    GameBoard board;
+    
     public Game()
     {
         setFocusable(true);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         addKeyListener(this);
+        
+        board = new GameBoard(WIDTH /2 - GameBoard.BOARD_WIDTH /2, HEIGHT - GameBoard.BOARD_HEIGHT - 10);
     }
     
     private void update()
     {
-        if(Keyboard.pressed[KeyEvent.VK_SPACE]){
-            System.out.println("hit space");
-        }
-        if(Keyboard.typed(KeyEvent.VK_Q))
-        {
-            System.out.println("hit q");
-        }
+        board.update();
         Keyboard.update();
     }
     private void render()
@@ -47,6 +45,7 @@ public class Game extends JPanel implements KeyListener, Runnable
         Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(Color.white);
         g.fillRect(0, 0, WIDTH, HEIGHT);
+        board.render(g);
         // render board
         g.dispose();
         
