@@ -10,10 +10,10 @@ namespace Puzzel4
     public class Program
     {
         private static void Main(string[] args)
-            => new Program().StartAsync().GetAwaiter().GetResult();
+            => StartAsync().GetAwaiter().GetResult();
 
 
-        private async Task StartAsync()
+        private static async Task StartAsync()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Pls put the letters in the correct order to create a word.\r\nNote: the theme is space.\r\n");
