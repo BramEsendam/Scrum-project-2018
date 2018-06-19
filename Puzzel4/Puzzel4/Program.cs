@@ -11,7 +11,7 @@ namespace Puzzel4
     {
 
         private static void Main(string[] args)
-            => StartAsync().GetAwaiter().GetResult();
+            => StartAsync().GetAwaiter();
 
 
         private static async Task StartAsync()
