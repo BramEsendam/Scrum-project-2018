@@ -49,11 +49,13 @@ public class Tile
         this.value = value;
         this.x = x;
         this.y = y;
+        slideTo = new Point(x,y);
         tileImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
         beginningImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         combineImage = new BufferedImage(WIDTH * 2, HEIGHT * 2, BufferedImage.TYPE_INT_RGB);
-
+        
         drawImage();
+        
     }
 
     private void drawImage()
@@ -152,8 +154,8 @@ public class Tile
     {
         this.canCombine = canCombine;
 
+        
     }
-
     public void update()
     {
         if (beginningAnimation)
@@ -192,7 +194,7 @@ public class Tile
         }
 
     }
-
+    
     public void render(Graphics2D g)
     {
         if (beginningAnimation)
@@ -209,16 +211,17 @@ public class Tile
             }
         }
     }
-
+    
     public int getValue()
     {
         return value;
     }
-
+    
     public void setValue(int value)
     {
         this.value = value;
     }
+    
 
     public Point getSlideTo()
     {
@@ -229,7 +232,29 @@ public class Tile
     {
         this.slideTo = slideTo;
     }
-
+    
+    
+    
+    public int getX()
+    {
+        return x;
+    }
+    
+    public void setX(int x)
+    {
+        this.x = x;
+    }
+    
+    public int getY()
+    {
+        return y;
+    }
+    
+    public void setY(int y)
+    {
+        this.y = y;
+    }
+    
     public boolean isCombineAnimation()
     {
         return combineAnimation;
@@ -243,7 +268,5 @@ public class Tile
             scaleCombine = 1.3;
         }
     }
-    
-    
 
 }

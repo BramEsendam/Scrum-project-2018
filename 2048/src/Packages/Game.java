@@ -47,7 +47,6 @@ public class Game extends JPanel implements KeyListener, Runnable
         g.setColor(Color.white);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         board.render(g);
-        // render board
         g.dispose();
         
         Graphics2D g2d = (Graphics2D) getGraphics();

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Packages;
 
 import java.awt.Color;
@@ -12,13 +8,8 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
-/**
- *
- * @author chant
- */
 public class GameBoard
 {
-
     public static final int ROWS = 4;
     public static final int COLS = 4;
 
@@ -142,14 +133,48 @@ public class GameBoard
                     continue;
                 }
                 current.update();
-                // rese position
+                resetPosition(current, row, col);
                 if (current.getValue() == 2048)
                 {
                     won = true;
                 }
             }
         }
-
+    }
+    
+    private void resetPosition(Tile current, int row, int col)
+    {
+        if(current == null) return;
+        int x = getTileX(col);
+        int y = getTileY(row);
+        
+        int distX = current.getX() - x;
+        int distY = current.getY() - y;
+        
+        if(Math.abs(distX) < Tile.SLIDE_SPEED)
+        {
+            current.setX(current.getX() - distX);
+        }
+        if(Math.abs(distY) < Tile.SLIDE_SPEED)
+        {
+            current.setY(current.getY() - distY);
+        }
+        if(distX < 0)
+        {
+            current.setX(current.getX() + Tile.SLIDE_SPEED);
+        }
+        if(distY < 0)
+        {
+            current.setY(current.getY() + Tile.SLIDE_SPEED);
+        }
+        if( distX > 0)
+        {
+            current.setX(current.getX() - Tile.SLIDE_SPEED);
+        }
+        if( distY > 0)
+        {
+            current.setY(current.getY() - Tile.SLIDE_SPEED);
+        }
     }
 
     private boolean move(int row, int col, int horizontalDirection, int verticalDirection, Direction dir)
@@ -295,8 +320,55 @@ public class GameBoard
         if (canMove)
         {
             spawnRandom();
-            //check dead
+            checkDead();
         }
+    }
+    
+    private void checkDead()
+    {
+        for(int row = 0; row < ROWS; row++)
+        {
+            for(int col = 0; col < COLS; col++)
+            {
+                if(board[row][col] == null) return;
+                if(checkSurroundingTiles(row,col,board[row][col]))
+                {
+                    return;
+                }
+            }
+        }
+        
+        dead = true;
+        // setHighScore(score);
+    }
+    
+    private boolean checkSurroundingTiles(int row, int col, Tile current)
+    {
+        if(row > 0)
+        {
+            Tile check = board[row - 1][col];
+            if(check == null) return true;
+            if(current.getValue() == check.getValue()) return true;
+        }
+        if(row < ROWS - 1)
+        {
+            Tile check = board[row + 1][col];
+            if(check == null) return true;
+            if(current.getValue() == check.getValue()) return true;
+        }
+        if(col > 0)
+        {
+            Tile check = board[row][col - 1];
+            if(check == null) return true;
+            if(current.getValue() == check.getValue()) return true;
+        }
+        if(col < COLS - 1)
+        {
+            Tile check = board[row][col + 1];
+            if(check == null) return true;
+            if(current.getValue() == check.getValue()) return true;
+        }
+        return false;
     }
 
     private void checkKeys()
