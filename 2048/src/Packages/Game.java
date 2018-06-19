@@ -18,7 +18,7 @@ public class Game extends JPanel implements KeyListener, Runnable
     public static final Font main = new Font("Bebas Neue Regular", Font.PLAIN, 28);
     private Thread game;
     private boolean running;
-    private BufferedImage Imgae = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
     private long startTime;
     private long elapsed;
@@ -43,16 +43,16 @@ public class Game extends JPanel implements KeyListener, Runnable
 
     private void render()
     {
-//        Graphics2D g = (Graphics2D) image.getGraphics();
-//        g.setColor(Color.white);
-//        g.fillRect(0, 0, WIDTH, HEIGHT);
-//        board.render(g);
-//        // render board
-//        g.dispose();
-//        
-//        Graphics2D g2d = (Graphics2D) getGraphics();
-//        g2d.drawImage(image, 0 , 0, null);
-//        g2d.dispose();
+        Graphics2D g = (Graphics2D) image.getGraphics();
+        g.setColor(Color.white);
+        g.fillRect(0, 0, WIDTH, HEIGHT);
+        board.render(g);
+        // render board
+        g.dispose();
+        
+        Graphics2D g2d = (Graphics2D) getGraphics();
+        g2d.drawImage(image, 0 , 0, null);
+        g2d.dispose();
 
     }
 
