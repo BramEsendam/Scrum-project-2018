@@ -21,10 +21,6 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-JavaGame/nbproject/private/private.properties
-JavaGame/build/built-jar.properties
-/JavaGame/nbproject/private/
-JavaGame/HighScores/
 /Snake/nbproject/private/
 *.properties
 /2048/nbproject/private/
