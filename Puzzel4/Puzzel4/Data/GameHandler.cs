@@ -9,25 +9,25 @@ namespace Puzzel4.Data
 {
     public class GameHandler
     {
-        private static List<Game> Games;
+        private static List<Game> _games;
 
         private const string GameFile = "Data/Games.json";
 
         public static void SaveAccounts()
         {
-            Datastorage.SaveGames(Games, GameFile);
+            Datastorage.SaveGames(_games, GameFile);
         }
 
         public static Game GetAccount(string name)
         {
             if (Datastorage.SaveExists(GameFile))
             {
-                Games = Datastorage.LoadGames(GameFile).ToList();
+                _games = Datastorage.LoadGames(GameFile).ToList();
             }
             else
             {
                 Directory.CreateDirectory("Data/");
-                Games = new List<Game>();
+                _games = new List<Game>();
                 SaveAccounts();
             }
             return GetOrCreateAccount(name);
@@ -35,7 +35,7 @@ namespace Puzzel4.Data
 
         private static Game GetOrCreateAccount(string name)
         {
-            var result = from a in Games
+            var result = from a in _games
                          where a.Name == name
                          select a;
 
@@ -45,13 +45,13 @@ namespace Puzzel4.Data
 
         private static Game CreateServerAccount(string name)
         {
-            var newGame = new Game()
+            var newGame = new Game
             {
                 Name = name,
                 Score = 0,
                 TimeStarted = DateTime.Now
             };
-            Games.Add(newGame);
+            _games.Add(newGame);
             SaveAccounts();
             return newGame;
         }

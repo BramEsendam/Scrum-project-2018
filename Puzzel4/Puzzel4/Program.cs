@@ -21,7 +21,7 @@ namespace Puzzel4
             //starting game 
             Global.SartGame();
             Console.WriteLine($"Welcome {Global.Game.Name}, Please put the letters in the correct order to create a word to get the secret code.\r\nNote: the theme is space.\r\n");
-            /*
+            
             //looping trough all words
             for (var i = 0; i < Global.Words.Length; i++)
             {
@@ -40,7 +40,7 @@ namespace Puzzel4
                 //checking if the input is correct
                 while (Global.CheckArrayInput(i, Console.ReadLine())) Console.WriteLine("That's incorrect!");
                 Console.WriteLine("That's correct!\r\n");
-            }*/
+            }
 
             
             //writing the number to console
