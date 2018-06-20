@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Puzzel4;
+using Puzzel4.Data;
 
 namespace Puzzel4
 {
@@ -11,14 +12,16 @@ namespace Puzzel4
     {
 
         private static void Main(string[] args)
-            => StartAsync().GetAwaiter();
+            => StartAsync().GetAwaiter().GetResult();
 
 
         private static async Task StartAsync()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("Pls put the letters in the correct order to create a word.\r\nNote: the theme is space.\r\n");
-            
+            //starting game 
+            Global.SartGame();
+            Console.WriteLine($"Welcome {Global.Game.Name}, Please put the letters in the correct order to create a word to get the secret code.\r\nNote: the theme is space.\r\n");
+            /*
             //looping trough all words
             for (var i = 0; i < Global.Words.Length; i++)
             {
@@ -37,9 +40,15 @@ namespace Puzzel4
                 //checking if the input is correct
                 while (Global.CheckArrayInput(i, Console.ReadLine())) Console.WriteLine("That's incorrect!");
                 Console.WriteLine("That's correct!\r\n");
-            }
+            }*/
 
+            
             //writing the number to console
+            Global.Game.TimeCompleted = DateTime.Now;
+            Global.Game.Score = (int) Math.Round(DateTime.Now.Subtract(Global.Game.TimeCompleted).TotalSeconds * 0.43);
+            GameHandler.SaveAccounts();
+            Console.WriteLine($"You completed the game in: {Math.Round(DateTime.Now.Subtract(Global.Game.TimeCompleted).TotalSeconds, 2)} seconds." +
+                              $"Your score is: {Global.Game.Score}");
             Console.BackgroundColor = ConsoleColor.Green;
             Console.WriteLine(365);
             //delaying the task so it doesn't close
