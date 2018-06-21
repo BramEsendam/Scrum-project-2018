@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.ConsoleKey;
 
 namespace SpaceQuiz
 {
@@ -13,20 +14,21 @@ namespace SpaceQuiz
             Console.ForegroundColor = ConsoleColor.Blue;
            // Console.WriteLine("Welcome in the space quiz \n]Answer with capitol pls \n \nPress enter to start");
 
-            quiz();
-            Console.WriteLine("Press r to restart");
+            Quiz();
+            Console.WriteLine("\r\nPress R to restart.");
             while (true)
             {
-                while (Console.ReadKey().Equals(ConsoleKey.Enter))
+                while (Console.ReadKey().Key == R)
                 {
-                    quiz();
+                    Console.Clear();
+                    Quiz();
                 }
             }
         }
 
-        public static void quiz()
+        public static void Quiz()
         {
-            int score = 0;
+            var score = 0;
             Console.WriteLine("How many planets are in the Solar System?");
             var entry1 = Console.ReadLine();
 
@@ -43,7 +45,7 @@ namespace SpaceQuiz
             Console.WriteLine("What is the smallest planet in our solar system?");
             var entry2 = Console.ReadLine();
 
-            if (entry2 == "Mercury")
+            if (entry2 != null && string.Equals(entry2, "Mercury", StringComparison.CurrentCultureIgnoreCase))
             {
                 score += 1;
                 Console.WriteLine("Correct!!!  \n");
@@ -56,7 +58,7 @@ namespace SpaceQuiz
             Console.WriteLine("What has a gravitational pull so strong that even light cannot escape it?");
             var entry3 = Console.ReadLine();
 
-            if (entry3 == "Black Hole")
+            if (string.Equals(entry3, "Black Hole", StringComparison.CurrentCultureIgnoreCase))
             {
                 score += 1;
                 Console.WriteLine("Correct!!!  \n");
@@ -69,7 +71,7 @@ namespace SpaceQuiz
             Console.WriteLine("Who was the first person to walk on the moon?");
             var entry4 = Console.ReadLine();
 
-            if (entry4 == "Neil Armstrong")
+            if (entry4 != null && string.Equals(entry4, "Neil Armstrong", StringComparison.CurrentCultureIgnoreCase))
             {
                 score += 1;
                 Console.WriteLine("Correct!!!  \n");
@@ -82,7 +84,7 @@ namespace SpaceQuiz
             Console.WriteLine("What is the hottest planet in our solar system?");
             var entry5 = Console.ReadLine();
 
-            if (entry5 == "Venus")
+            if (entry5 != null && string.Equals(entry5, "Venus", StringComparison.CurrentCultureIgnoreCase))
             {
                 score += 1;
                 Console.WriteLine("Correct!!!  \n");
@@ -94,7 +96,10 @@ namespace SpaceQuiz
 
             if (score == 5)
             {
-                Console.WriteLine("Nice! you have won pls continue \nyour code is 13");
+                Console.WriteLine($"Nice! you have won pls continue \nyour code is: ");
+                Console.WriteLine("13");
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.BackgroundColor = ConsoleColor.Black;
             }
             else
             {
