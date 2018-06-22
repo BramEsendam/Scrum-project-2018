@@ -11,7 +11,7 @@ body{
     word-spacing: -4px;
 }
 header{
-    height: 15vh;
+    height: 10vh;
     width: 100%;
 }
 #footerbalk {
@@ -30,10 +30,16 @@ header{
 main{
     height: 80vh;
 }
-h1{
-    padding-top: 25px;
+main h1{
+      padding-top: 25px;
+      font-size: 45px;
+  }
+header h1{
+    padding: 0;
     font-size: 45px;
+    margin-bottom: 0;
 }
+
 
 td {
     word-spacing: normal;
@@ -176,4 +182,170 @@ b {
     bottom: 1050px;
     left: 1000px;
     font-size: 250%;
+}
+
+/*IT css*/
+
+#ITContainer img{
+    width: 80%;
+    height: 130px;
+}
+#top{
+    height: 40vh;
+}
+#bot{
+    height: 40vh ;
+}
+
+#ITContainer #btn1 {
+    position: absolute;
+    top: 23%;
+    left: 12%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #3678CB;
+    padding: 9px 2px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#ITContainer #btn2 {
+    position: absolute;
+    top: 27%;
+    left: 16%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #3678CB;
+    padding: 3px 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#ITContainer #btn3 {
+    position: absolute;
+    top: 23%;
+    left: 34%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #5FA0FF;
+    padding: 3px 4px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 2px;
+}
+#ITContainer #btn4 {
+    position: absolute;
+    top: 23%;
+    left: 44%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #2365C3;
+    padding: 3px 7px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 7px;
+}
+#ITContainer #btn5 {
+    position: absolute;
+    top: 26%;
+    left: 63%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #296EC6;
+    padding: 3px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#ITContainer #btn6 {
+    position: absolute;
+    top: 24%;
+    left: 84%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #2A52AA;
+    padding: 2px 4px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 8px;
+    margin-top: 2px;
+}
+#ITContainer #btn7 {
+    position: absolute;
+    top: 42%;
+    left: 14%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #4682C6;
+    padding: 13px 2px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#ITContainer #btn8 {
+    position: absolute;
+    top: 42%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #1E71C5;
+    padding: 8px 3px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#ITContainer #btn9 {
+    position: absolute;
+    top: 41%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #2C75C4;
+    padding: 3px 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#ITContainer #btn10 {
+    position: absolute;
+    top: 42%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #E1ECED;
+    padding: 8px 1px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#ITContainer #btn11 {
+    position: absolute;
+    top: 42%;
+    left: 66%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #3162AD;
+    padding: 10px 2px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 2px;
+    margin-left: 3px;
+}
+#ITContainer #btn12 {
+    position: absolute;
+    top: 39%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #689AE7;
+    padding: 3px 6px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 4px;
+    margin-left: 7px;
 }
