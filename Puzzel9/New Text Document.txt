@@ -1,0 +1,4 @@
+btn7 =y:0 x:0 | btn15 = y:0 x:110 | btn1 = y:0 x:220 | btn14 = y:0 x:330
+btn2 = y:110 x:0 | btn13 = y:110 x:110 | btn3 = y:110 x:220 | btn12 = y:110 x:330 | 
+btn4 =y:220 x:0 | btn11 = =y:220 x:110 | btn5 = =y:220 x:220 | btn10 = =y:220 x:330
+btn6 = y:330 x:0 | btn9 = y:330 x:110 | btn8 = y:330 x:220
