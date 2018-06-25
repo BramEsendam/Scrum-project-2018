@@ -1,0 +1,9 @@
+package com.javaGame.game;
+
+public enum Direction {
+
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+}
