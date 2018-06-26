@@ -1,0 +1,10 @@
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\bin\Debug\CodePad.exe.config
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\bin\Debug\CodePad.exe
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\bin\Debug\CodePad.pdb
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\obj\Debug\CodePad.csprojAssemblyReference.cache
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\obj\Debug\CodePad.Form1.resources
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\obj\Debug\CodePad.Properties.Resources.resources
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\obj\Debug\CodePad.csproj.GenerateResource.cache
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\obj\Debug\CodePad.csproj.CoreCompileInputs.cache
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\obj\Debug\CodePad.exe
+C:\GitHub Repository\Scrum-project-2018\CodePad\CodePad\obj\Debug\CodePad.pdb

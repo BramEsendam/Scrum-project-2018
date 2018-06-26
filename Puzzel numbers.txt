@@ -1,0 +1,8 @@
+puzzel 2 vertaal= 69
+puzzel 3 kruiswoord= 56
+puzzel 4 scrabmled words= 365
+puzzel 5 car = 1
+puzzel 6 spacequiz = 13
+puzzel 7 2048 = 16
+puzzel 8 wordpress puzzel (hangman) = 34
+puzzel 9 15 puzzel = 21
