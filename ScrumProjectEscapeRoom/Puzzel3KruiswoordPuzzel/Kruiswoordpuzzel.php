@@ -216,7 +216,7 @@ include '../Layout/IncludeHeader.php';
     		
     		if ($word == 'galaxy' || $word == 'Galaxy') {
     			?>
-					<p><?php  echo "You're answer was right! The next number is 56"?></p>
+					<p><?php  echo "You're answer was right! The next numbers are 56"?></p>
     			<?php
     		} elseif ($word == null ) {
     			?>

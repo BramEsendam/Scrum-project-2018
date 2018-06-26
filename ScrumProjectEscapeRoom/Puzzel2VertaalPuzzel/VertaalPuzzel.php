@@ -22,7 +22,7 @@ include '../Layout/IncludeHeader.php';
             $word = $_POST['inputText'];
 
             if ($word == 'translating this text sucks') { ?>
-                <p><?php  echo "Well done!<br> This is your number that you will need to escape: 69"?></p>
+                <p><?php  echo "Well done!<br> These are the numbers that you will need to escape: 69"?></p>
                 <form action="../Puzzel3KruiswoordPuzzel/Kruiswoordpuzzel.php" method="get"> <input type="submit" value="NextPuzzle" name="next"></form> <?php
 
             } else { ?>

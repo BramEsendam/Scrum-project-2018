@@ -349,3 +349,12 @@ b {
     margin-top: 4px;
     margin-left: 7px;
 }
+
+/* PuzzleWordPress */
+
+
+main h2{
+    padding-top: 100px;
+    margin: 0;
+    font-size: 30px;
+}
