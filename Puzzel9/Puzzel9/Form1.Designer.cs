@@ -153,7 +153,7 @@
             // button11
             // 
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button11.Location = new System.Drawing.Point(220, 220);
+            this.button11.Location = new System.Drawing.Point(220, 330);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(110, 110);
             this.button11.TabIndex = 10;
@@ -193,7 +193,7 @@
             // button15
             // 
             this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button15.Location = new System.Drawing.Point(220, 330);
+            this.button15.Location = new System.Drawing.Point(220, 220);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(110, 110);
             this.button15.TabIndex = 14;

@@ -17,7 +17,7 @@ namespace Puzzel9
 
         private Point emptyPoint;
         private readonly Image toBeResize;
-
+        private const int Temp = 21;
         public Form1()
         {
             InitializeComponent();
@@ -36,7 +36,9 @@ namespace Puzzel9
 
         private void Buttons_Click(object sender, EventArgs e)
         {
+            //moving the button
             MoveButton((Button)sender);
+            //checking if all the rows are correct
             if (button7.Location.Y != 0 || button7.Location.X != 0 || button15.Location.Y != 0 ||
                 button15.Location.X != 110 || button1.Location.Y != 0 || button1.Location.X != 220 ||
                 button14.Location.Y != 0 || button14.Location.X != 330) return;
@@ -52,7 +54,7 @@ namespace Puzzel9
             if (button6.Location.Y != 330 || button6.Location.X != 0 || button9.Location.Y != 330 ||
                 button9.Location.X != 110 || button8.Location.Y != 330 || button8.Location.X != 220) return;
             Console.WriteLine("fourth row correct");
-            MessageBox.Show("12");
+            MessageBox.Show($"{Temp}");
         }
 
         private void MoveButton(Control button)
@@ -80,7 +82,6 @@ namespace Puzzel9
         {
             var x = 0;
             var c = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
-
             foreach (Button b in panel1.Controls)
             {
                 if (x >= c.Length) continue;
@@ -121,27 +122,6 @@ namespace Puzzel9
             graphic.DrawImage(img, 0, 0, 440, 440);
             graphic.Dispose();
             return bitmap;
-        }
-
-        private void ShuffleButton_Click(object sender, EventArgs e)
-        {
-            AddImages(ReturnImagesList(Resize(toBeResize), 110, 110));
-        }
-
-        private static int[] Shuffle(int[] array)
-        {
-            var r = new Random();
-
-            var start = r.Next(1, array.Length);
-
-            for (var i = 0; i < array.Length; i++)
-                for (var j = start; j > 0; j--)
-                {
-                    var temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
-                }
-            return array;
         }
     }
 }
