@@ -181,6 +181,10 @@ public class Paneel extends JPanel implements KeyListener
                 bossShip.Xdestination = gunShip.getX();
                 bossShip.draw(g);
             }
+            if (levelinfo.isBossDead)
+            {
+                g.drawString("420", 235, 35);
+            }
         } catch (ConcurrentModificationException e)
         {
         }
@@ -248,6 +252,10 @@ public class Paneel extends JPanel implements KeyListener
         } else if (e.getKeyCode() == KeyEvent.VK_F9)
         {
             levelinfo.asteroidDeathCount++;
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_F10)
+        {
+            bossShip.hp -= 50;
         }
     }
 

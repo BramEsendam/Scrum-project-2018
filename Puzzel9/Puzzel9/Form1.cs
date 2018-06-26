@@ -18,6 +18,7 @@ namespace Puzzel9
         private Point emptyPoint;
         private readonly Image toBeResize;
         private const int Temp = 21;
+        private bool start = false;
         public Form1()
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace Puzzel9
 
         private void MoveButton(Control button)
         {
+            if (!start) return;
             Console.WriteLine(button.Name);
             Console.WriteLine($"old Y:{button.Location.Y} X:{button.Location.X}");
 
@@ -122,6 +124,14 @@ namespace Puzzel9
             graphic.DrawImage(img, 0, 0, 440, 440);
             graphic.Dispose();
             return bitmap;
+        }
+
+        private void txtNumber_TextChanged(object sender, EventArgs e)
+        {
+            if (txtNumber.Text.Equals("420"))
+            {
+                start = true;
+            }
         }
     }
 }

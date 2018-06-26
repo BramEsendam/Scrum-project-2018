@@ -46,6 +46,8 @@
             this.button15 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txtNumber = new System.Windows.Forms.TextBox();
+            this.lblText = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -232,12 +234,31 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             // 
+            // txtNumber
+            // 
+            this.txtNumber.Location = new System.Drawing.Point(276, 455);
+            this.txtNumber.Name = "txtNumber";
+            this.txtNumber.Size = new System.Drawing.Size(100, 20);
+            this.txtNumber.TabIndex = 17;
+            this.txtNumber.TextChanged += new System.EventHandler(this.txtNumber_TextChanged);
+            // 
+            // lblText
+            // 
+            this.lblText.AutoSize = true;
+            this.lblText.Location = new System.Drawing.Point(9, 458);
+            this.lblText.Name = "lblText";
+            this.lblText.Size = new System.Drawing.Size(261, 13);
+            this.lblText.TabIndex = 18;
+            this.lblText.Text = "Please enter the number from the spaceShooter game";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(930, 461);
+            this.ClientSize = new System.Drawing.Size(930, 479);
+            this.Controls.Add(this.lblText);
+            this.Controls.Add(this.txtNumber);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -248,6 +269,7 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -270,6 +292,8 @@
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox txtNumber;
+        private System.Windows.Forms.Label lblText;
     }
 }
 
