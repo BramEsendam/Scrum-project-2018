@@ -43,8 +43,8 @@ include '../Layout/IncludeHeader.php';
         if(!empty($_POST['inputText'])){
             $word = $_POST['inputText'];
 
-            if ($word == 'total eclipse') {
-                ?><p><?php  echo "Well done! The number is 7<br> Write the number down you might need it later on "?></p><?php
+            if ($word == 'total eclipse' OR $word == 'Total eclipse' OR $word == 'total Eclipse' OR $word == 'Total Eclipse') {
+                ?><p><?php  echo "Well done! The number is 71<br> Write the number down you might need it later on "?></p><?php
             } else {
                 ?><p><?php  echo "Wrong answer"?></p><?php
             }

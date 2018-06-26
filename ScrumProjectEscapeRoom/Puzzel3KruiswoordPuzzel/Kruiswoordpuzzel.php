@@ -200,7 +200,7 @@ include '../Layout/IncludeHeader.php';
 <div id="kruiswoordTekst">
 	<p> <span id="textPurple">Fill in the words starting at the blue numbers</span> <br><br>
 		1. What is the red planet called? (Vertical) <br><br>
-		2. If this isn't around, you can float trough the sky (Vertical) <br><br>
+		2. If this isn't around, you can float through the sky (Vertical) <br><br>
 		3. An officer in the highest, second, or third highest rank, as one ranking immediately below a field marshal in the British army. (Horizontal) <br><br>
 		4. Used in medicine as a diagnostic aid as parts of the body, such as bones (vertical)<br><br>
 		<span id="textPurple">The purple boxes make a word. Put the word in the textbox</span></p>
@@ -216,7 +216,7 @@ include '../Layout/IncludeHeader.php';
     		
     		if ($word == 'galaxy' || $word == 'Galaxy') {
     			?>
-					<p><?php  echo "You're answer was right! The next number is 5"?></p>
+					<p><?php  echo "You're answer was right! The next number is 56"?></p>
     			<?php
     		} elseif ($word == null ) {
     			?>
