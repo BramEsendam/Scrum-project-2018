@@ -1,3 +1,4 @@
+puzzel 1 spaceShooter = 420
 puzzel 2 vertaal= 69
 puzzel 3 kruiswoord= 56
 puzzel 4 scrabmled words= 365
